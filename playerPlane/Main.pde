@@ -230,21 +230,15 @@ void draw(){
 
 
 void keyPressed() {
-
-    // shoot
     if(key == 'z' || key == 'Z'){
         shoot = true;
     }
-
-    // press b to start
     if(key == 'b' || key == 'B'){
         welcomePage = false;
     }
-        if(key == 'r' ||key == 'R'){
-            restart = true;
+    if(key == 'r' ||key == 'R'){
+        restart = true;
     }
-
-    // move
     if (key == CODED) {
         if (keyCode == UP) up = true;
         if (keyCode == DOWN) down = true;
