@@ -2,16 +2,16 @@ int bombTimeCounter = 0; //count the time passed since the bomb boo!!!!
 boolean bombShoted = false; //check if the bomb is shoted
 int numberOfEnemy; //number of normal enemy
 int numOfBoss; //number of boss. Normally is 0, while boss appear, become 1.
-playerPlane player = new playerPlane(200,680,100,100,3,3,10);
+// playerPlane player = new playerPlane(200,680,100,100,3,3,10);
 
-void setup(){
-    size(400,700);
-}
+// void setup(){
+//     size(400,700);
+// }
 
-void draw(){
-    background(0);
-    player.updatePosition();
-}
+// void draw(){
+//     background(0);
+//     player.updatePosition();
+// }
 
 //class of the player plane
 /*
