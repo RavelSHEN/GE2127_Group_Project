@@ -232,7 +232,7 @@ void draw(){
 void keyPressed() {
 
     // shoot
-    if(key == 's' || key == 'S'){
+    if(key == 'z' || key == 'Z'){
         shoot = true;
     }
 
@@ -247,21 +247,21 @@ void keyPressed() {
     // move
     if (key == CODED) {
         if (keyCode == UP) up = true;
-        else if (keyCode == DOWN) down = true;
-        else if (keyCode == LEFT) left = true;
-        else if (keyCode == RIGHT) right = true;
+        if (keyCode == DOWN) down = true;
+        if (keyCode == LEFT) left = true;
+        if (keyCode == RIGHT) right = true;
     }
 }
 
 void keyReleased() {
-    if(key == 's' || key == 'S'){
+    if(key == 'z' || key == 'Z'){
         shoot = false;
     }
     if (key == CODED) {
         if (keyCode == UP) up = false;
-        else if (keyCode == DOWN) down = false;
-        else if (keyCode == LEFT) left = false;
-        else if (keyCode == RIGHT) right = false;
+        if (keyCode == DOWN) down = false;
+        if (keyCode == LEFT) left = false;
+        if (keyCode == RIGHT) right = false;
     }
 }
 
