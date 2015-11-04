@@ -1,54 +1,63 @@
-class Enemy extends Character{
+/*
+additional fields:
+    int deadTime;
+    int dir; //control the direction of the movement of the enemy
+    float angle;//control the direction of the movement of the enemy
+
+Methods:
+    deawEnemy();
+    update();
+    detectBound();
+*/
+
+class Enemy extends BasicObject{
     int deadTime;
     int dir = 1;
     float angle;
-    Enemy(PVector pos, PVector vel, PVector acc, float scaleFactor){
-        super(pos, vel, acc);
-        this.scaleFactor = scaleFactor;
-        this.wid = 25;
-        this.hei = 50;
-        colour = color(random(92, 252), random(92, 252), random(92, 252));
+    Enemy(int posX,int posY,int velX,int velY, int accX, int accY){
+        this.posX = posX;
+        this.posY = posY;
+        this.velX = velX;
+        this.velY = velY;
+        this.accX = accX;
+        this.accY = accY;
+        this.classOfObejct = 1;
+        wid = 25;
+        hei = 50;
         alive = true;
         angle = PI / 4;
-        float randomHealth = random(2,3);
-        if(randomHealth < 2.5){
+        float randomHealth = random(1,3);
+        if(randomHealth < 1.5){
+            health = 1;
+        }else if(randomHealth < 2.5){
             health = 2;
-        }
-        else{
+        }else{
             health = 3;
         }
     }
 
-    void drawMe(){
-        pushMatrix();
-        translate(pos.x, pos.y);
-        rotate(PI / 2);
-        if(!alive){
-            colour = color(147, 147, 147);  // grey
-        }
-        scale(scaleFactor);
-        super.drawMe();
-        popMatrix();
+    void drawEnemy(){
+        ellipse(posX,posY,15,15);
     }
 
+    //update the postion of the enemy
     void update(){
         // random move
         if(alive){
-            pos.x += vel.x * cos(angle);
-            pos.y += vel.y * sin(angle);
+            posX += velX * cos(angle);
+            posY += velY * sin(angle);
             angle += 0.04 * dir;
-            if(random(0, 16) < 8){
+            if(random(0, 2) < 1){
                 dir *= -1;
             }
-        } 
+        }
     }
 
+    //detect if the enemy hit the up/down boundary, if yes, remove
     void detectBound(){
         super.detectBound();
-        // if enemy reaches the bottom of the scrren, disappear and removed from enemies arraylist
-        if (pos.y > height || pos.y < 0){
+        if(posY > height || posY < 0){
             Main.enemies.remove(this);
         }
     }
-    
 }

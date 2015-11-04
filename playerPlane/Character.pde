@@ -13,7 +13,7 @@ class Character{
         this.pos = new PVector(pos.x, pos.y);
         this.vel = new PVector(vel.x, vel.y);
         this.acc = new PVector(acc.x, acc.y);
-        
+
     }
     Character(){
         pos = new PVector(-1,-1);
@@ -34,7 +34,7 @@ class Character{
         bezierVertex(-12,7,-12,8,-6,10);
         bezierVertex(-5,10,0,8,10,4);
         endShape();
-         
+
         //rocket fin 2
         fill(colour);
         stroke(10);
@@ -47,8 +47,8 @@ class Character{
         bezierVertex(-12,-7,-12,-8,-6,-10);
         bezierVertex(-5,-10,0,-8,10,-4);
         endShape(CLOSE);
-        
-         
+
+
         //rocket bell
         fill(colour);
         stroke(10);
@@ -58,7 +58,7 @@ class Character{
         vertex(-27,-6);
         bezierVertex(-25,-5,-20,-5,-20,-3);
         endShape(CLOSE);
- 
+
         //rocket body
         fill(colour);
         stroke(10);
@@ -68,7 +68,7 @@ class Character{
         bezierVertex(-20,5,-20,-5,-20,-7);
         bezierVertex(0,-8,20,-8,30,0);
         endShape(CLOSE);
-         
+
         //doors & windows
         fill(colour);
         stroke(10);
@@ -79,7 +79,7 @@ class Character{
         stroke(10);
         ellipse(18,2,4,2);
         ellipse(18,-2,4,2);
-         
+
         //rocket fin top
         fill(colour);
         stroke(10);
@@ -90,13 +90,13 @@ class Character{
         vertex(-25,-1);
         vertex(7,-1);
         endShape(CLOSE);
- 
+
     }
     void update() {
         vel.mult(damp);
         os.add(vel);
     }
-    
+
     void move(PVector acc){
         this.acc = acc;
         vel.add(acc);
@@ -116,7 +116,7 @@ class Character{
     void decreaseHealth(int lostHealth){
         health = health - lostHealth;
     }
-    
+
     // when character reaches the left or right edge of the screen, wrap around
     void detectBound(){
         if(pos.x <0){
