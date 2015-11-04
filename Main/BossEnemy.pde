@@ -1,3 +1,5 @@
+class BossEnemy extends BasicObject{
+
 /*
 additional fields:
     int deadTime;
@@ -13,7 +15,6 @@ Methods:
     trackBullet();
 */
 
-class BossEnemy extends BasicObject{
     int deadTime;
     float angle;
     float speed;
@@ -48,15 +49,15 @@ class BossEnemy extends BasicObject{
     }
 
     //control the shoot of the boss
-    void shoot(){
-        // boss bullete attract to player
-        int bulletPosX = posX + speed * cos(angle);
-        int bulletPosY = posY + (hei / 2);
-        float bulletAngle = atan2(Main.playerY - bulletPosY, Main.playerX - bulletPosX);
-        int bulletVelX = 8 * cos(bulletAngle);
-        int bulletVelY = 8 * sin(bulletAngle);
-        bossBullets.add(new Bullet(bulletPosX, bulletPosY, bulletVelX, bulletVelY, 1));
-    }
+    // void shoot(){
+    //     // boss bullete attract to player
+    //     int bulletPosX = posX + (int) (speed * cos(angle));
+    //     int bulletPosY = posY + (int) (hei / 2);
+    //     float bulletAngle = atan2(Main.playerY - bulletPosY, Main.playerX - bulletPosX);
+    //     int bulletVelX = 8 * cos(bulletAngle);
+    //     int bulletVelY = 8 * sin(bulletAngle);
+    //     bossBullets.add(new Bullet(bulletPosX, bulletPosY, bulletVelX, bulletVelY, 1));
+    // }
 
     //track the bullets of the boss, check if the bullet hit the object
     void trackBullets(){
