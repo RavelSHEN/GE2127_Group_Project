@@ -69,75 +69,75 @@ void draw(){
                 }
 
                 if(!tempEnemy.alive){  
-                    // int currentTime = millis();
-                    // if(currentTime - tempEnemy.deadTime > 1000){
-                    //     enemies.remove(tempEnemy);
-                    //     score += 10;
-                    //     killedEnemy ++;  // count one killed enemy
-                    // }
-                    tempEnemy.dieout();
+                    int currentTime = millis();
+                    tempEnemy.dieout(currentTime - tempEnemy.deadTime);
+                    if(currentTime - tempEnemy.deadTime > 1000){
+                        enemies.remove(tempEnemy);
+                        score += 10;
+                        killedEnemy ++;  // count one killed enemy
+                    }
                 }
             }
-            if(killedEnemy >= random(10, 20)) {
-                PVector bPos = new PVector(width / 2, 0);
-                PVector bVel = new PVector(0, random(15, 30));
-                PVector bAcc = new PVector(0, 0);
-                boss = new BossEnemy(bPos, bVel, bAcc, 1);
-                killedEnemy = 0;
-            }
+            // if(killedEnemy >= random(10, 20)) {
+            //     PVector bPos = new PVector(width / 2, 0);
+            //     PVector bVel = new PVector(0, random(15, 30));
+            //     PVector bAcc = new PVector(0, 0);
+            //     boss = new BossEnemy(bPos, bVel, bAcc, 1);
+            //     killedEnemy = 0;
+            // }
             
-            if(boss.totallyDied == true){
-                // produce enemy only boss is not on the screen
-                // when there is an enemy died or disappeared, create a new enemy
-                for(int i = 0; i < (NUM_ENEMY- enemies.size()); i++){
-                    PVector enemyPos = new PVector(random(0, width), 0);
-                    PVector enemyVel = new PVector(random(-3, 3), random(0.1, 3));// flow down vertically
-                    PVector enemyAcc = new PVector(0, 0); 
-                    enemies.add(new Enemy(enemyPos, enemyVel, enemyAcc, random(0.5, 1)));
-                }
-             }
+            // if(boss.totallyDied == true){
+            //     // produce enemy only boss is not on the screen
+            //     // when there is an enemy died or disappeared, create a new enemy
+            //     for(int i = 0; i < (NUM_ENEMY- enemies.size()); i++){
+            //         PVector enemyPos = new PVector(random(0, width), 0);
+            //         PVector enemyVel = new PVector(random(-3, 3), random(0.1, 3));// flow down vertically
+            //         PVector enemyAcc = new PVector(0, 0); 
+            //         enemies.add(new Enemy(enemyPos, enemyVel, enemyAcc, random(0.5, 1)));
+            //     }
+            //  }
 
-            if(boss.pos.y != -1){
-                if(boss.alive){
-                    // boss shoots every 1 second, shooting 5 seconds, interval time is 0.3 sec
-                    int currentTime = millis();
-                    if(currentTime - bossRestTime > 1000){
-                        if(currentTime - bossShootTime < 5000){  // keep shooting
-                            if(currentTime - bossShootInterval > 300){
-                                boss.shoot();
-                                bossShootInterval = currentTime;
-                            }
-                        }
-                        else{  // stop shooting, begin count rest time
-                            bossRestTime = currentTime;
-                        }
-                    }
-                    else{  // boss is taking a break
-                        bossShootTime = currentTime;
-                    }
+            // if(boss.pos.y != -1){
+            //     if(boss.alive){
+            //         // boss shoots every 1 second, shooting 5 seconds, interval time is 0.3 sec
+            //         int currentTime = millis();
+            //         if(currentTime - bossRestTime > 1000){
+            //             if(currentTime - bossShootTime < 5000){  // keep shooting
+            //                 if(currentTime - bossShootInterval > 300){
+            //                     boss.shoot();
+            //                     bossShootInterval = currentTime;
+            //                 }
+            //             }
+            //             else{  // stop shooting, begin count rest time
+            //                 bossRestTime = currentTime;
+            //             }
+            //         }
+            //         else{  // boss is taking a break
+            //             bossShootTime = currentTime;
+            //         }
 
-                    // if player hit the boss, player died
-                    if(player.hitCharacter(boss) && !player.invincible){
-                        player.decreaseHealth(1);
-                        player.pos = new PVector(width / 2, height * 9 / 10);
-                        // gives player 3 seconds invincible time after being attacked
-                        player.invincible = true;
-                        player.invincibleTime = millis();
-                    }
-                }
-                // if boss is died, wait for 3 sec, and then not draw boss
-                else{  
-                    int currentTime = millis();
-                    if(currentTime - boss.deadTime > 3000){
-                        boss.totallyDied = true;
-                    }
-                }
-                if(!boss.totallyDied){
-                    boss.update();
-                    boss.drawMe();
-                    boss.trackBullets();
-                }
-            }
+            //         // if player hit the boss, player died
+            //         if(player.hitCharacter(boss) && !player.invincible){
+            //             player.decreaseHealth(1);
+            //             player.pos = new PVector(width / 2, height * 9 / 10);
+            //             // gives player 3 seconds invincible time after being attacked
+            //             player.invincible = true;
+            //             player.invincibleTime = millis();
+            //         }
+            //     }
+            //     // if boss is died, wait for 3 sec, and then not draw boss
+            //     else{  
+            //         int currentTime = millis();
+            //         if(currentTime - boss.deadTime > 3000){
+            //             boss.totallyDied = true;
+            //         }
+            //     }
+            //     if(!boss.totallyDied){
+            //         boss.update();
+            //         boss.drawMe();
+            //         boss.trackBullets();
+            //     }
+            // }
 
             // Control the plane
             if (up) player.move(upAcc);
@@ -146,7 +146,7 @@ void draw(){
             if (right) player.move(rightAcc);
             if (shoot){
                 int currentTime = millis();
-                if(currentTime - shootTime > 300){
+                if(currentTime - shootTime > player.sInterval){
                     player.shoot();
                     shootTime = currentTime;
                 }

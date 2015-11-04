@@ -48,7 +48,7 @@ class Player extends BasicObject{
         bulletVelX = 0;
         bulletVelY = -8;
         //add the new bullets to the array of bullets
-        bullets.add(new Bullet(bulletePosX,bulletPosY,bulletVelX,bulletVelY,0));
+        bullets.add(new Bullet(bulletePosX,bulletPosY,bulletVelX,bulletVelY,0,attack));
     }
 
     //track all the bullets. Cause 1 harm to enemy and boss
@@ -64,7 +64,7 @@ class Player extends BasicObject{
             }
             //detect if the bullet hit the boss and cause the damage if yes
             if(tempBullet.hitObject(Main.boss) && Main.boss.alive){
-                Main.boss.decreaseHealth(1);
+                Main.boss.decreaseHealth(attack);
                 bullets.remove(i);
                 if(Main.boss.health <= 0){
                     Main.boss.alive = false;
@@ -76,7 +76,7 @@ class Player extends BasicObject{
             for(int j = 0; j < Main.enemies.size(); j++){
                 Enemy tempEnemy = Main.enemies.get(j);
                 if(tempBullet.hitCharacter(tempEnemy) && tempEnemy.alive){
-                    tempEnemy.decreaseHealth(1);
+                    tempEnemy.decreaseHealth(attack);
                     // if enemy is totally hitted, wait one 1s, and then removed
                     if(tempEnemy.health <= 0){
                         tempEnemy.alive = false;
