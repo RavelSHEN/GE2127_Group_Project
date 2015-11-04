@@ -13,10 +13,11 @@ class Player extends BasicObject{
     boolean invincible; //check if current the plane is invincible
     int invincibleTime; //defines the time of invincible of the player
     ArrayList<Bullet> bullets = new ArrayList<Bullet>(); //store the information of bullets
+    float sInterval; //shooting interval
 
     //constructor to define the basic characters of the player's plane
     //different kind of player plane can have different attackm, health or numOfBomb
-    Player(int posX,int posY,int velX,int velY, int accX, int accY,int attack,int health, int numOfBomb){
+    Player(int posX,int posY,int velX,int velY, int accX, int accY,int attack,int health, int numOfBomb, float sInterval){
         this.posX = posX;
         this.posY = posY;
         this.velX = velX;
@@ -26,6 +27,7 @@ class Player extends BasicObject{
         this.health = health;
         this.numOfBomb = numOfBomb;
         this.attack = attack;
+        this.sInterval = sInterval;
         invincibleTime = 0;
         invincible = false;
         wid = 25;
