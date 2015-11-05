@@ -20,11 +20,13 @@ static BossEnemy boss;
 static ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 PImage img;  // background image
 
-int initialPosX = width / 2;
-int initialPosY = height * 9 / 10;
+int initialPosX;
+int initialPosY;
 void setup(){
     size(600, 800);
     img = loadImage("space.jpg");
+    initialPosX = width / 2;
+    initialPosY = height * 9 / 10;
     player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 1, 1, 1, 1);
     //boss = new BossEnemy();
     for(int i = 0; i < NUM_ENEMY; i++){
@@ -33,6 +35,7 @@ void setup(){
         int enemyVelX = (int) random(-3, 3);
         int enemyVelY = (int) random(1, 3);
         int enemyType = 0;
+        print(enemyPosX, enemyPosY, "\n");
         enemies.add(new Enemy(enemyPosX, enemyPosY, enemyVelX, enemyVelY, 0, 0));
     }
 }
@@ -140,8 +143,8 @@ void draw(){
             // }
 
             // Control the plane
-            if (up) player.move(0, speed);
-            if (down) player.move(0, -speed);
+            if (up) player.move(0, -speed);
+            if (down) player.move(0, speed);
             if (left) player.move(-speed, 0);
             if (right) player.move(speed, 0);
             if (shoot){

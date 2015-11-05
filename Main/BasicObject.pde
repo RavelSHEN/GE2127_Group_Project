@@ -22,7 +22,7 @@ Methods:
 
 class BasicObject{
     //Common fields of the basic elements
-    int damp = 1; //TODO
+    float damp = 0.8; //TODO
     int posX; //x position of the object
     int posY; //y position of the object
     int velX = 0; //velocity of the object in direction of X
