@@ -8,13 +8,13 @@ Methods:
 
 class Bullet extends BasicObject{
     //constructor to define the bullet
-    Bullet(int posX,int posY,int velX,int velY,int classOfObejct,int damage){
+    Bullet(int posX,int posY,int velX,int velY,int classOfObejct,int attack){
         this.posX = posX;
         this.posY = posY;
         this.velX = velX;
         this.velY = velY;
         this.classOfObejct = classOfObejct;
-        this.damage = damage;
+        this.attack = attack;
     }
 
     //draw the bullet on the canvas

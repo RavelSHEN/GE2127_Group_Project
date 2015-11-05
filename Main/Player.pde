@@ -75,7 +75,7 @@ class Player extends BasicObject{
             //detect if the bullet hit the enemy and cause the damage if yes
             for(int j = 0; j < Main.enemies.size(); j++){
                 Enemy tempEnemy = Main.enemies.get(j);
-                if(tempBullet.hitCharacter(tempEnemy) && tempEnemy.alive){
+                if(tempBullet.hitObject(tempEnemy) && tempEnemy.alive){
                     tempEnemy.decreaseHealth(attack);
                     // if enemy is totally hitted, wait one 1s, and then removed
                     if(tempEnemy.health <= 0){
