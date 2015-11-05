@@ -61,17 +61,18 @@ class Player extends BasicObject{
             //check if the bullet hit the boundary, remove the bullet from the list of the bullet
             if(tempBullet.detectBound()){
                 bullets.remove(i);
+                continue;
             }
             //detect if the bullet hit the boss and cause the damage if yes
-            if(tempBullet.hitObject(Main.boss) && Main.boss.alive){
-                Main.boss.decreaseHealth(attack);
-                bullets.remove(i);
-                if(Main.boss.health <= 0){
-                    Main.boss.alive = false;
-                    Main.boss.deadTime = millis();
-                    Main.score += 100;
-                }
-            }
+            // if(tempBullet.hitObject(Main.boss) && Main.boss.alive){
+            //     Main.boss.decreaseHealth(attack);
+            //     bullets.remove(i);
+            //     if(Main.boss.health <= 0){
+            //         Main.boss.alive = false;
+            //         Main.boss.deadTime = millis();
+            //         Main.score += 100;
+            //     }
+            // }
             //detect if the bullet hit the enemy and cause the damage if yes
             for(int j = 0; j < Main.enemies.size(); j++){
                 Enemy tempEnemy = Main.enemies.get(j);
@@ -83,6 +84,7 @@ class Player extends BasicObject{
                         tempEnemy.deadTime = millis();
                     }
                     bullets.remove(i);
+                    break;
                 }
             }
         }
