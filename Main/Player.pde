@@ -116,7 +116,7 @@ class Player extends BasicObject{
         }
         //animation of using bomb
         colorMode(RGB,255,255,255,100);
-        fill(255,255,255,100-abs(100 - i*20));
+        fill(255,255,255,100-abs(100 - bombTimeCounter*20));
         rect(0,0,width,height);
         //while the bomb animation ended, set bombUsed to false
         if(bombTimeCounter == 10){
