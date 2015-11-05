@@ -36,7 +36,7 @@ class Enemy extends BasicObject{
         }
     }
 
-    void drawEnemy(){
+    void drawMe(){
         ellipse(posX,posY,15,15);
     }
 
@@ -54,10 +54,18 @@ class Enemy extends BasicObject{
     }
 
     //detect if the enemy hit the up/down boundary, if yes, remove
-    void detectBound(){
-        super.detectBound();
+    boolean detectBound(){
+        // super.detectBound();
         if(posY > height || posY < 0){
             Main.enemies.remove(this);
+            return true;
         }
+        return false;
+
+    }
+
+    int getDamage() {
+        //TODO
+        return 1;
     }
 }

@@ -75,27 +75,32 @@ class BasicObject{
     }
 
     //detect if the object is at the edge, if yes, for plane, it can not move, for bullet, demised
-    void detectBound(){
+    boolean detectBound(){
         if(posX < 10){
             posX = 10;
             velX = 0;
             accX = 0;
+            return true;
         }
         else if(posX > width - 10){
             posX = width - 10;
             velX = 0;
             accX = 0;
+            return true;
         }
         if(posY < 10){
             posY = 10;
             velY = 0;
             accY = 0;
+            return true;
         }
         else if(posY > height - 10){
             posY = height - 10;
             velY = 0;
             accY = 0;
+            return true;
         }
+        return false;
     }
 
     //when the object get hitted, health decrease

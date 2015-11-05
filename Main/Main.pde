@@ -1,5 +1,5 @@
 int NUM_ENEMY = 5;
-float speed = 2;
+int speed = 2;
 // accelerations controled by keyboard
 PVector upAcc = new PVector(0, -speed);
 PVector downAcc = new PVector(0, speed);
@@ -62,7 +62,7 @@ void draw(){
                 tempEnemy.drawMe();
                 
                 // detect collision between enemy and player
-                if(player.hitCharacter(tempEnemy) && !player.invincible) {
+                if(player.hitObject(tempEnemy) && !player.invincible) {
                     player.decreaseHealth(tempEnemy.getDamage());
                     player.invincible = true;
                     player.invincibleTime = millis();
@@ -78,72 +78,72 @@ void draw(){
                     }
                 }
             }
-            if(killedEnemy >= random(10, 20)) {
-                PVector bPos = new PVector(width / 2, 0);
-                PVector bVel = new PVector(0, random(15, 30));
-                PVector bAcc = new PVector(0, 0);
-                boss = new BossEnemy(bPos, bVel, bAcc, 1);
-                killedEnemy = 0;
-            }
+            // if(killedEnemy >= random(10, 20)) {
+            //     PVector bPos = new PVector(width / 2, 0);
+            //     PVector bVel = new PVector(0, random(15, 30));
+            //     PVector bAcc = new PVector(0, 0);
+            //     boss = new BossEnemy(bPos, bVel, bAcc, 1);
+            //     killedEnemy = 0;
+            // }
             
-            if(boss.totallyDied == true){
-                // produce enemy only boss is not on the screen
-                // when there is an enemy died or disappeared, create a new enemy
-                for(int i = 0; i < (NUM_ENEMY- enemies.size()); i++){
-                    PVector enemyPos = new PVector(random(0, width), 0);
-                    PVector enemyVel = new PVector(random(-3, 3), random(0.1, 3));// flow down vertically
-                    PVector enemyAcc = new PVector(0, 0); 
-                    enemies.add(new Enemy(enemyPos, enemyVel, enemyAcc, random(0.5, 1)));
-                }
-             }
+            // if(boss.totallyDied == true){
+            //     // produce enemy only boss is not on the screen
+            //     // when there is an enemy died or disappeared, create a new enemy
+            //     for(int i = 0; i < (NUM_ENEMY- enemies.size()); i++){
+            //         PVector enemyPos = new PVector(random(0, width), 0);
+            //         PVector enemyVel = new PVector(random(-3, 3), random(0.1, 3));// flow down vertically
+            //         PVector enemyAcc = new PVector(0, 0); 
+            //         enemies.add(new Enemy(enemyPos, enemyVel, enemyAcc, random(0.5, 1)));
+            //     }
+            //  }
 
-            if(boss.pos.y != -1){
-                if(boss.alive){
-                    // boss shoots every 1 second, shooting 5 seconds, interval time is 0.3 sec
-                    int currentTime = millis();
-                    if(currentTime - bossRestTime > 1000){
-                        if(currentTime - bossShootTime < 5000){  // keep shooting
-                            if(currentTime - bossShootInterval > 300){
-                                boss.shoot();
-                                bossShootInterval = currentTime;
-                            }
-                        }
-                        else{  // stop shooting, begin count rest time
-                            bossRestTime = currentTime;
-                        }
-                    }
-                    else{  // boss is taking a break
-                        bossShootTime = currentTime;
-                    }
+            // if(boss.pos.y != -1){
+            //     if(boss.alive){
+            //         // boss shoots every 1 second, shooting 5 seconds, interval time is 0.3 sec
+            //         int currentTime = millis();
+            //         if(currentTime - bossRestTime > 1000){
+            //             if(currentTime - bossShootTime < 5000){  // keep shooting
+            //                 if(currentTime - bossShootInterval > 300){
+            //                     boss.shoot();
+            //                     bossShootInterval = currentTime;
+            //                 }
+            //             }
+            //             else{  // stop shooting, begin count rest time
+            //                 bossRestTime = currentTime;
+            //             }
+            //         }
+            //         else{  // boss is taking a break
+            //             bossShootTime = currentTime;
+            //         }
 
-                    // if player hit the boss, player died
-                    if(player.hitCharacter(boss) && !player.invincible){
-                        player.decreaseHealth(1);
-                        player.pos = new PVector(width / 2, height * 9 / 10);
-                        // gives player 3 seconds invincible time after being attacked
-                        player.invincible = true;
-                        player.invincibleTime = millis();
-                    }
-                }
-                // if boss is died, wait for 3 sec, and then not draw boss
-                else{  
-                    int currentTime = millis();
-                    if(currentTime - boss.deadTime > 3000){
-                        boss.totallyDied = true;
-                    }
-                }
-                if(!boss.totallyDied){
-                    boss.update();
-                    boss.drawMe();
-                    boss.trackBullets();
-                }
-            }
+            //         // if player hit the boss, player died
+            //         if(player.hitCharacter(boss) && !player.invincible){
+            //             player.decreaseHealth(1);
+            //             player.pos = new PVector(width / 2, height * 9 / 10);
+            //             // gives player 3 seconds invincible time after being attacked
+            //             player.invincible = true;
+            //             player.invincibleTime = millis();
+            //         }
+            //     }
+            //     // if boss is died, wait for 3 sec, and then not draw boss
+            //     else{  
+            //         int currentTime = millis();
+            //         if(currentTime - boss.deadTime > 3000){
+            //             boss.totallyDied = true;
+            //         }
+            //     }
+            //     if(!boss.totallyDied){
+            //         boss.update();
+            //         boss.drawMe();
+            //         boss.trackBullets();
+            //     }
+            // }
 
             // Control the plane
-            if (up) player.move(upAcc);
-            if (down) player.move(downAcc);
-            if (left) player.move(leftAcc);
-            if (right) player.move(rightAcc);
+            if (up) player.move(0, speed);
+            if (down) player.move(0, -speed);
+            if (left) player.move(-speed, 0);
+            if (right) player.move(speed, 0);
             if (shoot){
                 int currentTime = millis();
                 if(currentTime - shootTime > player.sInterval){
@@ -197,18 +197,18 @@ void draw(){
 
             if(restart){
                 alive = true;
-                player = new Player(initialPosX, initialPosY, 0, 0, 0, 0);
+                player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 1, 1, 1, 1);
                 score = 0;
                 killedEnemy = 0;
                 restart = false;
-                boss = new BossEnemy();
-                // enemy create, show up at top of the screen, move down
-                for(int i = 0; i < NUM_ENEMY; i++){
-                    PVector enemyPos = new PVector(random(0, width), 0);
-                    PVector enemyVel = new PVector(random(-3, 3), random(1, 3));
-                    PVector enemyAcc = new PVector(0, 0); 
-                    enemies.add(new Enemy(enemyPos, enemyVel, enemyAcc, random(0.5, 1)));
-                }
+                // boss = new BossEnemy();
+                // // enemy create, show up at top of the screen, move down
+                // for(int i = 0; i < NUM_ENEMY; i++){
+                //     PVector enemyPos = new PVector(random(0, width), 0);
+                //     PVector enemyVel = new PVector(random(-3, 3), random(1, 3));
+                //     PVector enemyAcc = new PVector(0, 0); 
+                //     enemies.add(new Enemy(enemyPos, enemyVel, enemyAcc, random(0.5, 1)));
+                // }
             }
         }
     }

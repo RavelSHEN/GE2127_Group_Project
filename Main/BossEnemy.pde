@@ -73,7 +73,7 @@ Methods:
         //check if boss bullet hits player
         for(int i = 0; i < bossBullets.size(); i++){
             Bullet temp = bossBullets.get(i);
-            if(temp.hitCharacter(Main.player) && !Main.player.invincible){
+            if(temp.hitObject(Main.player) && !Main.player.invincible){
                 Main.player.decreaseHealth(1);
                 Main.player.posX = width / 2;
                 Main.player.posY = height * 9 / 10;

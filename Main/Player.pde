@@ -37,18 +37,18 @@ class Player extends BasicObject{
     }
 
     //draw the player
-    void drawPlayer(){
-        ellispe(posX,posY,20,20);
+    void drawMe(){
+        ellipse(posX,posY,20,20);
     };
 
     //while the player shoots, the bullets objects are generated and stored
     void shoot(){
-        bulletPosX = posX;
-        bulletPosY = posY;
-        bulletVelX = 0;
-        bulletVelY = -8;
+        int bulletPosX = posX;
+        int bulletPosY = posY;
+        int bulletVelX = 0;
+        int bulletVelY = -8;
         //add the new bullets to the array of bullets
-        bullets.add(new Bullet(bulletePosX,bulletPosY,bulletVelX,bulletVelY,0,attack));
+        bullets.add(new Bullet(bulletPosX,bulletPosY,bulletVelX,bulletVelY,0,attack));
     }
 
     //track all the bullets. Cause 1 harm to enemy and boss
@@ -127,5 +127,6 @@ class Player extends BasicObject{
             bombTimeCounter ++;
         }
     }
+
 
 }
