@@ -105,7 +105,7 @@ class Player extends BasicObject{
             //kill all the enemies
             for(int j = 0; j < Main.enemies.size(); j++){
                 Enemy tempEnemy = Main.enemies.get(j);
-                if(tempBullet.hitObject(tempEnemy) && tempEnemy.alive){
+                if(tempEnemy.alive){
                     tempEnemy.decreaseHealth(tempEnemy.health);
                     if(tempEnemy.health <= 0){
                         tempEnemy.alive = false;
