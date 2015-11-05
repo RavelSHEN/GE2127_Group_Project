@@ -1,4 +1,4 @@
-int NUM_ENEMY = 5;
+int NUM_ENEMY = 7;
 int speed = 2;
 // accelerations controled by keyboard
 PVector upAcc = new PVector(0, -speed);
@@ -32,10 +32,10 @@ void setup(){
     for(int i = 0; i < NUM_ENEMY; i++){
         int enemyPosX = (int) random(0, width);
         int enemyPosY = 0;
-        int enemyVelX = (int) random(-3, 3);
-        int enemyVelY = (int) random(1, 3);
+        int enemyVelX = (int) random(-4, 4);
+        int enemyVelY = (int) random(2, 4);
         int enemyType = 0;
-        print(enemyPosX, enemyPosY, "\n");
+        print(enemyVelX, enemyVelY, "\n");
         enemies.add(new Enemy(enemyPosX, enemyPosY, enemyVelX, enemyVelY, 0, 0));
     }
 }
@@ -89,6 +89,15 @@ void draw(){
             //     killedEnemy = 0;
             // }
             
+            for(int i = 0; i < (NUM_ENEMY- enemies.size()); i++){
+                int enemyPosX = (int) random(0, width);
+                int enemyPosY = 0;
+                int enemyVelX = (int) random(-4, 4);
+                int enemyVelY = (int) random(2, 4);
+                int enemyType = 0;
+                print(enemyVelX, enemyVelY, "\n");
+                enemies.add(new Enemy(enemyPosX, enemyPosY, enemyVelX, enemyVelY, 0, 0));
+            }
             // if(boss.totallyDied == true){
             //     // produce enemy only boss is not on the screen
             //     // when there is an enemy died or disappeared, create a new enemy
@@ -149,7 +158,8 @@ void draw(){
             if (right) player.move(speed, 0);
             if (shoot){
                 int currentTime = millis();
-                if(currentTime - shootTime > player.sInterval){
+                //TODO
+                if(currentTime - shootTime > 300){
                     player.shoot();
                     shootTime = currentTime;
                 }
@@ -219,7 +229,7 @@ void draw(){
 
 
 void keyPressed() {
-    if(key == 'z' || key == 'Z'){
+    if(key == 's' || key == 'S'){
         shoot = true;
     }
     if(key == 'b' || key == 'B'){
@@ -237,7 +247,7 @@ void keyPressed() {
 }
 
 void keyReleased() {
-    if(key == 'z' || key == 'Z'){
+    if(key == 's' || key == 'S'){
         shoot = false;
     }
     if (key == CODED) {

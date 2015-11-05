@@ -19,7 +19,8 @@ class Bullet extends BasicObject{
 
     //draw the bullet on the canvas
     void drawBullet(){
-        ellipse(posX,posY,3,3);
+        fill(255,255,255);
+        ellipse(posX,posY,5,5);
     }
 
     //update the position of the bullet
@@ -40,7 +41,7 @@ class Bullet extends BasicObject{
 
     //decide if the bullet hit the object
     boolean hitObject(BasicObject obj){
-        if(abs(obj.posX - posX) < obj.wid/ 2 && abs(obj.posY - obj.posY) < obj.hei/ 2){
+        if(abs(obj.posX - posX) < obj.wid/ 2 && abs(obj.posY - posY) < obj.hei/ 2){
             return true;
         }
         else{

@@ -46,10 +46,10 @@ class Enemy extends BasicObject{
         if(alive){
             posX += velX * cos(angle);
             posY += velY * sin(angle);
-            angle += 0.04 * dir;
-            if(random(0, 2) < 1){
-                dir *= -1;
-            }
+            // angle += 0.04 * dir;
+            // if(random(0, 2) < 1){
+            //     dir *= -1;
+            // }
         }
     }
 
