@@ -38,6 +38,7 @@ class Player extends BasicObject{
 
     //draw the player
     void drawMe(){
+        fill(200,200,200);
         ellipse(posX,posY,20,20);
     };
 
@@ -64,15 +65,15 @@ class Player extends BasicObject{
                 continue;
             }
             //detect if the bullet hit the boss and cause the damage if yes
-            // if(tempBullet.hitObject(Main.boss) && Main.boss.alive){
-            //     Main.boss.decreaseHealth(attack);
-            //     bullets.remove(i);
-            //     if(Main.boss.health <= 0){
-            //         Main.boss.alive = false;
-            //         Main.boss.deadTime = millis();
-            //         Main.score += 100;
-            //     }
-            // }
+            if(tempBullet.hitObject(Main.boss) && Main.boss.alive){
+                Main.boss.decreaseHealth(attack);
+                bullets.remove(i);
+                if(Main.boss.health <= 0){
+                    Main.boss.alive = false;
+                    Main.boss.deadTime = millis();
+                    Main.score += 100;
+                }
+            }
             //detect if the bullet hit the enemy and cause the damage if yes
             for(int j = 0; j < Main.enemies.size(); j++){
                 Enemy tempEnemy = Main.enemies.get(j);
@@ -92,10 +93,10 @@ class Player extends BasicObject{
 
     //use bomb, which killded all the enemies and cause huge harm to boss
     //while bomb buttom pressed, bombUsed is set to true
-    void useBomb(){
+    int useBomb(){
         //do harm while the animation start
-        if (bombTimeCounter == 5){
             //cause harm to the boss
+            int count = 0;
             if (Main.boss.alive){
                 Main.boss.decreaseHealth(10);
                 if(Main.boss.health <= 0){
@@ -106,29 +107,11 @@ class Player extends BasicObject{
             }
             //kill all the enemies
             for(int j = 0; j < Main.enemies.size(); j++){
-                Enemy tempEnemy = Main.enemies.get(j);
-                if(tempEnemy.alive){
-                    tempEnemy.decreaseHealth(tempEnemy.health);
-                    if(tempEnemy.health <= 0){
-                        tempEnemy.alive = false;
-                        tempEnemy.deadTime = millis();
-                    }
-                }
+                Main.enemies.remove(j);
+                count ++;
             }
-        }
-        //animation of using bomb
-        colorMode(RGB,255,255,255,100);
-        fill(255,255,255,100-abs(100 - bombTimeCounter*20));
-        rect(0,0,width,height);
-        //while the bomb animation ended, set bombUsed to false
-        if(bombTimeCounter == 10){
-            bombUsed = false;
-            bombTimeCounter = 0;
-            numOfBomb --;
-        }else{
-            bombTimeCounter ++;
-        }
+            fill(0,0,0);
+            rect(0,0,width,height);
+            return count;
     }
-
-
 }

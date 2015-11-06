@@ -21,16 +21,18 @@ PVector upAcc = new PVector(0, -speed);
 PVector downAcc = new PVector(0, speed);
 PVector leftAcc = new PVector(-speed, 0);
 PVector rightAcc = new PVector(speed, 0);
-boolean up, down, left, right, shoot;
+boolean up, down, left, right, shoot, useBomb;
 boolean welcomePage = true;  // welcome page
 boolean restart = false;  // restart game
 static int score = 0;
 boolean alive = true;  // if the player is alive
+boolean bossKilled = false;
 int shootTime = 0;  // shoot interval time
 int bossShootInterval = 0;  // boss shoot interval time
 int bossShootTime = 0;  // boss shooting time
 int bossRestTime = millis();  // boss resting time
 int killedEnemy = 0;  // count the number of died enemy, boss appears every killed 30 enemies
+int killedBoss = 0;
 static Player player;
 static BossEnemy boss;
 static ArrayList<Enemy> enemies = new ArrayList<Enemy>();
@@ -39,7 +41,7 @@ PImage img;  // background image
 int initialPosX;
 int initialPosY;
 public void setup(){
-    size(600, 800);
+    size(600, 750);
     img = loadImage("space.jpg");
     initialPosX = width / 2;
     initialPosY = height * 9 / 10;
@@ -48,8 +50,9 @@ public void setup(){
     for(int i = 0; i < NUM_ENEMY; i++){
         int enemyPosX = (int) random(0, width);
         int enemyPosY = 0;
-        int enemyVelX = (int) random(-4, 4);
-        int enemyVelY = (int) random(2, 4);
+        float enemyAngle = atan2(player.posY - enemyPosY, player.posX - enemyPosX);
+        int enemyVelX = (int)(4 * cos(enemyAngle) + random(-1,1));
+        int enemyVelY = (int)(4 * sin(enemyAngle) + random(-1,1));
         int enemyType = 0;
         print(enemyVelX, enemyVelY, "\n");
         enemies.add(new Enemy(enemyPosX, enemyPosY, enemyVelX, enemyVelY, 0, 0));
@@ -69,11 +72,11 @@ public void draw(){
         PFont bradly = loadFont("BradleyHandITC-48.vlw");
         textFont(bradly, 24);
         text("Press arrow up, down, left right to move", width / 2, height / 2);
-        text("Press S to shoot", width / 2, height / 2 + 50);
-        text("Press B to start", width / 2, height / 2 + 100);
+        text("Press A to shoot", width / 2, height / 2 + 50);
+        text("Press S to start", width / 2, height / 2 + 100);
     }
     else{
-        if(alive){
+        if(alive && !bossKilled){
             for(int i = 0; i < enemies.size(); i++) {
                 Enemy tempEnemy = enemies.get(i);
                 tempEnemy.update();
@@ -93,7 +96,9 @@ public void draw(){
                     if(currentTime - tempEnemy.deadTime > 1000){
                         enemies.remove(tempEnemy);
                         score += 10;
-                        killedEnemy ++;  // count one killed enemy
+                        if(boss.totallyDied){
+                            killedEnemy ++;  // count one killed enemy
+                        }
                     }
                 }
             }
@@ -101,8 +106,9 @@ public void draw(){
             for(int i = 0; i < (NUM_ENEMY- enemies.size()); i++){
                 int enemyPosX = (int) random(0, width);
                 int enemyPosY = 0;
-                int enemyVelX = (int) random(-4, 4);
-                int enemyVelY = (int) random(2, 4);
+                float enemyAngle = atan2(player.posY - enemyPosY, player.posX - enemyPosX);
+                int enemyVelX = (int)(4 * cos(enemyAngle) + random(-1,1));
+                int enemyVelY = (int)(4 * sin(enemyAngle) + random(-1,1));
                 int enemyType = 0;
                 print(enemyVelX, enemyVelY, "\n");
                 enemies.add(new Enemy(enemyPosX, enemyPosY, enemyVelX, enemyVelY, 0, 0));
@@ -118,17 +124,18 @@ public void draw(){
             //     }
             //  }
 
-            if(killedEnemy >= random(2, 5)) {
+            if(killedEnemy >= random(3, 5)) {
                 int bossPosX = (int)width / 2;
                 int bossPosY = 0;
                 int bossVelX = 0;
-                int bossVelY = (int)random(15,30);
+                int bossVelY = (int)random(10,20);
                 int bossAccX = 0;
                 int bossAccY = 0;
                 boss = new BossEnemy(bossPosX,bossPosY,bossVelX,bossVelY,bossAccX,bossAccY);
-                // killedEnemy = 0;
+                killedEnemy = 0;
             }
 
+            if(boss.posY != -1){
                 if(boss.alive){
                     // boss shoots every 1 second, shooting 5 seconds, interval time is 0.3 sec
                     int currentTime = millis();
@@ -146,8 +153,7 @@ public void draw(){
                     else{  // boss is taking a break
                         bossShootTime = currentTime;
                     }
-
-                    // if player hit the boss, player died
+                        // if player hit the boss, player died
                     if(player.hitObject(boss) && !player.invincible){
                         player.decreaseHealth(1);
                         player.posX = width / 2;
@@ -160,16 +166,18 @@ public void draw(){
                 // if boss is died, wait for 3 sec, and then not draw boss
                 else{
                     int currentTime = millis();
-                    if(currentTime - boss.deadTime > 3000){
+                    if(currentTime - boss.deadTime > 500){
                         boss.totallyDied = true;
+                        bossKilled = true;
                     }
                 }
-
                 if(!boss.totallyDied){
                     boss.update();
                     boss.drawBoss();
                     boss.trackBullets();
                 }
+            }
+
 
 
             // Control the plane
@@ -184,6 +192,11 @@ public void draw(){
                     player.shoot();
                     shootTime = currentTime;
                 }
+            }
+            if (useBomb){
+
+                killedEnemy = player.useBomb();
+                useBomb = false;
             }
 
 
@@ -214,6 +227,20 @@ public void draw(){
             text("score " + score, 550, 100);
 
         }
+        else if(alive && bossKilled){
+            for(int i = 0; i < enemies.size(); i++){
+                enemies.remove(i);
+            }
+            PFont arial = loadFont("Arial-BoldMT-48.vlw");  // the font is stored in the "data" file
+            textFont(arial, 48);
+            textAlign(CENTER);
+            fill(255);
+            text("Yes! You Win", width / 2, height / 3);
+            text("score " + score, width / 2, height / 2);
+            PFont bradly = loadFont("BradleyHandITC-48.vlw");
+            textFont(bradly, 36);
+            text("Press R to restart", width / 2, height * 2 / 3);
+        }
         else {
             // player is dead
             for(int i = 0; i < enemies.size(); i++){
@@ -228,21 +255,25 @@ public void draw(){
             PFont bradly = loadFont("BradleyHandITC-48.vlw");
             textFont(bradly, 36);
             text("Press R to restart", width / 2, height * 2 / 3);
-
-            if(restart){
-                alive = true;
-                player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 1, 1, 1, 1);
-                score = 0;
-                killedEnemy = 0;
-                restart = false;
-                // boss = new BossEnemy();
-                // // enemy create, show up at top of the screen, move down
-                // for(int i = 0; i < NUM_ENEMY; i++){
-                //     PVector enemyPos = new PVector(random(0, width), 0);
-                //     PVector enemyVel = new PVector(random(-3, 3), random(1, 3));
-                //     PVector enemyAcc = new PVector(0, 0);
-                //     enemies.add(new Enemy(enemyPos, enemyVel, enemyAcc, random(0.5, 1)));
-                // }
+        }
+        if(restart){
+            alive = true;
+            player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 1, 1, 1, 1);
+            score = 0;
+            killedEnemy = 0;
+            bossKilled = false;
+            restart = false;
+            boss = new BossEnemy();
+            // enemy create, show up at top of the screen, move down
+            for(int i = 0; i < NUM_ENEMY; i++){
+                int enemyPosX = (int) random(0, width);
+                int enemyPosY = 0;
+                float enemyAngle = atan2(player.posY - enemyPosY, player.posX - enemyPosX);
+                int enemyVelX = (int)(4 * cos(enemyAngle) + random(-1,1));
+                int enemyVelY = (int)(4 * sin(enemyAngle) + random(-1,1));
+                int enemyType = 0;
+                print(enemyVelX, enemyVelY, "\n");
+                 enemies.add(new Enemy(enemyPosX, enemyPosY, enemyVelX, enemyVelY, 0, 0));
             }
         }
     }
@@ -250,11 +281,14 @@ public void draw(){
 
 
 public void keyPressed() {
-    if(key == 's' || key == 'S'){
+    if(key == 'a' || key == 'A'){
         shoot = true;
     }
-    if(key == 'b' || key == 'B'){
+    if(key == 's' || key == 'S'){
         welcomePage = false;
+    }
+    if(key == 'b' || key == 'B'){
+        useBomb = true;
     }
     if(key == 'r' ||key == 'R'){
         restart = true;
@@ -268,7 +302,7 @@ public void keyPressed() {
 }
 
 public void keyReleased() {
-    if(key == 's' || key == 'S'){
+    if(key == 'a' || key == 'A'){
         shoot = false;
     }
     if (key == CODED) {
@@ -448,7 +482,7 @@ Methods:
         classOfObejct = 1;
         wid = 200;
         hei = 200;
-        health = (int)random(30,50);
+        health = (int)random(3,5);
         totallyDied = false;
         speed = 40;
         angle = 0;
@@ -662,6 +696,7 @@ class Player extends BasicObject{
 
     //draw the player
     public void drawMe(){
+        fill(200,200,200);
         ellipse(posX,posY,20,20);
     };
 
@@ -688,15 +723,15 @@ class Player extends BasicObject{
                 continue;
             }
             //detect if the bullet hit the boss and cause the damage if yes
-            // if(tempBullet.hitObject(Main.boss) && Main.boss.alive){
-            //     Main.boss.decreaseHealth(attack);
-            //     bullets.remove(i);
-            //     if(Main.boss.health <= 0){
-            //         Main.boss.alive = false;
-            //         Main.boss.deadTime = millis();
-            //         Main.score += 100;
-            //     }
-            // }
+            if(tempBullet.hitObject(Main.boss) && Main.boss.alive){
+                Main.boss.decreaseHealth(attack);
+                bullets.remove(i);
+                if(Main.boss.health <= 0){
+                    Main.boss.alive = false;
+                    Main.boss.deadTime = millis();
+                    Main.score += 100;
+                }
+            }
             //detect if the bullet hit the enemy and cause the damage if yes
             for(int j = 0; j < Main.enemies.size(); j++){
                 Enemy tempEnemy = Main.enemies.get(j);
@@ -716,10 +751,10 @@ class Player extends BasicObject{
 
     //use bomb, which killded all the enemies and cause huge harm to boss
     //while bomb buttom pressed, bombUsed is set to true
-    public void useBomb(){
+    public int useBomb(){
         //do harm while the animation start
-        if (bombTimeCounter == 5){
             //cause harm to the boss
+            int count = 0;
             if (Main.boss.alive){
                 Main.boss.decreaseHealth(10);
                 if(Main.boss.health <= 0){
@@ -730,31 +765,13 @@ class Player extends BasicObject{
             }
             //kill all the enemies
             for(int j = 0; j < Main.enemies.size(); j++){
-                Enemy tempEnemy = Main.enemies.get(j);
-                if(tempEnemy.alive){
-                    tempEnemy.decreaseHealth(tempEnemy.health);
-                    if(tempEnemy.health <= 0){
-                        tempEnemy.alive = false;
-                        tempEnemy.deadTime = millis();
-                    }
-                }
+                Main.enemies.remove(j);
+                count ++;
             }
-        }
-        //animation of using bomb
-        colorMode(RGB,255,255,255,100);
-        fill(255,255,255,100-abs(100 - bombTimeCounter*20));
-        rect(0,0,width,height);
-        //while the bomb animation ended, set bombUsed to false
-        if(bombTimeCounter == 10){
-            bombUsed = false;
-            bombTimeCounter = 0;
-            numOfBomb --;
-        }else{
-            bombTimeCounter ++;
-        }
+            fill(0,0,0);
+            rect(0,0,width,height);
+            return count;
     }
-
-
 }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "Main" };
