@@ -1,16 +1,15 @@
 int NUM_ENEMY = 7;
 int speed = 2;
-// accelerations controled by keyboard
-PVector upAcc = new PVector(0, -speed);
-PVector downAcc = new PVector(0, speed);
-PVector leftAcc = new PVector(-speed, 0);
-PVector rightAcc = new PVector(speed, 0);
 boolean up, down, left, right, shoot, useBomb;
-boolean welcomePage = true;  // welcome page
+// boolean welcomePage = true;  // welcome page
+// boolean selectionPage = false;
+boolean[] pages = {true,false};
 boolean restart = false;  // restart game
 static int score = 0;
 boolean alive = true;  // if the player is alive
 boolean bossKilled = false;
+int currentPage = 0;
+int flightType;
 int shootTime = 0;  // shoot interval time
 int bossShootInterval = 0;  // boss shoot interval time
 int bossShootTime = 0;  // boss shooting time
@@ -29,8 +28,8 @@ void setup(){
     img = loadImage("space.jpg");
     initialPosX = width / 2;
     initialPosY = height * 9 / 10;
-    player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 1, 1, 1, 1);
     boss = new BossEnemy();
+    player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 1, 1, 1, 1);
     for(int i = 0; i < NUM_ENEMY; i++){
         int enemyPosX = (int) random(0, width);
         int enemyPosY = 0;
@@ -46,7 +45,7 @@ void setup(){
 void draw(){
     //TODO: Change the background image
     image(img, 0, 0, 640, 1136);
-    if(welcomePage){
+    if(pages[0]){
         //TODO: Re-design the WelcomePage
         PFont arial = loadFont("Bauhaus93-48.vlw");
         textFont(arial, 48);
@@ -55,9 +54,31 @@ void draw(){
         text("SHOOT! SHOOT!", width / 2, height / 3);
         PFont bradly = loadFont("BradleyHandITC-48.vlw");
         textFont(bradly, 24);
+        text("Press ENTER to continue", width / 2, height / 2);
+    }
+    else if(pages[1]){
+        PFont bradly = loadFont("BradleyHandITC-48.vlw");
+        textFont(bradly, 24);
+        text("Press 1,2,3,4 to select your plane", width / 2, height / 3);
         text("Press arrow up, down, left right to move", width / 2, height / 2);
         text("Press A to shoot", width / 2, height / 2 + 50);
         text("Press S to start", width / 2, height / 2 + 100);
+        switch (flightType){
+            case 1:
+                player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 2, 1, 1, 1);
+                break;
+            case 2:
+                player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 1, 2, 1, 1);
+                break;
+            case 3:
+                player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 1, 1, 2, 1);
+                break;
+            case 4:
+                player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 1, 1, 1, 2);
+                break;
+            default:
+            break;
+        }
     }
     else{
         if(alive && !bossKilled){
@@ -265,36 +286,32 @@ void draw(){
 
 
 void keyPressed() {
-    if(key == 'a' || key == 'A'){
-        shoot = true;
+    if (keyCode == ENTER){
+        pages[currentPage] = false;
+        if(currentPage < pages.length-1){
+            pages[currentPage + 1] = true;
+        }
+        currentPage ++;
     }
-    if(key == 's' || key == 'S'){
-        welcomePage = false;
-    }
-    if(key == 'b' || key == 'B'){
-        useBomb = true;
-    }
-    if(key == 'r' ||key == 'R'){
-        restart = true;
-    }
-    if (key == CODED) {
-        if (keyCode == UP) up = true;
-        if (keyCode == DOWN) down = true;
-        if (keyCode == LEFT) left = true;
-        if (keyCode == RIGHT) right = true;
-    }
+    if (key == 'a' || key == 'A')shoot = true;
+    if (key == 'b' || key == 'B') useBomb = true;
+    if (key == 'r' ||key == 'R') restart = true;
+    if (keyCode == 49) flightType = 1;
+    if (keyCode == 50) flightType = 2;
+    if (keyCode == 51) flightType = 3;
+    if (keyCode == 52) flightType = 4;
+    if (keyCode == UP) up = true;
+    if (keyCode == DOWN) down = true;
+    if (keyCode == LEFT) left = true;
+    if (keyCode == RIGHT) right = true;
 }
 
 void keyReleased() {
-    if(key == 'a' || key == 'A'){
-        shoot = false;
-    }
-    if (key == CODED) {
-        if (keyCode == UP) up = false;
-        if (keyCode == DOWN) down = false;
-        if (keyCode == LEFT) left = false;
-        if (keyCode == RIGHT) right = false;
-    }
+    if (key == 'a' || key == 'A')shoot = false;
+    if (keyCode == UP) up = false;
+    if (keyCode == DOWN) down = false;
+    if (keyCode == LEFT) left = false;
+    if (keyCode == RIGHT) right = false;
 }
 
 

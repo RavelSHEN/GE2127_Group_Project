@@ -5,7 +5,6 @@ Methods:
     trackBullet():check the bullet to decide if the bullet is hit the object
     useBomb(): use bomb to attack
 */
-
 class Player extends BasicObject{
     int numOfBomb; //define the number of bomb
     boolean bombUsed = false; //check if currently the player is using bomb
@@ -14,7 +13,6 @@ class Player extends BasicObject{
     int invincibleTime; //defines the time of invincible of the player
     ArrayList<Bullet> bullets = new ArrayList<Bullet>(); //store the information of bullets
     float sInterval; //shooting interval
-
     //constructor to define the basic characters of the player's plane
     //different kind of player plane can have different attackm, health or numOfBomb
     Player(int posX,int posY,int velX,int velY, int accX, int accY,int attack,int health, int numOfBomb, float sInterval){
