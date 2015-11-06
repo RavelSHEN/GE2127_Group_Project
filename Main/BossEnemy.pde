@@ -16,8 +16,10 @@ Methods:
 */
 
     int deadTime;
+    int bossMoveTime = 0;
     float angle;
     float speed;
+    int dir = 1;
     boolean totallyDied;
     ArrayList <Bullet> bossBullets = new ArrayList <Bullet>(); //store the bullet of the boss
     //constructor to create the boss
@@ -36,7 +38,7 @@ Methods:
         classOfObejct = 1;
         wid = 200;
         hei = 200;
-        health = (int)random(3,5);
+        health = (int)random(15,20);
         totallyDied = false;
         speed = 40;
         angle = 0;
@@ -44,13 +46,25 @@ Methods:
 
     //draw the boss
     void drawBoss(){
-        ellipse(posX,posY, 50,50);
+        ellipse(posX,posY, 100,100);
     }
 
     //update the position of the boss.
     void update(){
-        super.update();
+        if (bossMoveTime > 10){
+            if(random(0,16) <= 8){
+                dir = 1;
+            }else{
+                dir = -1;
+            }
+            velX *= dir;
+            bossMoveTime = 0;
+        }
+        posY *= 0.8;
+        posX += velX;
+        posY += velY;
         angle += 0.04;
+        bossMoveTime++;
     }
 
     //control the shoot of the boss

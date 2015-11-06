@@ -75,7 +75,7 @@ void draw(){
                 player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 1, 1, 2, 1);
                 break;
             case 4:
-                player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 1, 1, 1, 2);
+                player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 1, 1, 1, 4);
                 break;
             default:
             break;
@@ -130,11 +130,11 @@ void draw(){
             //     }
             //  }
 
-            if(killedEnemy >= random(3, 5)) {
+            if(killedEnemy >= random(1, 3)) {
                 int bossPosX = (int)width / 2;
                 int bossPosY = 0;
-                int bossVelX = 0;
-                int bossVelY = (int)random(10,20);
+                int bossVelX = 1;
+                int bossVelY = (int)random(20,30);
                 int bossAccX = 0;
                 int bossAccY = 0;
                 boss = new BossEnemy(bossPosX,bossPosY,bossVelX,bossVelY,bossAccX,bossAccY);
@@ -184,8 +184,6 @@ void draw(){
                 }
             }
 
-
-
             // Control the plane
             if (up) player.move(0, -speed);
             if (down) player.move(0, speed);
@@ -229,8 +227,9 @@ void draw(){
             textFont(arial, 24);
             textAlign(RIGHT);
             fill(0, 102, 154);
-            text("health: " + player.health, 550, 50);
-            text("score " + score, 550, 100);
+            text("Bomb: " + player.numOfBomb, 550,50);
+            text("health: " + player.health, 550, 100);
+            text("score " + score, 550, 150);
 
         }
         else if(alive && bossKilled){
@@ -294,7 +293,7 @@ void keyPressed() {
         }
         currentPage ++;
     }
-    if (key == 'z' || key == 'Z')shoot = true;
+    if (key == 'z' || key == 'Z') shoot = true;
     if (key == 'x' || key == 'X') useBomb = true;
     if (key == 'r' ||key == 'R') restart = true;
     if (keyCode == 49) flightType = 1;

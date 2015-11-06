@@ -14,6 +14,7 @@ class Enemy extends BasicObject{
     int deadTime;
     int dir = 1;
     float angle;
+    float scaleFactor;
     Enemy(int posX,int posY,int velX,int velY, int accX, int accY){
         this.posX = posX;
         this.posY = posY;
@@ -22,8 +23,9 @@ class Enemy extends BasicObject{
         this.accX = accX;
         this.accY = accY;
         this.classOfObejct = 1;
-        wid = 25;
-        hei = 50;
+        scaleFactor = random(1,2);
+        wid = 15*scaleFactor;
+        hei = 15*scaleFactor;
         alive = true;
         angle = PI / 4;
         float randomHealth = random(1,3);
@@ -37,7 +39,7 @@ class Enemy extends BasicObject{
     }
 
     void drawMe(){
-        ellipse(posX,posY,15,15);
+        ellipse(posX,posY,15*scaleFactor,15*scaleFactor);
     }
 
     //update the postion of the enemy
@@ -45,11 +47,11 @@ class Enemy extends BasicObject{
         // random move
         if(alive){
             posX += velX * cos(angle);
-            posY += velY * sin(angle);
-            // angle += 0.04 * dir;
-            // if(random(0, 2) < 1){
-            //     dir *= -1;
-            // }
+            posY += velY * sin(PI/4);
+            angle += 0.04*dir;
+            if(random(0, 16) < 8){
+                dir *= -1;
+            }
         }
     }
 
@@ -69,3 +71,4 @@ class Enemy extends BasicObject{
         return 1;
     }
 }
+
