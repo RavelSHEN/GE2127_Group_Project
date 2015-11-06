@@ -21,6 +21,11 @@ Methods:
     boolean totallyDied;
     ArrayList <Bullet> bossBullets = new ArrayList <Bullet>(); //store the bullet of the boss
     //constructor to create the boss
+    BossEnemy(){
+        super();
+        totallyDied = true;
+    }
+
     BossEnemy(int posX,int posY,int velX,int velY, int accX, int accY){
         this.posX = posX;
         this.posY = posY;
@@ -49,37 +54,37 @@ Methods:
     }
 
     //control the shoot of the boss
-    // void shoot(){
-    //     // boss bullete attract to player
-    //     int bulletPosX = posX + (int) (speed * cos(angle));
-    //     int bulletPosY = posY + (int) (hei / 2);
-    //     float bulletAngle = atan2(Main.playerY - bulletPosY, Main.playerX - bulletPosX);
-    //     int bulletVelX = 8 * cos(bulletAngle);
-    //     int bulletVelY = 8 * sin(bulletAngle);
-    //     bossBullets.add(new Bullet(bulletPosX, bulletPosY, bulletVelX, bulletVelY, 1));
-    // }
+    void shoot(){
+        // boss bullete attract to player
+        int bulletPosX = int(posX + (speed * cos(angle)));
+        int bulletPosY = (int)(posY + hei / 2);
+        float bulletAngle = atan2(Main.player.posY - bulletPosY, Main.player.posX - bulletPosX);
+        int bulletVelX = (int)(8 * cos(bulletAngle));
+        int bulletVelY = (int)(8 * sin(bulletAngle));
+        bossBullets.add(new Bullet(bulletPosX,bulletPosY,bulletVelX,bulletVelY,1,attack));
+    }
 
     //track the bullets of the boss, check if the bullet hit the object
     void trackBullets(){
         // bossbullet control, if it hit the bound, remove the bullet
         for(int i = 0; i < bossBullets.size(); i++){
-            Bullet temp = bossBullets.get(i);
-            temp.update();
-            temp.drawBullet();
-            if(temp.detectBound()){
-                bossBullets.remove(temp);
+            Bullet tempBullet = bossBullets.get(i);
+            tempBullet.update();
+            tempBullet.drawBullet();
+            print (tempBullet.posX, tempBullet.posY,'\n');
+            if(tempBullet.detectBound()){
+                bossBullets.remove(i);
+                continue;
             }
-        }
-        //check if boss bullet hits player
-        for(int i = 0; i < bossBullets.size(); i++){
-            Bullet temp = bossBullets.get(i);
-            if(temp.hitObject(Main.player) && !Main.player.invincible){
+
+            if(tempBullet.hitObject(Main.player) && !Main.player.invincible){
                 Main.player.decreaseHealth(1);
                 Main.player.posX = width / 2;
                 Main.player.posY = height * 9 / 10;
                 Main.player.invincible = true;
                 Main.player.invincibleTime = millis();
             }
+
         }
     }
 }

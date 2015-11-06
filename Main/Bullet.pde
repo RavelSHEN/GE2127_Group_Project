@@ -31,7 +31,7 @@ class Bullet extends BasicObject{
 
     //decide if the bullet goes out the screen
     boolean detectBound(){
-        if(posX < 1 || posX > width - 1 || posY < 1 || posY > height - 1){
+        if(posX < 0 || posX > width || posY < 0 || posY > height){
             return true;
         }
         else{
