@@ -61,8 +61,9 @@ void draw(){
         textFont(bradly, 24);
         text("Press 1,2,3,4 to select your plane", width / 2, height / 3);
         text("Press arrow up, down, left right to move", width / 2, height / 2);
-        text("Press A to shoot", width / 2, height / 2 + 50);
-        text("Press S to start", width / 2, height / 2 + 100);
+        text("Press Z to shoot", width / 2, height / 2 + 50);
+        text("Press X to use bomb", width / 2, height / 2 + 100);
+        text("Press ENTER to start", width / 2, height / 2 + 150);
         switch (flightType){
             case 1:
                 player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 2, 1, 1, 1);
@@ -293,8 +294,8 @@ void keyPressed() {
         }
         currentPage ++;
     }
-    if (key == 'a' || key == 'A')shoot = true;
-    if (key == 'b' || key == 'B') useBomb = true;
+    if (key == 'z' || key == 'Z')shoot = true;
+    if (key == 'x' || key == 'X') useBomb = true;
     if (key == 'r' ||key == 'R') restart = true;
     if (keyCode == 49) flightType = 1;
     if (keyCode == 50) flightType = 2;
@@ -307,7 +308,7 @@ void keyPressed() {
 }
 
 void keyReleased() {
-    if (key == 'a' || key == 'A')shoot = false;
+    if (key == 'z' || key == 'Z') shoot = false;
     if (keyCode == UP) up = false;
     if (keyCode == DOWN) down = false;
     if (keyCode == LEFT) left = false;
