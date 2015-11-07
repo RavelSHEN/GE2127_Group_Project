@@ -287,11 +287,11 @@ void draw(){
 
 void keyPressed() {
     if (keyCode == ENTER){
-        pages[currentPage] = false;
-        if(currentPage < pages.length-1){
-            pages[currentPage + 1] = true;
-        }
-        if(currentPage != pages.length -1){
+        if(currentPage < pages.length){
+            pages[currentPage] = false;
+            if(currentPage < pages.length-1){
+                pages[currentPage + 1] = true;
+            }
             currentPage ++;
         }
     }
