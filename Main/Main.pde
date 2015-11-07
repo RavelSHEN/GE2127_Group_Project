@@ -291,7 +291,9 @@ void keyPressed() {
         if(currentPage < pages.length-1){
             pages[currentPage + 1] = true;
         }
-        currentPage ++;
+        if(currentPage != pages.length -1){
+            currentPage ++;
+        }
     }
     if (key == 'z' || key == 'Z') shoot = true;
     if (key == 'x' || key == 'X') useBomb = true;

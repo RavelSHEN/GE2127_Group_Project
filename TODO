@@ -2,5 +2,11 @@ TODO
 1. Enemy Plane shoot
 2. Improve the movement pattern of the Enemy Plane
 3. Show indicator when the player got hit
-4. Add Bomb
-5. Add difficulty level
+5. Add difficulty level (optional)
+
+Updated 11-07
+1. Animation design for hitting, bullet and bomb
+2. Design the looks of planes (jiang, pu)
+3. Add story page after welcome (jiang, pu)
+
+* We need to add the objects appeerance first. Since it is needed for poster.
