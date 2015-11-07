@@ -12,10 +12,10 @@ class Player extends BasicObject{
     boolean invincible; //check if current the plane is invincible
     int invincibleTime; //defines the time of invincible of the player
     ArrayList<Bullet> bullets = new ArrayList<Bullet>(); //store the information of bullets
-    float sInterval; //shooting interval
+    int sInterval; //shooting interval
     //constructor to define the basic characters of the player's plane
     //different kind of player plane can have different attackm, health or numOfBomb
-    Player(int posX,int posY,int velX,int velY, int accX, int accY,int attack,int health, int numOfBomb, float sInterval){
+    Player(int posX,int posY,int velX,int velY, int accX, int accY,int attack,int health, int numOfBomb, int sInterval){
         this.posX = posX;
         this.posY = posY;
         this.velX = velX;
@@ -93,23 +93,23 @@ class Player extends BasicObject{
     //while bomb buttom pressed, bombUsed is set to true
     int useBomb(){
         //do harm while the animation start
-            //cause harm to the boss
-            int count = 0;
-            if (Main.boss.alive){
-                Main.boss.decreaseHealth(10);
-                if(Main.boss.health <= 0){
-                    Main.boss.alive = false;
-                    Main.boss.deadTime = millis();
-                    Main.score += 100;
-                }
+        //cause harm to the boss
+        int count = 0;
+        if (Main.boss.alive){
+            Main.boss.decreaseHealth(10);
+            if(Main.boss.health <= 0){
+                Main.boss.alive = false;
+                Main.boss.deadTime = millis();
+                Main.score += 100;
             }
-            //kill all the enemies
-            for(int j = 0; j < Main.enemies.size(); j++){
-                Main.enemies.remove(j);
-                count ++;
-            }
-            fill(0,0,0);
-            rect(0,0,width,height);
-            return count;
+        }
+        //kill all the enemies
+        for(int j = 0; j < Main.enemies.size(); j++){
+            Main.enemies.remove(j);
+            count ++;
+        }
+        fill(0,0,0);
+        rect(0,0,width,height);
+        return count;
     }
 }

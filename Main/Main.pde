@@ -64,18 +64,19 @@ void draw(){
         text("Press Z to shoot", width / 2, height / 2 + 50);
         text("Press X to use bomb", width / 2, height / 2 + 100);
         text("Press ENTER to start", width / 2, height / 2 + 150);
+        // Player(posX, posY, velX, velY, accX, accY, attack, health, numOfBomb, sInterval)
         switch (flightType){
             case 1:
-                player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 2, 1, 1, 1);
+                player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 2, 1, 1, 200);
                 break;
             case 2:
-                player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 1, 2, 1, 1);
+                player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 1, 2, 1, 300);
                 break;
             case 3:
-                player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 1, 1, 2, 1);
+                player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 1, 1, 2, 400);
                 break;
             case 4:
-                player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 1, 1, 1, 4);
+                player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 1, 1, 1, 500);
                 break;
             default:
             break;
@@ -198,7 +199,6 @@ void draw(){
                 }
             }
             if (useBomb){
-
                 killedEnemy = player.useBomb();
                 useBomb = false;
             }
