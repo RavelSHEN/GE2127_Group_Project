@@ -45,7 +45,7 @@ void setup(){
 void draw(){
     //TODO: Change the background image
     image(img, 0, 0, 640, 1136);
-    if(pages[0]){
+    if(0 == currentPage){
         //TODO: Re-design the WelcomePage
         PFont arial = loadFont("Bauhaus93-48.vlw");
         textFont(arial, 48);
@@ -56,7 +56,7 @@ void draw(){
         textFont(bradly, 24);
         text("Press ENTER to continue", width / 2, height / 2);
     }
-    else if(pages[1]){
+    else if(1 == currentPage){
         PFont bradly = loadFont("BradleyHandITC-48.vlw");
         textFont(bradly, 24);
         text("Press 1,2,3,4 to select your plane", width / 2, height / 3);
@@ -83,7 +83,7 @@ void draw(){
         }
     }
     else{
-        if(alive && !bossKilled){
+        if(player.alive && !bossKilled){
             for(int i = 0; i < enemies.size(); i++) {
                 Enemy tempEnemy = enemies.get(i);
                 tempEnemy.update();
@@ -192,8 +192,7 @@ void draw(){
             if (right) player.move(speed, 0);
             if (shoot){
                 int currentTime = millis();
-                //TODO
-                if(currentTime - shootTime > 300){
+                if(currentTime - shootTime > player.sInterval){
                     player.shoot();
                     shootTime = currentTime;
                 }
@@ -219,7 +218,7 @@ void draw(){
 
             // if player is out of health, die, and create a new player
             if(player.health <= 0){
-                alive = false;
+                player.alive = false;
             }
 
             // display the score, health at right top corner at size 44
@@ -232,7 +231,7 @@ void draw(){
             text("score " + score, 550, 150);
 
         }
-        else if(alive && bossKilled){
+        else if(player.alive && bossKilled){
             for(int i = 0; i < enemies.size(); i++){
                 enemies.remove(i);
             }
@@ -262,24 +261,33 @@ void draw(){
             text("Press R to restart", width / 2, height * 2 / 3);
         }
         if(restart){
-            alive = true;
-            player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 1, 1, 1, 1);
-            score = 0;
-            killedEnemy = 0;
-            bossKilled = false;
             restart = false;
-            boss = new BossEnemy();
-            // enemy create, show up at top of the screen, move down
-            for(int i = 0; i < NUM_ENEMY; i++){
-                int enemyPosX = (int) random(0, width);
-                int enemyPosY = 0;
-                float enemyAngle = atan2(player.posY - enemyPosY, player.posX - enemyPosX);
-                int enemyVelX = (int)(4 * cos(enemyAngle) + random(-1,1));
-                int enemyVelY = (int)(4 * sin(enemyAngle) + random(-1,1));
-                int enemyType = 0;
-                print(enemyVelX, enemyVelY, "\n");
-                 enemies.add(new Enemy(enemyPosX, enemyPosY, enemyVelX, enemyVelY, 0, 0));
-            }
+            pages[0] = false;
+            pages[1] = true;
+            currentPage = 1;
+            PFont bradly = loadFont("BradleyHandITC-48.vlw");
+            textFont(bradly, 24);
+            textAlign(CENTER);
+            fill(255, 255, 255);
+            print(currentPage);
+            // alive = true;
+            // player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 1, 1, 1, 300);
+            // score = 0;
+            // killedEnemy = 0;
+            // bossKilled = false;
+            // restart = false;
+            // boss = new BossEnemy();
+            // // enemy create, show up at top of the screen, move down
+            // for(int i = 0; i < NUM_ENEMY; i++){
+            //     int enemyPosX = (int) random(0, width);
+            //     int enemyPosY = 0;
+            //     float enemyAngle = atan2(player.posY - enemyPosY, player.posX - enemyPosX);
+            //     int enemyVelX = (int)(4 * cos(enemyAngle) + random(-1,1));
+            //     int enemyVelY = (int)(4 * sin(enemyAngle) + random(-1,1));
+            //     int enemyType = 0;
+            //     print(enemyVelX, enemyVelY, "\n");
+            //      enemies.add(new Enemy(enemyPosX, enemyPosY, enemyVelX, enemyVelY, 0, 0));
+            // }
         }
     }
 }
@@ -287,13 +295,20 @@ void draw(){
 
 void keyPressed() {
     if (keyCode == ENTER){
-        if(currentPage < pages.length){
-            pages[currentPage] = false;
-            if(currentPage < pages.length-1){
-                pages[currentPage + 1] = true;
-            }
-            currentPage ++;
+        // if(currentPage < pages.length){
+        //     pages[currentPage] = false;
+        //     if(currentPage < pages.length-1){
+        //         pages[currentPage + 1] = true;
+        //     }
+        //     currentPage ++;
+        // }
+        if (1 == currentPage) {
+            currentPage = 2;
         }
+        else if (0 == currentPage) {
+            currentPage = 1;
+        }
+
     }
     if (key == 'z' || key == 'Z') shoot = true;
     if (key == 'x' || key == 'X') useBomb = true;

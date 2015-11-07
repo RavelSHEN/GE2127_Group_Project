@@ -6,6 +6,7 @@ Methods:
     useBomb(): use bomb to attack
 */
 class Player extends BasicObject{
+    int showMe = 0;
     int numOfBomb; //define the number of bomb
     boolean bombUsed = false; //check if currently the player is using bomb
     int bombTimeCounter = 0; //count how long has the bomb be lasted
@@ -37,7 +38,15 @@ class Player extends BasicObject{
     //draw the player
     void drawMe(){
         fill(200,200,200);
-        ellipse(posX,posY,20,20);
+        if (invincible) {
+            if (((millis() - invincibleTime) / 200) % 2 == 1) {
+                ellipse(posX,posY,20,20);
+            }
+        }
+        else {
+            showMe = 0;
+            ellipse(posX,posY,20,20);
+        }
     };
 
     //while the player shoots, the bullets objects are generated and stored
@@ -45,7 +54,7 @@ class Player extends BasicObject{
         int bulletPosX = posX;
         int bulletPosY = posY;
         int bulletVelX = 0;
-        int bulletVelY = -8;
+        int bulletVelY = -9;
         //add the new bullets to the array of bullets
         bullets.add(new Bullet(bulletPosX,bulletPosY,bulletVelX,bulletVelY,0,attack));
     }
