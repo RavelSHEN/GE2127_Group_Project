@@ -15,6 +15,7 @@ class Enemy extends BasicObject{
     int dir = 1;
     float angle;
     float scaleFactor;
+    int explodeCount = 0;
     Enemy(int posX,int posY,int velX,int velY, int accX, int accY){
         this.posX = posX;
         this.posY = posY;
@@ -39,9 +40,13 @@ class Enemy extends BasicObject{
     }
 
     void drawMe(){
+        ellipseMode(CENTER);
         ellipse(posX,posY,15*scaleFactor,15*scaleFactor);
     }
 
+    void drawDeath(PImage explodeImg){
+        image(explodeImg,posX - 25*scaleFactor,posY- 25*scaleFactor,50*scaleFactor,50*scaleFactor);
+    }
     //update the postion of the enemy
     void update(){
         // random move

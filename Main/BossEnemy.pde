@@ -49,6 +49,10 @@ Methods:
         ellipse(posX,posY, 100,100);
     }
 
+    void drawDeath(PImage explodeImg){
+        image(explodeImg,posX - 70,posY- 70,200,200);
+    }
+
     //update the position of the boss.
     void update(){
         if (bossMoveTime > 10){

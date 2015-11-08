@@ -20,6 +20,7 @@ static Player player;
 static BossEnemy boss;
 static ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 PImage img;  // background image
+PImage[] explode = new PImage[20];
 
 int initialPosX;
 int initialPosY;
@@ -29,7 +30,7 @@ void setup(){
     initialPosX = width / 2;
     initialPosY = height * 9 / 10;
     boss = new BossEnemy();
-    player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 1, 1, 1, 1);
+    player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 1, 1, 1, 200);
     for(int i = 0; i < NUM_ENEMY; i++){
         int enemyPosX = (int) random(0, width);
         int enemyPosY = 0;
@@ -39,6 +40,9 @@ void setup(){
         int enemyType = 0;
         print(enemyVelX, enemyVelY, "\n");
         enemies.add(new Enemy(enemyPosX, enemyPosY, enemyVelX, enemyVelY, 0, 0));
+    }
+    for(int i = 0; i < 20; i ++){
+        explode[i] = loadImage("explode" + i + ".png");
     }
 }
 
@@ -67,16 +71,16 @@ void draw(){
         // Player(posX, posY, velX, velY, accX, accY, attack, health, numOfBomb, sInterval)
         switch (flightType){
             case 1:
-                player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 2, 1, 1, 200);
+                player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 2, 1, 1, 400);
                 break;
             case 2:
-                player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 1, 2, 1, 300);
+                player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 1, 2, 1, 400);
                 break;
             case 3:
                 player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 1, 1, 2, 400);
                 break;
             case 4:
-                player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 1, 1, 1, 500);
+                player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 1, 1, 1, 200);
                 break;
             default:
             break;
@@ -100,7 +104,10 @@ void draw(){
                 if(!tempEnemy.alive){
                     int currentTime = millis();
                     tempEnemy.dieout(currentTime - tempEnemy.deadTime);
-                    if(currentTime - tempEnemy.deadTime > 1000){
+                    if(currentTime - tempEnemy.deadTime < 2000){
+                        tempEnemy.drawDeath(explode[(currentTime - tempEnemy.deadTime)/100]);
+                    }
+                    if(currentTime - tempEnemy.deadTime > 1500){
                         enemies.remove(tempEnemy);
                         score += 10;
                         if(boss.totallyDied){
@@ -131,7 +138,7 @@ void draw(){
             //     }
             //  }
 
-            if(killedEnemy >= random(1, 3)) {
+            if(killedEnemy >= random(3, 5)) {
                 int bossPosX = (int)width / 2;
                 int bossPosY = 0;
                 int bossVelX = 1;
@@ -143,6 +150,12 @@ void draw(){
             }
 
             if(boss.posY != -1){
+                if(!boss.totallyDied){
+                    boss.update();
+                    boss.drawBoss();
+                    boss.trackBullets();
+                }
+
                 if(boss.alive){
                     // boss shoots every 1 second, shooting 5 seconds, interval time is 0.3 sec
                     int currentTime = millis();
@@ -173,15 +186,13 @@ void draw(){
                 // if boss is died, wait for 3 sec, and then not draw boss
                 else{
                     int currentTime = millis();
+                    if(currentTime - boss.deadTime < 3000){
+                        boss.drawDeath(explode[(currentTime - boss.deadTime)/150]);
+                    }
                     if(currentTime - boss.deadTime > 500){
                         boss.totallyDied = true;
                         bossKilled = true;
                     }
-                }
-                if(!boss.totallyDied){
-                    boss.update();
-                    boss.drawBoss();
-                    boss.trackBullets();
                 }
             }
 
@@ -198,6 +209,7 @@ void draw(){
                 }
             }
             if (useBomb){
+
                 killedEnemy = player.useBomb();
                 useBomb = false;
             }
@@ -270,24 +282,24 @@ void draw(){
             textAlign(CENTER);
             fill(255, 255, 255);
             print(currentPage);
-            // alive = true;
-            // player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 1, 1, 1, 300);
-            // score = 0;
-            // killedEnemy = 0;
-            // bossKilled = false;
-            // restart = false;
-            // boss = new BossEnemy();
-            // // enemy create, show up at top of the screen, move down
-            // for(int i = 0; i < NUM_ENEMY; i++){
-            //     int enemyPosX = (int) random(0, width);
-            //     int enemyPosY = 0;
-            //     float enemyAngle = atan2(player.posY - enemyPosY, player.posX - enemyPosX);
-            //     int enemyVelX = (int)(4 * cos(enemyAngle) + random(-1,1));
-            //     int enemyVelY = (int)(4 * sin(enemyAngle) + random(-1,1));
-            //     int enemyType = 0;
-            //     print(enemyVelX, enemyVelY, "\n");
-            //      enemies.add(new Enemy(enemyPosX, enemyPosY, enemyVelX, enemyVelY, 0, 0));
-            // }
+            alive = true;
+            player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 1, 1, 1, 300);
+            score = 0;
+            killedEnemy = 0;
+            bossKilled = false;
+            restart = false;
+            boss = new BossEnemy();
+            // enemy create, show up at top of the screen, move down
+            for(int i = 0; i < NUM_ENEMY; i++){
+                int enemyPosX = (int) random(0, width);
+                int enemyPosY = 0;
+                float enemyAngle = atan2(player.posY - enemyPosY, player.posX - enemyPosX);
+                int enemyVelX = (int)(4 * cos(enemyAngle) + random(-1,1));
+                int enemyVelY = (int)(4 * sin(enemyAngle) + random(-1,1));
+                int enemyType = 0;
+                print(enemyVelX, enemyVelY, "\n");
+                 enemies.add(new Enemy(enemyPosX, enemyPosY, enemyVelX, enemyVelY, 0, 0));
+            }
         }
     }
 }
