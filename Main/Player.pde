@@ -29,23 +29,25 @@ class Player extends BasicObject{
         this.sInterval = sInterval;
         invincibleTime = 0;
         invincible = false;
-        wid = 25;
-        hei = 50;
+        wid = 30;
+        hei = 60;
         classOfObejct = 0;
         alive = true;
     }
 
     //draw the player
-    void drawMe(){
+    void drawMe(PImage playerImg){
         fill(200,200,200);
         if (invincible) {
             if (((millis() - invincibleTime) / 200) % 2 == 1) {
-                ellipse(posX,posY,20,20);
+                image(playerImg,posX-15,posY-15,30,60);
+                // ellipse(posX,posY,20,20);
             }
         }
         else {
             showMe = 0;
-            ellipse(posX,posY,20,20);
+            image(playerImg,posX-15,posY-15,30,60);
+            // ellipse(posX,posY,20,20);
         }
     };
 

@@ -45,12 +45,12 @@ Methods:
     }
 
     //draw the boss
-    void drawBoss(){
-        ellipse(posX,posY, 100,100);
+    void drawBoss(PImage bossImg){
+        image(bossImg,posX-100, posY-100, 200,200);
     }
 
     void drawDeath(PImage explodeImg){
-        image(explodeImg,posX - 70,posY- 70,200,200);
+        image(explodeImg,posX - 100,posY- 100,200,200);
     }
 
     //update the position of the boss.
