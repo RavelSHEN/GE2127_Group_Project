@@ -74,6 +74,7 @@ class Player extends BasicObject{
             //detect if the bullet hit the boss and cause the damage if yes
             if(tempBullet.hitObject(Main.boss) && Main.boss.alive){
                 Main.boss.decreaseHealth(attack);
+                tempBullet.drawHit();
                 bullets.remove(i);
                 if(Main.boss.health <= 0){
                     Main.boss.alive = false;
@@ -85,6 +86,7 @@ class Player extends BasicObject{
             for(int j = 0; j < Main.enemies.size(); j++){
                 Enemy tempEnemy = Main.enemies.get(j);
                 if(tempBullet.hitObject(tempEnemy) && tempEnemy.alive){
+                    tempBullet.drawHit();
                     tempEnemy.decreaseHealth(attack);
                     // if enemy is totally hitted, wait one 1s, and then removed
                     if(tempEnemy.health <= 0){

@@ -63,6 +63,9 @@ class Bullet extends BasicObject{
         }
     }
 
+    void drawHit(){
+        image(explode[5],posX,posY,10,10);
+    }
     //decide if the bullet hit the object
     boolean hitObject(BasicObject obj){
         if(abs(obj.posX - posX) < obj.wid/ 2 && abs(obj.posY - posY) < obj.hei/ 2){
