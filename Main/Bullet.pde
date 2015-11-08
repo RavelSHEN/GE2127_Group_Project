@@ -19,8 +19,32 @@ class Bullet extends BasicObject{
 
     //draw the bullet on the canvas
     void drawBullet(){
-        fill(255,255,255);
-        ellipse(posX,posY,5,5);
+        if (classOfObejct == 0){
+            colorMode(RGB,255,255,255);
+            noStroke();
+            fill(255,0,0);
+            ellipse(posX, posY, 6, 6);
+            fill(255,153,51);
+            ellipse(posX,posY, 4, 4);
+            fill(255,255,0);
+            ellipse(posX,posY, 2, 2);
+            fill(255,255,102);
+            ellipse(posX,posY, 1, 1);
+            stroke(1);
+        }
+        else{
+            colorMode(RGB,255,255,255);
+            noStroke();
+            fill(51,153,255);
+            ellipse(posX, posY, 8, 8);
+            fill(102,178,255);
+            ellipse(posX,posY, 6, 6);
+            fill(204,229,255);
+            ellipse(posX,posY, 4, 4);
+            fill(255,255,255);
+            ellipse(posX,posY, 2, 2);
+            stroke(1);
+        }
     }
 
     //update the position of the bullet
