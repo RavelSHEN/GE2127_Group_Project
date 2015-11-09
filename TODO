@@ -1,13 +1,6 @@
 TODO
-1. Enemy Plane shoot
-2. Improve the movement pattern of the Enemy Plane
-5. Add difficulty level (optional)
-
-Updated 11-07
-1. Animation design for hitting, bullet and bomb
-2. Design the looks of planes (jiang, pu)
-3. Add story page after welcome (jiang, pu)
-
-* We need to add the objects appearance first. Since it is needed for poster.
-
-- Configure the parameters for different planes
+- Background Image
+- Design of Plane
+- Add page for story
+- Parameters for Planes
+- Sound Effect
