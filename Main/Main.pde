@@ -26,6 +26,10 @@ PImage[] bomb = new PImage[30];
 int bombX;
 int bombY;
 int bombCounter;
+PImage bossImg;
+PImage enemyImg;
+PImage playerImg;
+
 
 int initialPosX;
 int initialPosY;
@@ -49,9 +53,15 @@ void setup(){
     for (int i = 0; i < 20; i ++){
         explode[i] = loadImage("explode" + i + ".png");
     }
+<<<<<<< HEAD
     for (int i = 1; i < 29; ++i) {
         bomb[i] = loadImage("Bomb" + i + ".png");
     }
+=======
+    bossImg = loadImage("boss.png");
+    enemyImg = loadImage("enemy.png");
+    playerImg = loadImage("player.png");
+>>>>>>> dd7f1e37127f9e1863f28815fadfa033961177c2
 }
 
 void draw(){
@@ -100,7 +110,7 @@ void draw(){
                 Enemy tempEnemy = enemies.get(i);
                 tempEnemy.update();
                 tempEnemy.detectBound();
-                tempEnemy.drawMe();
+                tempEnemy.drawMe(enemyImg);
 
                 // detect collision between enemy and player
                 if(player.hitObject(tempEnemy) && !player.invincible) {
@@ -115,7 +125,7 @@ void draw(){
                     if(currentTime - tempEnemy.deadTime < 2000){
                         tempEnemy.drawDeath(explode[(currentTime - tempEnemy.deadTime)/100]);
                     }
-                    if(currentTime - tempEnemy.deadTime > 1500){
+                    if(currentTime - tempEnemy.deadTime > 1000){
                         enemies.remove(tempEnemy);
                         score += 10;
                         if(boss.totallyDied){
@@ -160,7 +170,7 @@ void draw(){
             if(boss.posY != -1){
                 if(!boss.totallyDied){
                     boss.update();
-                    boss.drawBoss();
+                    boss.drawBoss(bossImg);
                     boss.trackBullets();
                 }
 
@@ -257,7 +267,7 @@ void draw(){
 
             player.update();
             player.detectBound();
-            player.drawMe();
+            player.drawMe(playerImg);
             player.trackBullets();
             // if player is invincible, count invincible time
             if(player.invincible){

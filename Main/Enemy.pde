@@ -25,8 +25,8 @@ class Enemy extends BasicObject{
         this.accY = accY;
         this.classOfObejct = 1;
         scaleFactor = random(1,2);
-        wid = 15*scaleFactor;
-        hei = 15*scaleFactor;
+        wid = 30*scaleFactor;
+        hei = 30*scaleFactor;
         alive = true;
         angle = PI / 4;
         float randomHealth = random(1,3);
@@ -39,13 +39,12 @@ class Enemy extends BasicObject{
         }
     }
 
-    void drawMe(){
-        ellipseMode(CENTER);
-        ellipse(posX,posY,15*scaleFactor,15*scaleFactor);
+    void drawMe(PImage enemyImg){
+        image(enemyImg,posX - 15*scaleFactor,posY- 15*scaleFactor,30*scaleFactor,30*scaleFactor);
     }
 
     void drawDeath(PImage explodeImg){
-        image(explodeImg,posX - 25*scaleFactor,posY- 25*scaleFactor,50*scaleFactor,50*scaleFactor);
+        image(explodeImg,posX - 15*scaleFactor,posY- 15*scaleFactor,30*scaleFactor,30*scaleFactor);
     }
     //update the postion of the enemy
     void update(){
