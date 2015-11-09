@@ -224,7 +224,7 @@ void draw(){
                 }
             }
             if ((useBomb) && (player.numOfBomb > 0) && (bombing == 0)) {
-                // player.numOfBomb--;
+                player.numOfBomb--;
                 bombing = 1;
                 bombCounter = millis();
                 bombX = player.posX;
