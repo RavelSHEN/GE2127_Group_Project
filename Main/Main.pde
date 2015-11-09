@@ -53,15 +53,12 @@ void setup(){
     for (int i = 0; i < 20; i ++){
         explode[i] = loadImage("explode" + i + ".png");
     }
-<<<<<<< HEAD
     for (int i = 1; i < 29; ++i) {
         bomb[i] = loadImage("Bomb" + i + ".png");
     }
-=======
     bossImg = loadImage("boss.png");
     enemyImg = loadImage("enemy.png");
     playerImg = loadImage("player.png");
->>>>>>> dd7f1e37127f9e1863f28815fadfa033961177c2
 }
 
 void draw(){
