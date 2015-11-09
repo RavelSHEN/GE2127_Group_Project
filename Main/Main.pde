@@ -8,6 +8,7 @@ boolean restart = false;  // restart game
 static int score = 0;
 boolean alive = true;  // if the player is alive
 boolean bossKilled = false;
+int bombing = 0;
 int currentPage = 0;
 int flightType;
 int shootTime = 0;  // shoot interval time
@@ -21,6 +22,10 @@ static BossEnemy boss;
 static ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 PImage img;  // background image
 PImage[] explode = new PImage[20];
+PImage[] bomb = new PImage[30];
+int bombX;
+int bombY;
+int bombCounter;
 
 int initialPosX;
 int initialPosY;
@@ -31,18 +36,21 @@ void setup(){
     initialPosY = height * 9 / 10;
     boss = new BossEnemy();
     player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 1, 1, 1, 200);
-    for(int i = 0; i < NUM_ENEMY; i++){
+    for (int i = 0; i < NUM_ENEMY; i++){
         int enemyPosX = (int) random(0, width);
         int enemyPosY = 0;
         float enemyAngle = atan2(player.posY - enemyPosY, player.posX - enemyPosX);
         int enemyVelX = (int)(4 * cos(enemyAngle) + random(-1,1));
         int enemyVelY = (int)(4 * sin(enemyAngle) + random(-1,1));
         int enemyType = 0;
-        print(enemyVelX, enemyVelY, "\n");
+        // print(enemyVelX, enemyVelY, "\n");
         enemies.add(new Enemy(enemyPosX, enemyPosY, enemyVelX, enemyVelY, 0, 0));
     }
-    for(int i = 0; i < 20; i ++){
+    for (int i = 0; i < 20; i ++){
         explode[i] = loadImage("explode" + i + ".png");
+    }
+    for (int i = 1; i < 29; ++i) {
+        bomb[i] = loadImage("Bomb" + i + ".png");
     }
 }
 
@@ -116,16 +124,16 @@ void draw(){
                     }
                 }
             }
-
-            for(int i = 0; i < (NUM_ENEMY- enemies.size()); i++){
-                int enemyPosX = (int) random(0, width);
-                int enemyPosY = 0;
-                float enemyAngle = atan2(player.posY - enemyPosY, player.posX - enemyPosX);
-                int enemyVelX = (int)(4 * cos(enemyAngle) + random(-1,1));
-                int enemyVelY = (int)(4 * sin(enemyAngle) + random(-1,1));
-                int enemyType = 0;
-                print(enemyVelX, enemyVelY, "\n");
-                enemies.add(new Enemy(enemyPosX, enemyPosY, enemyVelX, enemyVelY, 0, 0));
+            if (bombing == 0) {
+                for(int i = 0; i < (NUM_ENEMY- enemies.size()); i++){
+                    int enemyPosX = (int) random(0, width);
+                    int enemyPosY = 0;
+                    float enemyAngle = atan2(player.posY - enemyPosY, player.posX - enemyPosX);
+                    int enemyVelX = (int)(4 * cos(enemyAngle) + random(-1,1));
+                    int enemyVelY = (int)(4 * sin(enemyAngle) + random(-1,1));
+                    int enemyType = 0;
+                    enemies.add(new Enemy(enemyPosX, enemyPosY, enemyVelX, enemyVelY, 0, 0));
+                }
             }
             // if(boss.totallyDied == true){
             //     // produce enemy only boss is not on the screen
@@ -208,11 +216,43 @@ void draw(){
                     shootTime = currentTime;
                 }
             }
-            if (useBomb){
-
-                killedEnemy = player.useBomb();
+            if ((useBomb) && (player.numOfBomb > 0) && (bombing == 0)) {
+                // player.numOfBomb--;
+                bombing = 1;
+                bombCounter = millis();
+                bombX = player.posX;
+                bombY = player.posY;
                 useBomb = false;
             }
+
+            if (bombing == 2) {
+                boss.emptyBullets();
+                int currentTime = millis();
+                int currentStage = (currentTime - bombCounter) / 100 + 1;
+                if (currentStage > 28) {
+                    bombing = 0;
+                }
+                else {
+                    // println("currentStage: "+currentStage);
+                    image(bomb[currentStage], bombX - 350, bombY - 350, 700, 700);
+                }
+
+            }
+
+            if (bombing == 1) {
+                int currentTime = millis();
+                int currentStage = (currentTime - bombCounter) / 100 + 1;
+                if (currentStage < 10) {
+                    // println("currentStage: "+currentStage);
+                    image(bomb[currentStage], bombX - 350, bombY - 350, 700, 700);
+                }
+                else {
+                    bombing = 2;
+                    killedEnemy = killedEnemy + player.useBomb();
+                }
+            }
+
+
 
 
             player.update();
@@ -222,7 +262,7 @@ void draw(){
             // if player is invincible, count invincible time
             if(player.invincible){
                 int currentTime = millis();
-                println("currentTime - invincibleTime = " + (currentTime - player.invincibleTime));
+                // println("currentTime - invincibleTime = " + (currentTime - player.invincibleTime));
                 if(currentTime - player.invincibleTime >= 3000){
                     player.invincible = false;
                 }
@@ -281,7 +321,7 @@ void draw(){
             textFont(bradly, 24);
             textAlign(CENTER);
             fill(255, 255, 255);
-            print(currentPage);
+            // print(currentPage);
             alive = true;
             player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 1, 1, 1, 300);
             score = 0;
@@ -297,7 +337,7 @@ void draw(){
                 int enemyVelX = (int)(4 * cos(enemyAngle) + random(-1,1));
                 int enemyVelY = (int)(4 * sin(enemyAngle) + random(-1,1));
                 int enemyType = 0;
-                print(enemyVelX, enemyVelY, "\n");
+                // print(enemyVelX, enemyVelY, "\n");
                  enemies.add(new Enemy(enemyPosX, enemyPosY, enemyVelX, enemyVelY, 0, 0));
             }
         }

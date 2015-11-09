@@ -89,7 +89,7 @@ Methods:
             Bullet tempBullet = bossBullets.get(i);
             tempBullet.update();
             tempBullet.drawBullet();
-            print (tempBullet.posX, tempBullet.posY,'\n');
+            // print (tempBullet.posX, tempBullet.posY,'\n');
             if(tempBullet.detectBound()){
                 bossBullets.remove(i);
                 continue;
@@ -103,6 +103,14 @@ Methods:
                 Main.player.invincibleTime = millis();
             }
 
+        }
+    }
+
+    //when player use bomb, remove all the exsiting bullets
+    void emptyBullets() {
+        for(int i = 0; i < bossBullets.size(); i++){
+            Bullet tempBullet = bossBullets.get(i);
+            bossBullets.remove(i);
         }
     }
 }

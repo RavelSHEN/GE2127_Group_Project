@@ -9,7 +9,7 @@ class Player extends BasicObject{
     int showMe = 0;
     int numOfBomb; //define the number of bomb
     boolean bombUsed = false; //check if currently the player is using bomb
-    int bombTimeCounter = 0; //count how long has the bomb be lasted
+    int bombTimeCounter = 1500; //count how long has the bomb be lasted
     boolean invincible; //check if current the plane is invincible
     int invincibleTime; //defines the time of invincible of the player
     ArrayList<Bullet> bullets = new ArrayList<Bullet>(); //store the information of bullets
@@ -114,13 +114,18 @@ class Player extends BasicObject{
                 Main.score += 100;
             }
         }
+        //remove all bullets
+        Main.boss.emptyBullets();
         //kill all the enemies
         for(int j = 0; j < Main.enemies.size(); j++){
-            Main.enemies.remove(j);
+            println("j: "+j);
+            Enemy tempEnemy = Main.enemies.get(j);
+            tempEnemy.alive = false;
+            tempEnemy.deadTime = millis();
             count ++;
         }
-        fill(0,0,0);
-        rect(0,0,width,height);
+        // fill(0,0,0);
+        // rect(0,0,width,height);
         return count;
     }
 }
