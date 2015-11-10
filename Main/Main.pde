@@ -107,7 +107,7 @@ void draw(){
                 Enemy tempEnemy = enemies.get(i);
                 tempEnemy.update();
                 tempEnemy.detectBound();
-                tempEnemy.drawMe(enemyImg);
+                tempEnemy.drawMe();
 
                 // detect collision between enemy and player
                 if(player.hitObject(tempEnemy) && !player.invincible) {
