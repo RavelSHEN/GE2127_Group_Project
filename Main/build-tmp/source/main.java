@@ -190,10 +190,6 @@ Methods:
         angle = 0;
     }
 
-    //draw the boss
-    public void drawBoss(PImage bossImg){
-        image(bossImg,posX-100, posY-100, 200,200);
-    }
 
     public void drawDeath(PImage explodeImg){
         image(explodeImg,posX - 100,posY- 100,200,200);
@@ -258,6 +254,189 @@ Methods:
             Bullet tempBullet = bossBullets.get(i);
             bossBullets.remove(i);
         }
+    }
+
+        //draw the boss
+    public void drawBoss(){
+        pushMatrix();
+        translate(posX - 185, posY - 100);
+        smooth();
+        colorMode(RGB);
+
+        //back guns
+        fill(100);
+        rect(140,135,97,54);
+        rect(151,56,9,17);
+        rect(220,56,9,17);
+        rect(152,69,11,17);
+        rect(218,69,11,17);
+
+        //body--back
+        fill(150);
+        triangle(116,83,144,18,144,83);
+        triangle(261,82,235,16,235,82);
+
+        fill(160,184,4);//green
+        quad(101,89,152,70,152,176,101,192);
+        quad(278,89,228,70,228,176,278,192);//cutong
+
+        fill(166,203,47);//light green
+        rect(106,83,21,53);
+        rect(251,83,21,53);
+        fill(150);//gray
+        rect(106,112,35,30);
+        rect(238,112,35,30);
+
+        fill(160,184,4);//green
+        rect(141,23,15,107);
+        rect(224,22,15,107);
+        quad(144,13,152,17,135,50,127,46);
+        quad(226,16,234,12,250,46,243,50);
+        fill(100);
+        triangle(135,50,127,46,138,25);
+        triangle(243,50,250,46,240,24);//zhuazi
+
+        //wings-- up guns
+        fill(100);
+        rect(89,120,10,5);
+        rect(108,120,10,5);//l
+        rect(264,120,10,5);
+        rect(283,120,10,5);//r
+        bezier(86,122,89,105,98,105,101,122);
+        bezier(105,122,107,105,117,105,120,122);//l
+        bezier(262,122,265,105,273,105,277,122);
+        bezier(281,122,284,105,292,105,296,122);//r
+
+        //down-guns
+        rect(38,167,15,15);
+        rect(41,182,10,10);
+        rect(59,171,15,15);
+        rect(62,186,10,10);
+        rect(330,168,15,15);
+        rect(333,183,10,10);
+        rect(306,170,15,15);
+        rect(308,185,10,10);
+        fill(130);
+        rect(86,163,32,34);
+        rect(94,197,18,20);
+        rect(260,161,32,34);
+        rect(268,195,18,20);
+        fill(185,0,0);//red
+        rect(41,190,10,5,3);
+        rect(41,190,10,5,3);
+        rect(62,197,10,5,3);
+        rect(308,194,10,5,3);
+        rect(333,193,10,5,3);
+        rect(94,217,18,5,3);
+        rect(268,215,18,5,3);
+
+        //wings
+        fill(166,203,47);
+        beginShape();
+        vertex(8,124);
+        vertex(145,124);
+        vertex(145,170);
+        vertex(106,163);
+        vertex(97,164);
+        vertex(81,177);
+        vertex(16,164);
+        endShape(CLOSE);//l
+        beginShape();
+        vertex(370,124);
+        vertex(234,124);
+        vertex(234,170);
+        vertex(271,163);
+        vertex(285,164);
+        vertex(297,177);
+        vertex(366,164);
+        endShape(CLOSE);//r
+        fill(180);
+        rect(25,124,37,38);
+        rect(317,124,37,38);
+        fill(200);
+        ellipse(44,144,30,30);
+        ellipse(335,145,30,30);
+        fill(185,0,0);//red
+        ellipse(44,144,15,15);
+        ellipse(335,145,15,15);
+        fill(150);
+        ellipse(44,134,15,15);
+        ellipse(335,134,15,15);
+        fill(120,139,58);
+        ellipse(93,145,14,35);
+        ellipse(286,145,14,35);
+
+        //body
+        fill(176,180,33);
+        quad(157,84,179,75,179,143,157,143);
+        quad(224,84,200,75,200,143,224,143);
+        fill(178,214,64);
+        beginShape();
+        vertex(176,42);
+        vertex(180,42);
+        vertex(184,78);
+        vertex(181,80);
+        vertex(176,80);
+        vertex(173,78);
+        endShape(CLOSE);//l
+        beginShape();
+        vertex(199,42);
+        vertex(202,42);
+        vertex(206,78);
+        vertex(203,80);
+        vertex(199,80);
+        vertex(195,78);
+        endShape(CLOSE);
+
+        fill(178,214,64);//light green
+        rect(146,114,12,53,8);
+        rect(223,114,12,53,8);
+
+        beginShape();
+        vertex(185,70);
+        vertex(185,77);
+        vertex(181,81);
+        vertex(181,108);
+        vertex(198,108);
+        vertex(198,82);
+        vertex(194,77);
+        vertex(194,70);
+        endShape(CLOSE);//bottle
+        fill(0);//black
+        rect(177,164,27,30);
+        fill(120);
+        rect(181,108,17,30);
+        rect(186,109,8,52);
+
+        fill(178,214,64);
+        rect(184,160,12,38,8);
+        fill(160,184,4);//green
+        rect(145,186,41,23,10);
+        rect(193,186,41,23,10);
+
+        //mark
+        fill(0);
+        triangle(156,93,178,93,168,110);
+        fill(210);
+        ellipse(168,97,16,16);
+        fill(168,0,0);
+        beginShape();
+        vertex(166,94);
+        vertex(170,94);
+        vertex(169,96);
+        vertex(172,97);
+        vertex(167,104);
+        vertex(167,98);
+        vertex(164,99);
+        endShape(CLOSE);
+
+        fill(247,247,0);
+        triangle(262,86,254,99,271,99);
+        line(260,98,260,95);
+        line(260,95,265,95);
+        fill(168,0,0);
+        ellipse(263,92,3,3);
+        popMatrix();
     }
 }
 /*
@@ -380,7 +559,7 @@ class Enemy extends BasicObject{
     }
 
     public void drawDeath(PImage explodeImg){
-        image(explodeImg,posX - 15*scaleFactor,posY- 15*scaleFactor,30*scaleFactor,30*scaleFactor);
+        image(explodeImg,posX - 15*scaleFactor,posY- 15*scaleFactor,40*scaleFactor,40*scaleFactor);
     }
     //update the postion of the enemy
     public void update(){
@@ -413,284 +592,284 @@ class Enemy extends BasicObject{
 
     public void drawMe(){
         pushMatrix();
-        translate(posX-100, posY-100);
-        rotate(PI/2);
-        scale(scaleFactor);
+        translate(posX + 30, posY + 30);
+        rotate(PI);
+        scale(scaleFactor/10);
         smooth();
-          strokeWeight(1);
-          beginShape();
-          fill(50);
-          vertex(150,15);
-          vertex(147,16);
-          vertex(145,18);
-          vertex(137,27);
-          vertex(130,43);
-          vertex(126,80);
-          vertex(135,86);
-          vertex(139,46);
-          vertex(147,26);
-          vertex(153,26);
-          vertex(161,46);
-          vertex(165,86);
-          vertex(174,80);
-          vertex(170,43);
-          vertex(163,27);
-          vertex(155,18);
-          vertex(153,16);
-          vertex(150,15);
-          endShape();
+              strokeWeight(1);
+              beginShape();
+              fill(50);
+              vertex(150,15);
+              vertex(147,16);
+              vertex(145,18);
+              vertex(137,27);
+              vertex(130,43);
+              vertex(126,80);
+              vertex(135,86);
+              vertex(139,46);
+              vertex(147,26);
+              vertex(153,26);
+              vertex(161,46);
+              vertex(165,86);
+              vertex(174,80);
+              vertex(170,43);
+              vertex(163,27);
+              vertex(155,18);
+              vertex(153,16);
+              vertex(150,15);
+              endShape();
 
-          strokeWeight(3);
-          fill(200);
-          beginShape();
-          vertex(135,86);
-          vertex(139,46);
-          vertex(147,26);
-          vertex(153,26);
-          vertex(161,46);
-          vertex(165,86);
-          vertex(157,96);
-          vertex(143,96);
-          vertex(135,86);
-          endShape();
+              strokeWeight(3);
+              fill(200);
+              beginShape();
+              vertex(135,86);
+              vertex(139,46);
+              vertex(147,26);
+              vertex(153,26);
+              vertex(161,46);
+              vertex(165,86);
+              vertex(157,96);
+              vertex(143,96);
+              vertex(135,86);
+              endShape();
 
-          beginShape();
-          vertex(139,46);
-          vertex(146,53);
-          vertex(154,53);
-          vertex(161,46);
-          endShape();
-          line(146,53,143,96);
-          line(154,53,157,96);
+              beginShape();
+              vertex(139,46);
+              vertex(146,53);
+              vertex(154,53);
+              vertex(161,46);
+              endShape();
+              line(146,53,143,96);
+              line(154,53,157,96);
 
-          fill(30);                             //left 1 wing
-          beginShape();
-          vertex(93,148);//
-          vertex(15,335);
-          vertex(19,353);////
-          vertex(39,329);
-          vertex(36,323);////
-          vertex(95,211);//
-          vertex(89,186);
-          vertex(93,148);
-          endShape();
+              fill(30);                             //left 1 wing
+              beginShape();
+              vertex(93,148);//
+              vertex(15,335);
+              vertex(19,353);////
+              vertex(39,329);
+              vertex(36,323);////
+              vertex(95,211);//
+              vertex(89,186);
+              vertex(93,148);
+              endShape();
 
-          beginShape();                         //right 1 wing
-          vertex(207,148);//
-          vertex(285,335);
-          vertex(281,353);////
-          vertex(261,329);
-          vertex(264,323);////
-          vertex(205,211);//
-          vertex(211,186);
-          vertex(207,148);
-          endShape();
+              beginShape();                         //right 1 wing
+              vertex(207,148);//
+              vertex(285,335);
+              vertex(281,353);////
+              vertex(261,329);
+              vertex(264,323);////
+              vertex(205,211);//
+              vertex(211,186);
+              vertex(207,148);
+              endShape();
 
-          fill(220);
-          beginShape();                         //left 2 wing
-          vertex(109,240);////
-          vertex(26,370);
-          vertex(19,353);////
-          vertex(39,329);
-          vertex(36,323);////
-          vertex(95,211);//
-          vertex(137,214);
-          vertex(109,240);
-          endShape();
+              fill(220);
+              beginShape();                         //left 2 wing
+              vertex(109,240);////
+              vertex(26,370);
+              vertex(19,353);////
+              vertex(39,329);
+              vertex(36,323);////
+              vertex(95,211);//
+              vertex(137,214);
+              vertex(109,240);
+              endShape();
 
-          beginShape();                         //right 2 wing
-          vertex(191,240);////
-          vertex(274,370);
-          vertex(281,353);////
-          vertex(261,329);
-          vertex(264,323);////
-          vertex(205,211);//
-          vertex(163,214);
-          vertex(191,240);
-          endShape();
+              beginShape();                         //right 2 wing
+              vertex(191,240);////
+              vertex(274,370);
+              vertex(281,353);////
+              vertex(261,329);
+              vertex(264,323);////
+              vertex(205,211);//
+              vertex(163,214);
+              vertex(191,240);
+              endShape();
 
-          fill(35);
-          strokeWeight(1);
-          beginShape();
-          vertex(150,155);
-          vertex(123,116);
-          vertex(126,80);
-          vertex(135,86);
-          vertex(143,96);
-          vertex(157,96);
-          vertex(165,86);
-          vertex(174,80);
-          vertex(177,116);
-          vertex(150,155);
-          endShape();
+              fill(35);
+              strokeWeight(1);
+              beginShape();
+              vertex(150,155);
+              vertex(123,116);
+              vertex(126,80);
+              vertex(135,86);
+              vertex(143,96);
+              vertex(157,96);
+              vertex(165,86);
+              vertex(174,80);
+              vertex(177,116);
+              vertex(150,155);
+              endShape();
 
-          fill(30);
-          beginShape();
-          vertex(125,90);
-          vertex(110,97);
-          vertex(93,148);
-          vertex(98,151);
-          vertex(103,131);
-          vertex(109,133);
-          vertex(115,114);
-          vertex(123,110);
-          endShape();
+              fill(30);
+              beginShape();
+              vertex(125,90);
+              vertex(110,97);
+              vertex(93,148);
+              vertex(98,151);
+              vertex(103,131);
+              vertex(109,133);
+              vertex(115,114);
+              vertex(123,110);
+              endShape();
 
-          beginShape();
-          vertex(175,90);
-          vertex(190,97);
-          vertex(207,148);
-          vertex(202,151);
-          vertex(197,131);
-          vertex(191,133);
-          vertex(185,114);
-          vertex(177,110);
-          endShape();
+              beginShape();
+              vertex(175,90);
+              vertex(190,97);
+              vertex(207,148);
+              vertex(202,151);
+              vertex(197,131);
+              vertex(191,133);
+              vertex(185,114);
+              vertex(177,110);
+              endShape();
 
-          fill(50);
-          beginShape();
-          vertex(93,148);//
-          vertex(89,186);//
-          vertex(98,217);
-          vertex(109,224);//
-          vertex(141,230);
-          vertex(140,216);
-          vertex(147,194);
-          vertex(150,194);
-          vertex(150,155);
-          vertex(123,116);
-          vertex(123,110);
-          vertex(115,114);
-          vertex(109,133);
-          vertex(103,131);
-          vertex(98,151);
-          vertex(93,148);
-          endShape();
+              fill(50);
+              beginShape();
+              vertex(93,148);//
+              vertex(89,186);//
+              vertex(98,217);
+              vertex(109,224);//
+              vertex(141,230);
+              vertex(140,216);
+              vertex(147,194);
+              vertex(150,194);
+              vertex(150,155);
+              vertex(123,116);
+              vertex(123,110);
+              vertex(115,114);
+              vertex(109,133);
+              vertex(103,131);
+              vertex(98,151);
+              vertex(93,148);
+              endShape();
 
-          beginShape();
-          vertex(207,148);//
-          vertex(211,186);//
-          vertex(202,217);
-          vertex(191,224);//
-          vertex(159,230);
-          vertex(160,216);
-          vertex(153,194);
-          vertex(150,194);
-          vertex(150,155);
-          vertex(177,116);
-          vertex(177,110);
-          vertex(185,114);
-          vertex(191,133);
-          vertex(197,131);
-          vertex(202,151);
-          vertex(207,148);
-          endShape();
+              beginShape();
+              vertex(207,148);//
+              vertex(211,186);//
+              vertex(202,217);
+              vertex(191,224);//
+              vertex(159,230);
+              vertex(160,216);
+              vertex(153,194);
+              vertex(150,194);
+              vertex(150,155);
+              vertex(177,116);
+              vertex(177,110);
+              vertex(185,114);
+              vertex(191,133);
+              vertex(197,131);
+              vertex(202,151);
+              vertex(207,148);
+              endShape();
 
 
 
-          fill(30);
-          beginShape();                            //left 1 tail
-          vertex(118,226);
-          vertex(111,233);
-          vertex(106,284);
-          vertex(143,244+12);
-          vertex(141,230);
-          endShape();
+              fill(30);
+              beginShape();                            //left 1 tail
+              vertex(118,226);
+              vertex(111,233);
+              vertex(106,284);
+              vertex(143,244+12);
+              vertex(141,230);
+              endShape();
 
-          beginShape();                            //right 1 tail
-          vertex(182,226);
-          vertex(189,233);
-          vertex(194,284);
-          vertex(157,244+12);
-          vertex(159,230);
-          endShape();
+              beginShape();                            //right 1 tail
+              vertex(182,226);
+              vertex(189,233);
+              vertex(194,284);
+              vertex(157,244+12);
+              vertex(159,230);
+              endShape();
 
-          fill(230);                               //left 2 tail
-          beginShape();
-          vertex(128,229);
-          vertex(125,234);
-          vertex(127,252);
-          vertex(143,244);
-          vertex(141,230);
-          endShape();
+              fill(230);                               //left 2 tail
+              beginShape();
+              vertex(128,229);
+              vertex(125,234);
+              vertex(127,252);
+              vertex(143,244);
+              vertex(141,230);
+              endShape();
 
-          beginShape();                           //right 2 tail
-          vertex(172,229);
-          vertex(175,234);
-          vertex(173,252);
-          vertex(157,244);
-          vertex(159,230);
-          endShape();
+              beginShape();                           //right 2 tail
+              vertex(172,229);
+              vertex(175,234);
+              vertex(173,252);
+              vertex(157,244);
+              vertex(159,230);
+              endShape();
 
-          fill(150);
-          strokeWeight(2);
-          beginShape();
-          vertex(141,230+12);
-          vertex(140,216+12);
-          vertex(147,194);
-          vertex(153,194);
-          vertex(160,216+12);
-          vertex(159,230+12);
-          vertex(157,244+12);
-          vertex(150,257+12);
-          vertex(143,244+12);
-          vertex(141,230+12);
-          endShape();
+              fill(150);
+              strokeWeight(2);
+              beginShape();
+              vertex(141,230+12);
+              vertex(140,216+12);
+              vertex(147,194);
+              vertex(153,194);
+              vertex(160,216+12);
+              vertex(159,230+12);
+              vertex(157,244+12);
+              vertex(150,257+12);
+              vertex(143,244+12);
+              vertex(141,230+12);
+              endShape();
 
-          fill(130);
-          beginShape();
-          vertex(150,229+12);
-          vertex(157,244+12);
-          vertex(150,257+12);
-          vertex(143,244+12);
-          vertex(150,229+12);
-          endShape();
-          line(150,194+12,150,229+12);
+              fill(130);
+              beginShape();
+              vertex(150,229+12);
+              vertex(157,244+12);
+              vertex(150,257+12);
+              vertex(143,244+12);
+              vertex(150,229+12);
+              endShape();
+              line(150,194+12,150,229+12);
 
-          beginShape();
-          vertex(121,252+12);
-          vertex(137,273+12);
-          vertex(163,273+12);
-          vertex(179,252+12);
-          vertex(157,244+12);
-          vertex(150,257+12);
-          vertex(143,244+12);
-          vertex(121,252+12);
-          endShape();
+              beginShape();
+              vertex(121,252+12);
+              vertex(137,273+12);
+              vertex(163,273+12);
+              vertex(179,252+12);
+              vertex(157,244+12);
+              vertex(150,257+12);
+              vertex(143,244+12);
+              vertex(121,252+12);
+              endShape();
 
-          fill(227,88,18);
-          ellipse(142,273+12,10,6);
-          ellipse(158,273+12,10,6);
-          line(137,247+12,137,258+12);
-          line(137,258+12,146,267+12);
-          line(146,267+12,154,267+12);
-          line(163,247+12,163,258+12);
-          line(163,258+12,154,267+12);
+              fill(227,88,18);
+              ellipse(142,273+12,10,6);
+              ellipse(158,273+12,10,6);
+              line(137,247+12,137,258+12);
+              line(137,258+12,146,267+12);
+              line(146,267+12,154,267+12);
+              line(163,247+12,163,258+12);
+              line(163,258+12,154,267+12);
 
-          beginShape();
-          vertex(117,258+12+12);
-          vertex(114,280+12+12);
-          vertex(114,298+12+12);
-          vertex(116,301+12+12);
-          vertex(122,298+12+12);
-          vertex(124,282+12+12);
-          vertex(135,272+12);
-          vertex(122,255+12);
-          vertex(116,258+12+12);
-          endShape();
+              beginShape();
+              vertex(117,258+12+12);
+              vertex(114,280+12+12);
+              vertex(114,298+12+12);
+              vertex(116,301+12+12);
+              vertex(122,298+12+12);
+              vertex(124,282+12+12);
+              vertex(135,272+12);
+              vertex(122,255+12);
+              vertex(116,258+12+12);
+              endShape();
 
-          beginShape();
-          vertex(183,258+12+12);
-          vertex(186,280+12+12);
-          vertex(186,298+12+12);
-          vertex(184,301+12+12);
-          vertex(178,298+12+12);
-          vertex(176,282+12+12);
-          vertex(165,272+12);
-          vertex(178,255+12);
-          vertex(184,258+12+12);
-          endShape();
-          popMatrix();
+              beginShape();
+              vertex(183,258+12+12);
+              vertex(186,280+12+12);
+              vertex(186,298+12+12);
+              vertex(184,301+12+12);
+              vertex(178,298+12+12);
+              vertex(176,282+12+12);
+              vertex(165,272+12);
+              vertex(178,255+12);
+              vertex(184,258+12+12);
+              endShape();
+              popMatrix();
 
     }
 }
@@ -864,7 +1043,7 @@ public void draw(){
             if(boss.posY != -1){
                 if(!boss.totallyDied){
                     boss.update();
-                    boss.drawBoss(bossImg);
+                    boss.drawBoss();
                     boss.trackBullets();
                 }
 
@@ -961,7 +1140,7 @@ public void draw(){
 
             player.update();
             player.detectBound();
-            player.drawMe(playerImg);
+            player.drawMe();
             player.trackBullets();
             // if player is invincible, count invincible time
             if(player.invincible){
@@ -1125,22 +1304,6 @@ class Player extends BasicObject{
         alive = true;
     }
 
-    //draw the player
-    public void drawMe(PImage playerImg){
-        fill(200,200,200);
-        if (invincible) {
-            if (((millis() - invincibleTime) / 200) % 2 == 1) {
-                image(playerImg,posX-15,posY-15,30,60);
-                // ellipse(posX,posY,20,20);
-            }
-        }
-        else {
-            showMe = 0;
-            image(playerImg,posX-15,posY-15,30,60);
-            // ellipse(posX,posY,20,20);
-        }
-    };
-
     //while the player shoots, the bullets objects are generated and stored
     public void shoot(){
         int bulletPosX = posX;
@@ -1220,6 +1383,959 @@ class Player extends BasicObject{
         // rect(0,0,width,height);
         return count;
     }
+        //draw the player
+    public void drawMe(){
+
+        pushMatrix();
+        translate(posX-37,posY);
+        scale(0.25f);
+        if(Main.flightType == 1){
+            stroke(1);
+            //back guns
+            fill(0);
+            rect(73,192,4,15);
+            rect(224,192,4,15);
+            rect(71,207,8,15);
+            rect(222,207,8,15);
+            rect(66,207,3,15);
+            rect(232,207,3,17);
+            rect(122,109,4,15);
+            rect(175,110,4,15);
+            rect(121,120,6,15);
+            rect(174,120,6,15);
+            rect(116,124,3,15);
+            rect(182,124,3,15);
+
+            //wings
+            fill(1,0,74);//dark blue
+            beginShape();
+            vertex(14,286);
+            vertex(61,236);
+            vertex(88,308);
+            vertex(51,334);
+            vertex(14,313);
+            endShape(CLOSE);
+            beginShape();
+            vertex(286,287);
+            vertex(286,312);
+            vertex(247,335);
+            vertex(212,309);
+            vertex(238,238);
+            endShape(CLOSE);
+
+            fill(200);//white
+            beginShape();
+            vertex(38,307);
+            vertex(74,307);
+            vertex(80,314);
+            vertex(81,337);
+            vertex(68,345);
+            vertex(38,327);
+            endShape(CLOSE);
+            beginShape();
+            vertex(219,316);
+            vertex(226,308);
+            vertex(262,308);
+            vertex(262,326);
+            vertex(231,345);
+            vertex(219,336);
+            endShape(CLOSE);
+
+            fill(192,0,11);//red
+            beginShape();
+            vertex(96,191);
+            vertex(61,230);
+            vertex(60,269);
+            vertex(96,312);
+            vertex(101,300);
+            vertex(100,247);
+            vertex(112,232);
+            vertex(132,232);
+            vertex(131,186);
+            endShape(CLOSE);
+            beginShape();
+            vertex(204,191);
+            vertex(240,230);
+            vertex(240,270);
+            vertex(205,312);
+            vertex(200,302);
+            vertex(200,248);
+            vertex(193,238);
+            vertex(185,231);
+            vertex(170,230);
+            vertex(170,186);
+            endShape(CLOSE);
+
+            //white
+            fill(200);
+            beginShape();
+            vertex(70,217);
+            vertex(74,220);
+            vertex(81,210);
+            vertex(85,213);
+            vertex(75,227);
+            vertex(72,229);
+            vertex(71,231);
+            vertex(73,233);
+            vertex(73,268);
+            vertex(71,272);
+            vertex(76,277);
+            vertex(82,274);
+            vertex(89,283);
+            vertex(90,297);
+            vertex(66,272);
+            vertex(65,235);
+            vertex(68,229);
+            vertex(62,228);
+            endShape(CLOSE);
+            beginShape();
+            vertex(228,217);
+            vertex(225,218);
+            vertex(218,211);
+            vertex(215,213);
+            vertex(223,227);
+            vertex(226,226);
+            vertex(230,230);
+            vertex(227,233);
+            vertex(228,270);
+            vertex(229,272);
+            vertex(223,276);
+            vertex(218,276);
+            vertex(210,283);
+            vertex(211,296);
+            vertex(235,273);
+            vertex(234,233);
+            vertex(232,228);
+            vertex(237,227);
+            endShape(CLOSE);
+
+            //guns
+            //white
+            fill(200);
+            beginShape();
+            vertex(121,301);
+            vertex(98,313);
+            vertex(102,336);
+            vertex(119,342);
+            vertex(139,336);
+            vertex(141,313);
+            endShape(CLOSE);//l
+            beginShape();
+            vertex(159,312);
+            vertex(162,336);
+            vertex(180,342);
+            vertex(200,336);
+            vertex(202,313);
+            vertex(180,302);
+            endShape(CLOSE);
+
+            //black
+            fill(0);
+            rect(105,315,30,30);
+            rect(166,315,30,30);
+            quad(105,344,109,355,131,355,135,344);
+            quad(166,344,170,355,192,355,196,344);
+            //green
+            fill(0,0,67);
+            rect(103,253,33,62);//l
+            rect(164,252,33,62);//r
+            //white
+            fill(200);
+            bezier(103,252,107,230,132,230,136,252);//l
+            bezier(164,252,169,230,192,230,197,252);//r
+            rect(103,280,33,25);//l
+            rect(164,280,33,25);//r
+            rect(104,319,33,26,3);//l
+            rect(165,319,33,26,3);//r
+            rect(115,310,7,28,8);//l
+            rect(178,310,7,28,8);//r
+            //green
+            fill(0,0,67);
+            rect(105,284,10,15);
+            rect(124,284,10,15);
+            rect(167,285,10,15);
+            rect(185,284,10,15);
+
+            //body-wings
+            //green
+            fill(0,0,67);//blue
+            bezier(107,154,101,162,98,169,98,187);
+            bezier(191,153,199,164,202,172,203,187);
+            quad(107,154,98,186,98,223,107,224);
+            quad(191,153,203,186,202,223,192,223);
+            fill(192,0,11);//red
+            quad(134,112,108,147,107,239,132,230);
+            quad(165,112,192,147,193,239,168,230);
+            //black
+            fill(0);
+            quad(130,122,130,142,111,164,111,147);
+            quad(169,122,188,147,188,165,169,144);
+            //white
+            fill(200);
+            beginShape();
+            vertex(131,154);
+            vertex(129,202);
+            vertex(118,202);
+            vertex(112,181);
+            vertex(110,179);
+            vertex(110,171);
+            endShape(CLOSE);
+            beginShape();
+            vertex(170,154);
+            vertex(190,172);
+            vertex(190,182);
+            vertex(188,181);
+            vertex(182,201);
+            vertex(172,201);
+            endShape(CLOSE);
+
+            //green
+            fill(192,0,11);
+            quad(134,193,166,193,154,342,146,342);
+            fill(192,0,11);
+            quad(142,180,159,180,152,352,148,352);
+            //white
+            fill(200);
+            ellipse(150,374,6,50);
+
+            //head
+
+            fill(1,1,75);
+            ellipse(149.5f,72,33,25);
+            ellipse(149.5f,94,30,170);
+            fill(0);
+            ellipse(149.5f,94,20,160);
+            fill(154,155,84);
+            ellipse(149.5f,94,17,77);
+            strokeWeight(2);
+            line(143,74,158,74);
+            line(142,104,158,104);
+            strokeWeight(1);
+            fill(200);
+            bezier(143,15,147,2,153,2,155.5f,15);
+            star(50,300);
+            star(61,292);
+            star(32,290);
+            star(49,274);
+            star(26,309);
+            star(251,300);
+            star(237,286);
+            star(269,290);
+            star(276,304);
+            star(253,272);
+        }
+        else if(flightType == 2){
+            stroke(1);
+    //back guns
+            fill(0);
+            rect(73,192,4,15);
+            rect(224,192,4,15);
+            rect(71,207,8,15);
+            rect(222,207,8,15);
+            rect(66,207,3,15);
+            rect(232,207,3,17);
+            rect(122,109,4,15);
+            rect(175,110,4,15);
+            rect(121,120,6,15);
+            rect(174,120,6,15);
+            rect(116,124,3,15);
+            rect(182,124,3,15);
+
+            //wings
+            fill(165,0,0);//gray
+            beginShape();
+            vertex(14,286);
+            vertex(61,236);
+            vertex(88,308);
+            vertex(51,334);
+            vertex(14,313);
+            endShape(CLOSE);
+            beginShape();
+            vertex(286,287);
+            vertex(286,312);
+            vertex(247,335);
+            vertex(212,309);
+            vertex(238,238);
+            endShape(CLOSE);
+
+            fill(0);//black
+            beginShape();
+            vertex(38,307);
+            vertex(74,307);
+            vertex(80,314);
+            vertex(81,337);
+            vertex(68,345);
+            vertex(38,327);
+            endShape(CLOSE);
+            beginShape();
+            vertex(219,316);
+            vertex(226,308);
+            vertex(262,308);
+            vertex(262,326);
+            vertex(231,345);
+            vertex(219,336);
+            endShape(CLOSE);
+
+            fill(18,39,148);//blue
+            beginShape();
+            vertex(96,191);
+            vertex(61,230);
+            vertex(60,269);
+            vertex(96,312);
+            vertex(101,300);
+            vertex(100,247);
+            vertex(112,232);
+            vertex(132,232);
+            vertex(131,186);
+            endShape(CLOSE);
+            beginShape();
+            vertex(204,191);
+            vertex(240,230);
+            vertex(240,270);
+            vertex(205,312);
+            vertex(200,302);
+            vertex(200,248);
+            vertex(193,238);
+            vertex(185,231);
+            vertex(170,230);
+            vertex(170,186);
+            endShape(CLOSE);
+
+            //white
+            fill(200);
+            beginShape();
+            vertex(70,217);
+            vertex(74,220);
+            vertex(81,210);
+            vertex(85,213);
+            vertex(75,227);
+            vertex(72,229);
+            vertex(71,231);
+            vertex(73,233);
+            vertex(73,268);
+            vertex(71,272);
+            vertex(76,277);
+            vertex(82,274);
+            vertex(89,283);
+            vertex(90,297);
+            vertex(66,272);
+            vertex(65,235);
+            vertex(68,229);
+            vertex(62,228);
+            endShape(CLOSE);
+            beginShape();
+            vertex(228,217);
+            vertex(225,218);
+            vertex(218,211);
+            vertex(215,213);
+            vertex(223,227);
+            vertex(226,226);
+            vertex(230,230);
+            vertex(227,233);
+            vertex(228,270);
+            vertex(229,272);
+            vertex(223,276);
+            vertex(218,276);
+            vertex(210,283);
+            vertex(211,296);
+            vertex(235,273);
+            vertex(234,233);
+            vertex(232,228);
+            vertex(237,227);
+            endShape(CLOSE);
+
+            //guns
+            //red
+            fill(194,24,11);
+            beginShape();
+            vertex(121,301);
+            vertex(98,313);
+            vertex(102,336);
+            vertex(119,342);
+            vertex(139,336);
+            vertex(141,313);
+            endShape(CLOSE);//l
+            beginShape();
+            vertex(159,312);
+            vertex(162,336);
+            vertex(180,342);
+            vertex(200,336);
+            vertex(202,313);
+            vertex(180,302);
+            endShape(CLOSE);
+
+            //black
+            fill(0);
+            rect(105,315,30,30);
+            rect(166,315,30,30);
+            quad(105,344,109,355,131,355,135,344);
+            quad(166,344,170,355,192,355,196,344);
+
+            rect(103,253,33,62);//l
+            rect(164,252,33,62);//r
+            //white
+            fill(200);
+            bezier(103,252,107,230,132,230,136,252);//l
+            bezier(164,252,169,230,192,230,197,252);//r
+
+            rect(103,280,33,25);//l
+            rect(164,280,33,25);//r
+            rect(104,319,33,26,3);//l
+            rect(165,319,33,26,3);//r
+            fill(194,24,11);
+            rect(115,310,7,28,8);//l
+            rect(178,310,7,28,8);//r
+
+            fill(194,24,11);
+            rect(105,284,10,15);
+            rect(124,284,10,15);
+            rect(167,285,10,15);
+            rect(185,284,10,15);
+
+            //body-wings
+
+            fill(0,0,67);//blue
+            bezier(107,154,101,162,98,169,98,187);
+            bezier(191,153,199,164,202,172,203,187);
+            quad(107,154,98,186,98,223,107,224);
+            quad(191,153,203,186,202,223,192,223);
+            fill(192,0,11);//red
+            quad(134,112,108,147,107,239,132,230);
+            quad(165,112,192,147,193,239,168,230);
+            //black
+            fill(0);
+            quad(130,122,130,142,111,164,111,147);
+            quad(169,122,188,147,188,165,169,144);
+            //white
+            fill(200);
+            beginShape();
+            vertex(131,154);
+            vertex(129,202);
+            vertex(118,202);
+            vertex(112,181);
+            vertex(110,179);
+            vertex(110,171);
+            endShape(CLOSE);
+            beginShape();
+            vertex(170,154);
+            vertex(190,172);
+            vertex(190,182);
+            vertex(188,181);
+            vertex(182,201);
+            vertex(172,201);
+            endShape(CLOSE);
+
+            fill(0);
+            quad(134,193,166,193,154,342,146,342);
+            fill(192,0,11);
+            quad(142,180,159,180,152,352,148,352);
+            //white
+            fill(200);
+            ellipse(150,374,6,50);
+
+            //head
+            fill(160,0,0);
+            ellipse(149.5f,72,33,25);
+            ellipse(149.5f,94,30,170);
+            fill(0);
+            ellipse(149.5f,94,20,160);
+            fill(154,155,84);
+            ellipse(149.5f,94,17,77);
+            strokeWeight(2);
+            line(143,74,158,74);
+            line(142,104,158,104);
+            strokeWeight(1);
+            fill(200);
+            bezier(143,15,147,2,153,2,155.5f,15);
+        }
+        else if(flightType == 3){
+            stroke(1);
+            //back guns
+            fill(0);
+            rect(73,192,4,15);
+            rect(224,192,4,15);
+            rect(71,207,8,15);
+            rect(222,207,8,15);
+            rect(66,207,3,15);
+            rect(232,207,3,17);
+            rect(122,109,4,15);
+            rect(175,110,4,15);
+            rect(121,120,6,15);
+            rect(174,120,6,15);
+            rect(116,124,3,15);
+            rect(182,124,3,15);
+
+            //wings--england
+            fill(1,0,74);//dark blue
+            beginShape();
+            vertex(14,286);
+            vertex(61,236);
+            vertex(88,308);
+            vertex(51,334);
+            vertex(14,313);
+            endShape(CLOSE);
+            beginShape();
+            vertex(286,287);
+            vertex(286,312);
+            vertex(247,335);
+            vertex(212,309);
+            vertex(238,238);
+            endShape(CLOSE);
+
+            noStroke();
+            fill(255);
+            rect(15,286,74,20);
+            rect(212,284,74,20);
+            rect(48,248,20,74);
+            rect(233,248,20,74);
+            quad(26,272,35,260,83,312,72,320);
+            quad(262,260,272,272,229,312,220,318);
+            quad(25,318,38,328,85,278,75,263);
+            quad(264,324,280,316,228,262,214,274);
+
+            fill(207,20,43);
+            rect(51,248,15,74);
+            rect(235,247,15,74);
+            rect(15,289,74,15);
+            rect(211,286,74,15);
+
+            stroke(1);
+            fill(0);//white
+            beginShape();
+            vertex(38,307);
+            vertex(74,307);
+            vertex(80,314);
+            vertex(81,337);
+            vertex(68,345);
+            vertex(38,327);
+            endShape(CLOSE);
+            beginShape();
+            vertex(219,316);
+            vertex(226,308);
+            vertex(262,308);
+            vertex(262,326);
+            vertex(231,345);
+            vertex(219,336);
+            endShape(CLOSE);
+
+            fill(0,36,125);//red
+            beginShape();
+            vertex(96,191);
+            vertex(61,230);
+            vertex(60,269);
+            vertex(96,312);
+            vertex(101,300);
+            vertex(100,247);
+            vertex(112,232);
+            vertex(132,232);
+            vertex(131,186);
+            endShape(CLOSE);
+            beginShape();
+            vertex(204,191);
+            vertex(240,230);
+            vertex(240,270);
+            vertex(205,312);
+            vertex(200,302);
+            vertex(200,248);
+            vertex(193,238);
+            vertex(185,231);
+            vertex(170,230);
+            vertex(170,186);
+            endShape(CLOSE);
+
+            //gray
+            fill(200);
+            beginShape();
+            vertex(70,217);
+            vertex(74,220);
+            vertex(81,210);
+            vertex(85,213);
+            vertex(75,227);
+            vertex(72,229);
+            vertex(71,231);
+            vertex(73,233);
+            vertex(73,268);
+            vertex(71,272);
+            vertex(76,277);
+            vertex(82,274);
+            vertex(89,283);
+            vertex(90,297);
+            vertex(66,272);
+            vertex(65,235);
+            vertex(68,229);
+            vertex(62,228);
+            endShape(CLOSE);
+            beginShape();
+            vertex(228,217);
+            vertex(225,218);
+            vertex(218,211);
+            vertex(215,213);
+            vertex(223,227);
+            vertex(226,226);
+            vertex(230,230);
+            vertex(227,233);
+            vertex(228,270);
+            vertex(229,272);
+            vertex(223,276);
+            vertex(218,276);
+            vertex(210,283);
+            vertex(211,296);
+            vertex(235,273);
+            vertex(234,233);
+            vertex(232,228);
+            vertex(237,227);
+            endShape(CLOSE);
+
+            //guns
+            //white
+            fill(200);
+            beginShape();
+            vertex(121,301);
+            vertex(98,313);
+            vertex(102,336);
+            vertex(119,342);
+            vertex(139,336);
+            vertex(141,313);
+            endShape(CLOSE);//l
+            beginShape();
+            vertex(159,312);
+            vertex(162,336);
+            vertex(180,342);
+            vertex(200,336);
+            vertex(202,313);
+            vertex(180,302);
+            endShape(CLOSE);
+
+            //black
+            fill(0);
+            rect(105,315,30,30);
+            rect(166,315,30,30);
+            quad(105,344,109,355,131,355,135,344);
+            quad(166,344,170,355,192,355,196,344);
+
+            fill(207,20,43);
+            rect(103,253,33,62);//l
+            rect(164,252,33,62);//r
+
+            fill(200);
+            bezier(103,252,107,230,132,230,136,252);//l
+            bezier(164,252,169,230,192,230,197,252);//r
+            rect(103,280,33,25);//l
+            rect(164,280,33,25);//r
+            fill(0,36,125);
+            rect(104,319,33,26,3);//l
+            rect(165,319,33,26,3);//r
+            fill(200);
+            rect(115,310,7,28,8);//l
+            rect(178,310,7,28,8);//r
+
+            fill(0,0,67);
+            rect(105,284,10,15);
+            rect(124,284,10,15);
+            rect(167,285,10,15);
+            rect(185,284,10,15);
+
+            //body-wings
+
+            fill(0,0,67);//blue
+            bezier(107,154,101,162,98,169,98,187);
+            bezier(191,153,199,164,202,172,203,187);
+            quad(107,154,98,186,98,223,107,224);
+            quad(191,153,203,186,202,223,192,223);
+            fill(0,36,125);//red
+            quad(134,112,108,147,107,239,132,230);
+            quad(165,112,192,147,193,239,168,230);
+            //black
+            fill(0);
+            quad(130,122,130,142,111,164,111,147);
+            quad(169,122,188,147,188,165,169,144);
+            //white
+            fill(200);
+            beginShape();
+            vertex(131,154);
+            vertex(129,202);
+            vertex(118,202);
+            vertex(112,181);
+            vertex(110,179);
+            vertex(110,171);
+            endShape(CLOSE);
+            beginShape();
+            vertex(170,154);
+            vertex(190,172);
+            vertex(190,182);
+            vertex(188,181);
+            vertex(182,201);
+            vertex(172,201);
+            endShape(CLOSE);
+
+
+            fill(0,36,125);
+            quad(134,193,166,193,154,342,146,342);
+            fill(192,0,11);
+            quad(142,180,159,180,152,352,148,352);
+            //white
+            fill(200);
+            ellipse(150,374,6,50);
+
+            //head
+
+            fill(1,1,75);
+            ellipse(149.5f,72,33,25);
+            ellipse(149.5f,94,30,170);
+            fill(0);
+            ellipse(149.5f,94,20,160);
+            fill(154,155,84);
+            ellipse(149.5f,94,17,77);
+            strokeWeight(2);
+            line(143,74,158,74);
+            line(142,104,158,104);
+            strokeWeight(1);
+            fill(200);
+            bezier(143,15,147,2,153,2,155.5f,15);
+        }
+        else{
+            stroke(1);
+            //back guns
+            fill(0);
+            rect(73,192,4,15);
+            rect(224,192,4,15);
+            rect(71,207,8,15);
+            rect(222,207,8,15);
+            rect(66,207,3,15);
+            rect(232,207,3,17);
+            rect(122,109,4,15);
+            rect(175,110,4,15);
+            rect(121,120,6,15);
+            rect(174,120,6,15);
+            rect(116,124,3,15);
+            rect(182,124,3,15);
+
+            //wings
+            fill(206,17,38);//red
+            beginShape();
+            vertex(14,286);
+            vertex(61,236);
+            vertex(88,308);
+            vertex(51,334);
+            vertex(14,313);
+            endShape(CLOSE);
+            beginShape();
+            vertex(286,287);
+            vertex(286,312);
+            vertex(247,335);
+            vertex(212,309);
+            vertex(238,238);
+            endShape(CLOSE);
+
+            fill(200);//white
+            beginShape();
+            vertex(38,307);
+            vertex(74,307);
+            vertex(80,314);
+            vertex(81,337);
+            vertex(68,345);
+            vertex(38,327);
+            endShape(CLOSE);
+            beginShape();
+            vertex(219,316);
+            vertex(226,308);
+            vertex(262,308);
+            vertex(262,326);
+            vertex(231,345);
+            vertex(219,336);
+            endShape(CLOSE);
+
+            fill(0);//red
+            beginShape();
+            vertex(96,191);
+            vertex(61,230);
+            vertex(60,269);
+            vertex(96,312);
+            vertex(101,300);
+            vertex(100,247);
+            vertex(112,232);
+            vertex(132,232);
+            vertex(131,186);
+            endShape(CLOSE);
+            beginShape();
+            vertex(204,191);
+            vertex(240,230);
+            vertex(240,270);
+            vertex(205,312);
+            vertex(200,302);
+            vertex(200,248);
+            vertex(193,238);
+            vertex(185,231);
+            vertex(170,230);
+            vertex(170,186);
+            endShape(CLOSE);
+
+            //white
+            fill(200);
+            beginShape();
+            vertex(70,217);
+            vertex(74,220);
+            vertex(81,210);
+            vertex(85,213);
+            vertex(75,227);
+            vertex(72,229);
+            vertex(71,231);
+            vertex(73,233);
+            vertex(73,268);
+            vertex(71,272);
+            vertex(76,277);
+            vertex(82,274);
+            vertex(89,283);
+            vertex(90,297);
+            vertex(66,272);
+            vertex(65,235);
+            vertex(68,229);
+            vertex(62,228);
+            endShape(CLOSE);
+            beginShape();
+            vertex(228,217);
+            vertex(225,218);
+            vertex(218,211);
+            vertex(215,213);
+            vertex(223,227);
+            vertex(226,226);
+            vertex(230,230);
+            vertex(227,233);
+            vertex(228,270);
+            vertex(229,272);
+            vertex(223,276);
+            vertex(218,276);
+            vertex(210,283);
+            vertex(211,296);
+            vertex(235,273);
+            vertex(234,233);
+            vertex(232,228);
+            vertex(237,227);
+            endShape(CLOSE);
+
+            //guns
+            //white
+            fill(200);
+            beginShape();
+            vertex(121,301);
+            vertex(98,313);
+            vertex(102,336);
+            vertex(119,342);
+            vertex(139,336);
+            vertex(141,313);
+            endShape(CLOSE);//l
+            beginShape();
+            vertex(159,312);
+            vertex(162,336);
+            vertex(180,342);
+            vertex(200,336);
+            vertex(202,313);
+            vertex(180,302);
+            endShape(CLOSE);
+
+            //black
+            fill(0);
+            rect(105,315,30,30);
+            rect(166,315,30,30);
+            quad(105,344,109,355,131,355,135,344);
+            quad(166,344,170,355,192,355,196,344);
+            //green
+            fill(0,122,61);
+            rect(103,253,33,62);//l
+            rect(164,252,33,62);//r
+            //white
+            fill(200);
+            bezier(103,252,107,230,132,230,136,252);//l
+            bezier(164,252,169,230,192,230,197,252);//r
+            rect(103,280,33,25);//l
+            rect(164,280,33,25);//r
+            rect(104,319,33,26,3);//l
+            rect(165,319,33,26,3);//r
+            rect(115,310,7,28,8);//l
+            rect(178,310,7,28,8);//r
+            //green
+            fill(0,122,61);
+            rect(105,284,10,15);
+            rect(124,284,10,15);
+            rect(167,285,10,15);
+            rect(185,284,10,15);
+
+            //body-wings
+
+            fill(0,122,61);//green
+            bezier(107,154,101,162,98,169,98,187);
+            bezier(191,153,199,164,202,172,203,187);
+            quad(107,154,98,186,98,223,107,224);
+            quad(191,153,203,186,202,223,192,223);
+            fill(206,17,38);//red
+            quad(134,112,108,147,107,239,132,230);
+            quad(165,112,192,147,193,239,168,230);
+            //black
+            fill(0);
+            quad(130,122,130,142,111,164,111,147);
+            quad(169,122,188,147,188,165,169,144);
+            //white
+            fill(200);
+            beginShape();
+            vertex(131,154);
+            vertex(129,202);
+            vertex(118,202);
+            vertex(112,181);
+            vertex(110,179);
+            vertex(110,171);
+            endShape(CLOSE);
+            beginShape();
+            vertex(170,154);
+            vertex(190,172);
+            vertex(190,182);
+            vertex(188,181);
+            vertex(182,201);
+            vertex(172,201);
+            endShape(CLOSE);
+
+            fill(0);
+            quad(134,193,166,193,154,342,146,342);
+            fill(0);
+            quad(142,180,159,180,152,352,148,352);
+            //white
+            fill(200);
+            ellipse(150,374,6,50);
+
+            //head
+
+            fill(206,17,38);
+            ellipse(149.5f,72,33,25);
+            ellipse(149.5f,94,30,170);
+            fill(0);
+            ellipse(149.5f,94,20,160);
+            fill(154,155,84);
+            ellipse(149.5f,94,17,77);
+            strokeWeight(2);
+            line(143,74,158,74);
+            line(142,104,158,104);
+            strokeWeight(1);
+            fill(200);
+            bezier(143,15,147,2,153,2,155.5f,15);
+            star(121,180);
+            star(177,180);
+        }
+        popMatrix();
+    }
+
+    public void star(float x, float y) {
+        float angle = TWO_PI / 5;
+        float halfAngle = angle/2.0f;
+        beginShape();
+        noStroke();
+        for (float a = 0; a < TWO_PI; a += angle) {
+        float sx = x + cos(a) * 2;
+        float sy = y + sin(a) * 2;
+        vertex(sx, sy);
+        sx = x + cos(a+halfAngle) * 5;
+        sy = y + sin(a+halfAngle) * 5;
+        vertex(sx, sy);
+    }
+}
 }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "main" };

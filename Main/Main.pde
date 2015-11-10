@@ -10,7 +10,7 @@ boolean alive = true;  // if the player is alive
 boolean bossKilled = false;
 int bombing = 0;
 int currentPage = 0;
-int flightType;
+int flightType = 1;
 int shootTime = 0;  // shoot interval time
 int bossShootInterval = 0;  // boss shoot interval time
 int bossShootTime = 0;  // boss shooting time
@@ -167,7 +167,7 @@ void draw(){
             if(boss.posY != -1){
                 if(!boss.totallyDied){
                     boss.update();
-                    boss.drawBoss(bossImg);
+                    boss.drawBoss();
                     boss.trackBullets();
                 }
 
@@ -264,7 +264,7 @@ void draw(){
 
             player.update();
             player.detectBound();
-            player.drawMe(playerImg);
+            player.drawMe(flightType);
             player.trackBullets();
             // if player is invincible, count invincible time
             if(player.invincible){
