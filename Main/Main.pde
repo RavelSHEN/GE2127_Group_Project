@@ -20,7 +20,8 @@ int killedBoss = 0;
 static Player player;
 static BossEnemy boss;
 static ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-PImage img;  // background image
+PImage img1;  // background image
+PImage img2;
 PImage[] explode = new PImage[20];
 PImage[] bomb = new PImage[30];
 PFont Times;
@@ -33,7 +34,8 @@ int initialPosX;
 int initialPosY;
 void setup(){
     size(600, 750);
-    img = loadImage("space.jpg");
+    img1 = loadImage("welcome.jpg");
+    img2 = loadImage("fight.jpg");
     initialPosX = width / 2;
     initialPosY = height * 9 / 10;
     boss = new BossEnemy();
@@ -54,21 +56,30 @@ void setup(){
     for (int i = 1; i < 29; ++i) {
         bomb[i] = loadImage("Bomb" + i + ".png");
     }
-    Times = loadFont("TimesNewRomanPS-BoldMT-48.vlw");
+    Times = loadFont("TimesNewRomanPS-BoldMT-60.vlw");
     Lucida = loadFont("LucidaBright-Demi-48.vlw");
 }
 
 void draw(){
     //TODO: Change the background image
-    image(img, 0, 0, 640, 1136);
+    image(img1, 0, 0, 600, 750);
     if(0 == currentPage){
         //TODO: Re-design the WelcomePage
-        textFont(Times, 48);
-        textAlign(CENTER);
+        textFont(Times, 60);
         fill(255);
-        text("SHOOT! SHOOT!", width / 2, height / 3);
-        textFont(Lucida, 30);
-        text("Press ENTER to continue", width / 2, height / 2);
+        textAlign(RIGHT);
+        text("CALL",width / 2 - 45, height / 3);
+        textFont(Times, 24);
+        textAlign(CENTER);
+        text("OF",width/2 - 15,height/3);
+        textFont(Times, 60);
+        textAlign(LEFT);
+        text("PEACE",width / 2 + 15, height / 3);
+        textFont(Times, 30);
+        textAlign(CENTER);
+        text("ANTI-ISIS WAREFARE",width / 2, height/ 3 + 60);
+        textFont(Lucida, 24);
+        text("Press ENTER to continue", width / 2, height *2 / 3);
     }
     else if(1 == currentPage){
         textFont(Lucida, 24);
@@ -96,6 +107,7 @@ void draw(){
         }
     }
     else{
+        image(img2, 0, 0, 600,750);
         if(player.alive && !bossKilled){
             for(int i = 0; i < enemies.size(); i++) {
                 Enemy tempEnemy = enemies.get(i);
