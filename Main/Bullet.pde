@@ -15,6 +15,7 @@ class Bullet extends BasicObject{
         this.velY = velY;
         this.classOfObejct = classOfObejct;
         this.attack = attack;
+
     }
 
     //draw the bullet on the canvas

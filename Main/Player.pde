@@ -29,8 +29,8 @@ class Player extends BasicObject{
         this.sInterval = sInterval;
         invincibleTime = 0;
         invincible = false;
-        wid = 30;
-        hei = 60;
+        wid = 300/4;
+        hei = 400/4;
         classOfObejct = 0;
         alive = true;
     }
@@ -118,7 +118,8 @@ class Player extends BasicObject{
     void drawMe(int type){
 
         pushMatrix();
-        translate(posX-37,posY);
+        translate(posX,posY);
+        translate( - wid/2, - hei/2);
         scale(0.25);
         switch (type) {
             case 1:

@@ -31,7 +31,7 @@ class BasicObject{
     int accY = 0; //acceleration of the object in direction of Y
     int attack; //define the basic attack
     int health; //blood volume /(health level) of the character
-    float wid,hei; //the width and height of the object,used to detect the hitting
+    float wid = 2,hei = 2; //the width and height of the object,used to detect the hitting
     boolean alive = true; //check if the character if alive
     int classOfObejct; //define if the object is player or enemy, player for 0, enemy for 1
 

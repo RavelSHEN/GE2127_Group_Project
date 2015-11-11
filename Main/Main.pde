@@ -259,9 +259,6 @@ void draw(){
                 }
             }
 
-
-
-
             player.update();
             player.detectBound();
             player.drawMe(flightType);
@@ -372,10 +369,13 @@ void keyPressed() {
     if (key == 'z' || key == 'Z') shoot = true;
     if (key == 'x' || key == 'X') useBomb = true;
     if (key == 'r' ||key == 'R') restart = true;
-    if (keyCode == 49) flightType = 1;
-    if (keyCode == 50) flightType = 2;
-    if (keyCode == 51) flightType = 3;
-    if (keyCode == 52) flightType = 4;
+    if (currentPage == 1){
+        if (keyCode == 49) flightType = 1;
+        if (keyCode == 50) flightType = 2;
+        if (keyCode == 51) flightType = 3;
+        if (keyCode == 52) flightType = 4;
+    }
+
     if (keyCode == UP) up = true;
     if (keyCode == DOWN) down = true;
     if (keyCode == LEFT) left = true;

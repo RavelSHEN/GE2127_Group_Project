@@ -36,8 +36,8 @@ Methods:
         this.accX = accX;
         this.accY = accY;
         classOfObejct = 1;
-        wid = 200;
-        hei = 200;
+        wid = 380;
+        hei = 230;
         health = (int)random(15,20);
         totallyDied = false;
         speed = 40;
@@ -113,7 +113,8 @@ Methods:
         //draw the boss
     void drawBoss(){
         pushMatrix();
-        translate(posX - 185, posY - 120);
+        translate(posX, posY);
+        translate(-wid/2, - hei/2);
         smooth();
         colorMode(RGB);
 

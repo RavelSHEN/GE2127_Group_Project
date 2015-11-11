@@ -23,10 +23,10 @@ class Enemy extends BasicObject{
         this.velY = velY;
         this.accX = accX;
         this.accY = accY;
-        this.classOfObejct = 1;
+        classOfObejct = 1;
         scaleFactor = random(1,2);
         wid = 30*scaleFactor;
-        hei = 30*scaleFactor;
+        hei = 40*scaleFactor;
         alive = true;
         angle = PI / 4;
         float randomHealth = random(1,3);
@@ -40,7 +40,7 @@ class Enemy extends BasicObject{
     }
 
     void drawDeath(PImage explodeImg){
-        image(explodeImg,posX - 15*scaleFactor,posY- 15*scaleFactor,40*scaleFactor,40*scaleFactor);
+        image(explodeImg,posX - 15*scaleFactor,posY- 20*scaleFactor,40*scaleFactor,40*scaleFactor);
     }
     //update the postion of the enemy
     void update(){
@@ -73,7 +73,8 @@ class Enemy extends BasicObject{
 
     void drawMe(){
         pushMatrix();
-        translate(posX + 30, posY + 30);
+        translate(posX, posY);
+        translate(wid/2,hei/2);
         rotate(PI);
         scale(scaleFactor/10);
         smooth();
