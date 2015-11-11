@@ -117,6 +117,8 @@ void draw(){
 
                 // detect collision between enemy and player
                 if(player.hitObject(tempEnemy) && !player.invincible) {
+                    player.posX = initialPosX;
+                    player.posY = initialPosY;
                     player.decreaseHealth(tempEnemy.getDamage());
                     player.invincible = true;
                     player.invincibleTime = millis();
@@ -125,7 +127,7 @@ void draw(){
                 if(!tempEnemy.alive){
                     int currentTime = millis();
                     tempEnemy.dieout(currentTime - tempEnemy.deadTime);
-                    if(currentTime - tempEnemy.deadTime < 2000){
+                    if(currentTime - tempEnemy.deadTime < 2500){
                         tempEnemy.drawDeath(explode[(currentTime - tempEnemy.deadTime)/100]);
                     }
                     if(currentTime - tempEnemy.deadTime > 1000){
@@ -210,7 +212,7 @@ void draw(){
                     if(currentTime - boss.deadTime < 3000){
                         boss.drawDeath(explode[(currentTime - boss.deadTime)/150]);
                     }
-                    if(currentTime - boss.deadTime > 500){
+                    if(currentTime - boss.deadTime > 1500){
                         boss.totallyDied = true;
                         bossKilled = true;
                     }

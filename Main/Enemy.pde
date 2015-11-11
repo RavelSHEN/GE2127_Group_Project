@@ -40,7 +40,7 @@ class Enemy extends BasicObject{
     }
 
     void drawDeath(PImage explodeImg){
-        image(explodeImg,posX - 15*scaleFactor,posY- 20*scaleFactor,40*scaleFactor,40*scaleFactor);
+        image(explodeImg,posX - wid/2*scaleFactor,posY- wid/2*scaleFactor,hei*scaleFactor,hei*scaleFactor);
     }
     //update the postion of the enemy
     void update(){

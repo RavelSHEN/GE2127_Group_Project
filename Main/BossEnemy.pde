@@ -46,7 +46,7 @@ Methods:
 
 
     void drawDeath(PImage explodeImg){
-        image(explodeImg,posX - 100,posY- 100,200,200);
+        image(explodeImg,posX - wid/2,posY - hei/2,wid,wid);
     }
 
     //update the position of the boss.
