@@ -23,13 +23,11 @@ static ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 PImage img;  // background image
 PImage[] explode = new PImage[20];
 PImage[] bomb = new PImage[30];
+PFont Times;
+PFont Lucida;
 int bombX;
 int bombY;
 int bombCounter;
-PImage bossImg;
-PImage enemyImg;
-PImage playerImg;
-
 
 int initialPosX;
 int initialPosY;
@@ -56,9 +54,8 @@ void setup(){
     for (int i = 1; i < 29; ++i) {
         bomb[i] = loadImage("Bomb" + i + ".png");
     }
-    bossImg = loadImage("boss.png");
-    enemyImg = loadImage("enemy.png");
-    playerImg = loadImage("player.png");
+    Times = loadFont("TimesNewRomanPS-BoldMT-48.vlw");
+    Lucida = loadFont("LucidaBright-Demi-48.vlw");
 }
 
 void draw(){
@@ -66,18 +63,15 @@ void draw(){
     image(img, 0, 0, 640, 1136);
     if(0 == currentPage){
         //TODO: Re-design the WelcomePage
-        PFont arial = loadFont("Bauhaus93-48.vlw");
-        textFont(arial, 48);
+        textFont(Times, 48);
         textAlign(CENTER);
         fill(255);
         text("SHOOT! SHOOT!", width / 2, height / 3);
-        PFont bradly = loadFont("BradleyHandITC-48.vlw");
-        textFont(bradly, 24);
+        textFont(Lucida, 30);
         text("Press ENTER to continue", width / 2, height / 2);
     }
     else if(1 == currentPage){
-        PFont bradly = loadFont("BradleyHandITC-48.vlw");
-        textFont(bradly, 24);
+        textFont(Lucida, 24);
         text("Press 1,2,3,4 to select your plane", width / 2, height / 3);
         text("Press arrow up, down, left right to move", width / 2, height / 2);
         text("Press Z to shoot", width / 2, height / 2 + 50);
@@ -278,27 +272,24 @@ void draw(){
             }
 
             // display the score, health at right top corner at size 44
-            PFont arial = loadFont("Arial-BoldMT-48.vlw");  // the font is stored in the "data" file
-            textFont(arial, 24);
+            textFont(Times, 24);
             textAlign(RIGHT);
-            fill(0, 102, 154);
+            fill(255);
             text("Bomb: " + player.numOfBomb, 550,50);
-            text("health: " + player.health, 550, 100);
-            text("score " + score, 550, 150);
+            text("Health: " + player.health, 550, 80);
+            text("Score " + score, 550, 110);
 
         }
         else if(player.alive && bossKilled){
             for(int i = 0; i < enemies.size(); i++){
                 enemies.remove(i);
             }
-            PFont arial = loadFont("Arial-BoldMT-48.vlw");  // the font is stored in the "data" file
-            textFont(arial, 48);
+            textFont(Times, 48);
             textAlign(CENTER);
             fill(255);
             text("Yes! You Win", width / 2, height / 3);
             text("score " + score, width / 2, height / 2);
-            PFont bradly = loadFont("BradleyHandITC-48.vlw");
-            textFont(bradly, 36);
+            textFont(Lucida, 30);
             text("Press R to restart", width / 2, height * 2 / 3);
         }
         else {
@@ -306,14 +297,12 @@ void draw(){
             for(int i = 0; i < enemies.size(); i++){
                 enemies.remove(i);
             }
-            PFont arial = loadFont("Arial-BoldMT-48.vlw");  // the font is stored in the "data" file
-            textFont(arial, 48);
+            textFont(Times, 48);
             textAlign(CENTER);
             fill(255);
             text("Oop, dead", width / 2, height / 3);
             text("score " + score, width / 2, height / 2);
-            PFont bradly = loadFont("BradleyHandITC-48.vlw");
-            textFont(bradly, 36);
+            textFont(Lucida, 30);
             text("Press R to restart", width / 2, height * 2 / 3);
         }
         if(restart){
@@ -321,8 +310,7 @@ void draw(){
             pages[0] = false;
             pages[1] = true;
             currentPage = 1;
-            PFont bradly = loadFont("BradleyHandITC-48.vlw");
-            textFont(bradly, 24);
+            textFont(Lucida, 24);
             textAlign(CENTER);
             fill(255, 255, 255);
             // print(currentPage);

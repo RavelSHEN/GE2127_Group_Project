@@ -23,13 +23,13 @@ class Bullet extends BasicObject{
         if (classOfObejct == 0){
             colorMode(RGB,255,255,255);
             noStroke();
-            fill(255,0,0);
-            ellipse(posX, posY, 6, 6);
+            fill(255,100,30);
+            ellipse(posX, posY, 6, 9);
             fill(255,153,51);
-            ellipse(posX,posY, 4, 4);
-            fill(255,255,0);
-            ellipse(posX,posY, 2, 2);
-            fill(255,255,102);
+            ellipse(posX,posY, 4, 6);
+            fill(255,255,100);
+            ellipse(posX,posY, 2, 3);
+            fill(255,255,200);
             ellipse(posX,posY, 1, 1);
             stroke(1);
         }
