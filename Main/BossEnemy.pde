@@ -38,7 +38,7 @@ Methods:
         classOfObejct = 1;
         wid = 380;
         hei = 230;
-        health = (int)random(15,20);
+        health = 50;
         totallyDied = false;
         speed = 40;
         angle = 0;

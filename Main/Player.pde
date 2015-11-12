@@ -91,20 +91,22 @@ class Player extends BasicObject{
     int useBomb(){
         //do harm while the animation start
         //cause harm to the boss
+        println("BEFORE Main.boss.health: "+Main.boss.health);
         int count = 0;
-        if (Main.boss.alive){
+        if ((Main.boss.alive) && (Main.boss.posY != -1)){
             Main.boss.decreaseHealth(10);
             if(Main.boss.health <= 0){
                 Main.boss.alive = false;
                 Main.boss.deadTime = millis();
                 Main.score += 100;
+                bossKilled = true;
             }
         }
+        println("AFTER Main.boss.health: "+Main.boss.health);
         //remove all bullets
         Main.boss.emptyBullets();
         //kill all the enemies
         for(int j = 0; j < Main.enemies.size(); j++){
-            println("j: "+j);
             Enemy tempEnemy = Main.enemies.get(j);
             tempEnemy.alive = false;
             tempEnemy.deadTime = millis();

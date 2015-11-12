@@ -8,6 +8,7 @@ boolean restart = false;  // restart game
 static int score = 0;
 boolean alive = true;  // if the player is alive
 boolean bossKilled = false;
+boolean bossBorn = false;
 int bombing = 0;
 int currentPage = 0;
 int flightType = 1;
@@ -22,6 +23,8 @@ static BossEnemy boss;
 static ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 PImage img1;  // background image
 PImage img2;
+PImage introText;
+int introTextY;
 PImage[] explode = new PImage[20];
 PImage[] bomb = new PImage[30];
 PFont Times;
@@ -36,6 +39,9 @@ void setup(){
     size(600, 750);
     img1 = loadImage("welcome.jpg");
     img2 = loadImage("fight.jpg");
+    introText = loadImage("introtext.png");
+    double coefficient = (double) width / (double) introText.width;
+    introText.resize(width, (int) (coefficient * introText.height));
     initialPosX = width / 2;
     initialPosY = height * 9 / 10;
     boss = new BossEnemy();
@@ -58,6 +64,7 @@ void setup(){
     }
     Times = loadFont("TimesNewRomanPS-BoldMT-60.vlw");
     Lucida = loadFont("LucidaBright-Demi-48.vlw");
+    println("----" + Main.boss.alive + "----");
 }
 
 void draw(){
@@ -100,11 +107,20 @@ void draw(){
                 player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 1, 1, 2, 400);
                 break;
             case 4:
-                player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 1, 1, 1, 200);
+                player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 5, 1, 100, 200);
                 break;
             default:
+                player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 2, 1, 1, 400);
             break;
         }
+    }
+    else if (2 == currentPage){
+        // String strText = "asdfasdfasdfasdfasdasdf";
+        // println("strText: "+strText);
+        
+        introTextY = constrain(introTextY, 0, introText.height - height);
+        set(0, -introTextY, introText);  
+        introTextY = frameCount / 3;   
     }
     else{
         image(img2, 0, 0, 600,750);
@@ -161,7 +177,10 @@ void draw(){
             //     }
             //  }
 
-            if(killedEnemy >= random(3, 5)) {
+            println("killedEnemy: "+killedEnemy);
+            println("boss.posY: "+boss.posY);
+            if((killedEnemy >= random(3, 5)) && (boss.posY == -1)) {
+                println("----" + Main.boss.alive + "----");
                 int bossPosX = (int)width / 2;
                 int bossPosY = 0;
                 int bossVelX = 1;
@@ -323,7 +342,7 @@ void draw(){
             restart = false;
             pages[0] = false;
             pages[1] = true;
-            currentPage = 1;
+            currentPage = 3;
             textFont(Lucida, 24);
             textAlign(CENTER);
             fill(255, 255, 255);
@@ -360,6 +379,9 @@ void keyPressed() {
         //     }
         //     currentPage ++;
         // }
+        if (2 == currentPage) {
+            currentPage = 3;
+        }
         if (1 == currentPage) {
             currentPage = 2;
         }
