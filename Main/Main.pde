@@ -32,11 +32,26 @@ PFont Lucida;
 int bombX;
 int bombY;
 int bombCounter;
-
+int tmpframecount;
 int initialPosX;
 int initialPosY;
+
+
+PImage usaf;
+PImage ukf;
+PImage syriaf;
+PImage russiaf;
+PFont select;
+PFont feature;
+
 void setup(){
     size(600, 750);
+    select = loadFont("SitkaBanner-Bold-48.vlw");
+    feature = loadFont("LucidaSans-Demi-48.vlw");
+    usaf = loadImage("usaf.jpg");
+    ukf = loadImage("ukf.jpg");
+    syriaf = loadImage("syriaf.jpg");
+    russiaf = loadImage("russiaf.jpg");
     img1 = loadImage("welcome.jpg");
     img2 = loadImage("fight.jpg");
     introText = loadImage("introtext.png");
@@ -89,16 +104,86 @@ void draw(){
         text("Press ENTER to continue", width / 2, height *2 / 3);
     }
     else if(1 == currentPage){
-        textFont(Lucida, 24);
-        text("Press 1,2,3,4 to select your plane", width / 2, height / 3);
-        text("Press arrow up, down, left right to move", width / 2, height / 2);
-        text("Press Z to shoot", width / 2, height / 2 + 50);
-        text("Press X to use bomb", width / 2, height / 2 + 100);
-        text("Press ENTER to start", width / 2, height / 2 + 150);
+        interface1();
+        title();
+        feature(185,235);//usa
+        strength2(214,226);//speed
+        strength2(214,245);//agility
+        strength3(214,265);//defence
+        strength2(214,281);//air-air
+
+        feature(475,235);//syria
+        strength1(510,226);//speed
+        strength3(510,245);//agility
+        strength2(510,265);//defence
+        strength3(510,281);//air-air
+
+        feature(185,485);//russia
+        strength3(214,475);//speed
+        strength2(214,494);//agility
+        strength2(214,513);//defence
+        strength2(214,530);//air-air
+
+        feature(475,485);//uk
+        strength3(510,475);//speed
+        strength1(510,494);//agility
+        strength3(510,513);//defence
+        strength2(510,530);//air-air
+
+        pushMatrix();
+        translate(5,120);
+        scale(0.5);
+        usa();
+        fill(255);
+        star(50,300,2,5);
+        star(61,292,2,5);
+        star(32,290,2,5);
+        star(49,274,2,5);
+        star(26,309,2,5);
+        star(251,300,2,5);
+        star(237,286,2,5);
+        star(269,290,2,5);
+        star(276,304,2,5);
+        star(253,272,2,5);
+        popMatrix();
+
+        pushMatrix();
+        translate(295,120);
+        scale(0.5);
+        syria();
+        fill(0,122,61);
+        star(121,180,3,7);
+        star(177,180,3,7);
+        popMatrix();
+
+        pushMatrix();
+        translate(5,390);
+        scale(0.5);
+        russia();
+        popMatrix();
+
+        pushMatrix();
+        translate(295,390);
+        scale(0.5);
+        uk();
+        popMatrix();
+
+        image(usaf,155,145,100,60);
+        image(syriaf,445,145,100,60);
+        image(russiaf,155,400,100,60);
+        image(ukf,445,400,100,60);
+        drawSelector(flightType);
+
+        // textFont(Lucida, 24);
+        // text("Press 1,2,3,4 to select your plane", width / 2, height / 3);
+        // text("Press arrow up, down, left right to move", width / 2, height / 2);
+        // text("Press Z to shoot", width / 2, height / 2 + 50);
+        // text("Press X to use bomb", width / 2, height / 2 + 100);
+        // text("Press ENTER to start", width / 2, height / 2 + 150);
         // Player(posX, posY, velX, velY, accX, accY, attack, health, numOfBomb, sInterval)
         switch (flightType){
             case 1:
-                player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 2, 1, 1, 400);
+                player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 2, 3, 3, 400);
                 break;
             case 2:
                 player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 1, 2, 1, 400);
@@ -119,8 +204,8 @@ void draw(){
         // println("strText: "+strText);
         
         introTextY = constrain(introTextY, 0, introText.height - height);
-        set(0, -introTextY, introText);  
-        introTextY = frameCount / 3;   
+        set(0, -introTextY, introText);
+        introTextY = (frameCount - tmpframecount) / 3;
     }
     else{
         image(img2, 0, 0, 600,750);
@@ -308,9 +393,15 @@ void draw(){
             textFont(Times, 24);
             textAlign(RIGHT);
             fill(255);
-            text("Bomb: " + player.numOfBomb, 550,50);
-            text("Health: " + player.health, 550, 80);
-            text("Score " + score, 550, 110);
+
+            for (int i = 0; i < player.health; ++i) {
+                drawHealth(0 + i * 45, 20);
+            }
+            for (int i = 0; i < player.numOfBomb; ++i) {
+                drawBomb(28 + i * 45, 60);
+            }
+            fill(255, 255, 255);
+            text("Score: " + score, 550, 40);
 
         }
         else if(player.alive && bossKilled){
@@ -369,6 +460,71 @@ void draw(){
     }
 }
 
+void drawSelector(int x) {
+    
+}
+
+void drawBomb(int x, int y) {
+    pushMatrix();
+    translate(x, y);
+    scale(0.4);
+    smooth();
+    fill(200);
+    quad(10,21,53,21,53,55,10,55);
+    fill(150);
+    bezier(10,21,18,-4,45,-4,53,21);
+    beginShape();
+    vertex(3,65);
+    vertex(7,95);
+    vertex(22,81);
+    vertex(40,81);
+    vertex(54,95);
+    vertex(59,65);
+    vertex(49,60);
+    vertex(12,60);
+    endShape(CLOSE);
+    fill(200);
+    quad(10,55,53,55,42,77,20,77);
+    quad(22,81,40,81,40,77,22,77);
+    rect(29,65,3,30);
+    fill(150);
+    rect(29,58,3,7);
+    fill(220);
+    rect(10,45,43,10);
+    for(int i=0; i<=6; i++){
+        noStroke();
+        fill(206,12,12);
+        quad(13+6*i,46,16+6*i,46,13+6*i,55,10+6*i,55);
+    }
+    popMatrix();
+}
+
+void drawHealth(int x, int y) {
+    pushMatrix();
+    translate(x, y);
+    scale(0.8);
+
+    smooth();
+    noStroke();
+
+    fill(0);
+    beginShape();
+    vertex(52, 17); 
+    bezierVertex(52, -5, 90, 5, 52, 40); 
+    vertex(52, 17); 
+    bezierVertex(52, -5, 10, 5, 52, 40); 
+    endShape();
+
+
+    fill(255,0,0);
+    beginShape();
+    vertex(50, 15); 
+    bezierVertex(50, -5, 90, 5, 50, 40); 
+    vertex(50, 15); 
+    bezierVertex(50, -5, 10, 5, 50, 40); 
+    endShape();
+    popMatrix();
+}
 
 void keyPressed() {
     if (keyCode == ENTER){
@@ -383,6 +539,7 @@ void keyPressed() {
             currentPage = 3;
         }
         if (1 == currentPage) {
+            tmpframecount = frameCount;
             currentPage = 2;
         }
         else if (0 == currentPage) {
@@ -400,10 +557,22 @@ void keyPressed() {
         if (keyCode == 52) flightType = 4;
     }
 
-    if (keyCode == UP) up = true;
-    if (keyCode == DOWN) down = true;
-    if (keyCode == LEFT) left = true;
-    if (keyCode == RIGHT) right = true;
+    if (keyCode == UP) {
+        up = true;
+        changeFlightType(0);
+    }
+    if (keyCode == DOWN) {
+        down = true;
+        changeFlightType(1);
+    }
+    if (keyCode == LEFT) {
+        left = true;
+        changeFlightType(2);
+    }
+    if (keyCode == RIGHT) {
+        right = true;
+        changeFlightType(3);
+    }
 }
 
 void keyReleased() {
@@ -413,5 +582,1045 @@ void keyReleased() {
     if (keyCode == LEFT) left = false;
     if (keyCode == RIGHT) right = false;
 }
+
+void changeFlightType(int x) {
+    if (0 == x) {
+        if (flightType == 3) flightType = 1;
+        if (flightType == 4) flightType = 2;
+    }
+    if (1 == x) {
+        if (flightType == 1) flightType = 3;
+        if (flightType == 2) flightType = 4;
+    }
+    if (2 == x) {
+        if (flightType == 2) flightType = 1;
+        if (flightType == 4) flightType = 3;
+    }
+    if (3 == x) {
+        if (flightType == 1) flightType = 2;
+        if (flightType == 3) flightType = 4;
+    }
+}
+
+void interface1(){
+  noStroke();
+  fill(20,38,48,100);
+  rect(0,0,600,750);
+  fill(19,58,89,100);
+  rect(0,60,600,600);
+  fill(220);//gray
+  noStroke();
+  beginShape();
+  vertex(365,40);
+  vertex(600,40);
+  vertex(600,80);
+  vertex(365,80);
+  vertex(345,60);
+  endShape(CLOSE);
+  fill(10,100);//light gray
+  rect(0,110,600,515);
+  fill(19,70,100,100);//dark blue
+  rect(0,110,600,215);
+  rect(0,380,600,215);
+}
+
+void title(){
+ textFont(select,30);
+ fill(150);
+ text("PLANE SELECT",482,72);
+ fill(0);
+ text("PLANE SELECT",480,70);
+}
+
+void feature(float x, float y){
+  fill(150);
+  textFont(feature,12);
+  text("SPEED",x,y); 
+  text("AGILITY",x,y+18);
+  text("DEFENCE",x,y+36);
+  text("AIR-AIR",x,y+54);
+}
+
+void strength1(float x, float y){
+  noStroke();
+  fill(80);
+  rect(x+7,y,66,6);
+  bezier(x+7,y,x,y+1,x,y+5,x+7,y+6);
+  bezier(x+73,y,x+80,y+1,x+80,y+5,x+73,y+6);
+  
+  fill(126,154,80);//1st green bar
+  rect(x+7,y+1,13,3);
+  bezier(x+7,y+1,x+1,y+2.5,x+1,y+3.5,x+7,y+4);
+  
+}
+void strength2(float x, float y){
+  noStroke();
+  fill(80);
+  rect(x+7,y,66,6);
+  bezier(x+7,y,x,y+1,x,y+5,x+7,y+6);
+  bezier(x+73,y,x+80,y+1,x+80,y+5,x+73,y+6);
+  
+  fill(20,178,226);
+  rect(x+7,y+1,13,3);//1st blue bar
+  bezier(x+7,y+1,x+1,y+2.5,x+1,y+3.5,x+7,y+4);
+  
+  fill(126,154,80);//2nd green bar
+  rect(x+22,y+1,17,3);
+ 
+}
+void strength3(float x, float y){
+  noStroke();
+  fill(80);
+  rect(x+7,y,66,6);
+  bezier(x+7,y,x,y+1,x,y+5,x+7,y+6);
+  bezier(x+73,y,x+80,y+1,x+80,y+5,x+73,y+6);
+  
+  fill(20,178,226);
+  rect(x+7,y+1,13,3);//1st blue bar
+  bezier(x+7,y+1,x+1,y+2.5,x+1,y+3.5,x+7,y+4);
+  
+  rect(x+22,y+1,17,3);//2nd blue bar
+  
+  fill(126,154,80);//3rd green bar
+  rect(x+41,y+1,17,3);
+}
+
+  void usa(){
+    stroke(1);
+    //back guns
+    fill(0);
+    rect(73,192,4,15);
+    rect(224,192,4,15);
+    rect(71,207,8,15);
+    rect(222,207,8,15);
+    rect(66,207,3,15);
+    rect(232,207,3,17);
+    rect(122,109,4,15);
+    rect(175,110,4,15);
+    rect(121,120,6,15);
+    rect(174,120,6,15);
+    rect(116,124,3,15);
+    rect(182,124,3,15);
+    
+    //wings
+    fill(1,0,74);//dark blue
+    beginShape();
+    vertex(14,286);
+    vertex(61,236);
+    vertex(88,308);
+    vertex(51,334);
+    vertex(14,313);
+    endShape(CLOSE);
+    beginShape();
+    vertex(286,287);
+    vertex(286,312);
+    vertex(247,335);
+    vertex(212,309);
+    vertex(238,238);
+    endShape(CLOSE);
+    
+    fill(200);//white
+    beginShape();
+    vertex(38,307);
+    vertex(74,307);
+    vertex(80,314);
+    vertex(81,337);
+    vertex(68,345);
+    vertex(38,327);
+    endShape(CLOSE);
+    beginShape();
+    vertex(219,316);
+    vertex(226,308);
+    vertex(262,308);
+    vertex(262,326);
+    vertex(231,345);
+    vertex(219,336);
+    endShape(CLOSE);
+    
+    fill(192,0,11);//red
+    beginShape();
+    vertex(96,191);
+    vertex(61,230);
+    vertex(60,269);
+    vertex(96,312);
+    vertex(101,300);
+    vertex(100,247);
+    vertex(112,232);
+    vertex(132,232);
+    vertex(131,186);
+    endShape(CLOSE);
+    beginShape();
+    vertex(204,191);
+    vertex(240,230);
+    vertex(240,270);
+    vertex(205,312);
+    vertex(200,302);
+    vertex(200,248);
+    vertex(193,238);
+    vertex(185,231);
+    vertex(170,230);
+    vertex(170,186);
+    endShape(CLOSE);
+    
+    //white
+    fill(200);
+    beginShape();
+    vertex(70,217);
+    vertex(74,220);
+    vertex(81,210);
+    vertex(85,213);
+    vertex(75,227);
+    vertex(72,229);
+    vertex(71,231);
+    vertex(73,233);
+    vertex(73,268);
+    vertex(71,272);
+    vertex(76,277);
+    vertex(82,274);
+    vertex(89,283);
+    vertex(90,297);
+    vertex(66,272);
+    vertex(65,235);
+    vertex(68,229);
+    vertex(62,228);
+    endShape(CLOSE);
+    beginShape();
+    vertex(228,217);
+    vertex(225,218);
+    vertex(218,211);
+    vertex(215,213);
+    vertex(223,227);
+    vertex(226,226);
+    vertex(230,230);
+    vertex(227,233);
+    vertex(228,270);
+    vertex(229,272);
+    vertex(223,276);
+    vertex(218,276);
+    vertex(210,283);
+    vertex(211,296);
+    vertex(235,273);
+    vertex(234,233);
+    vertex(232,228);
+    vertex(237,227);
+    endShape(CLOSE);
+    
+    //guns
+    //white
+    fill(200);
+    beginShape();
+    vertex(121,301);
+    vertex(98,313);
+    vertex(102,336);
+    vertex(119,342);
+    vertex(139,336);
+    vertex(141,313);
+    endShape(CLOSE);//l
+    beginShape();
+    vertex(159,312);
+    vertex(162,336);
+    vertex(180,342);
+    vertex(200,336);
+    vertex(202,313);
+    vertex(180,302);
+    endShape(CLOSE);
+    
+    //black
+    fill(0);
+    rect(105,315,30,30);
+    rect(166,315,30,30);
+    quad(105,344,109,355,131,355,135,344);
+    quad(166,344,170,355,192,355,196,344);
+    //green
+    fill(0,0,67);
+    rect(103,253,33,62);//l
+    rect(164,252,33,62);//r
+    //white
+    fill(200);
+    bezier(103,252,107,230,132,230,136,252);//l
+    bezier(164,252,169,230,192,230,197,252);//r
+    rect(103,280,33,25);//l
+    rect(164,280,33,25);//r
+    rect(104,319,33,26,3);//l
+    rect(165,319,33,26,3);//r
+    rect(115,310,7,28,8);//l
+    rect(178,310,7,28,8);//r
+    //green
+    fill(0,0,67);
+    rect(105,284,10,15);
+    rect(124,284,10,15);
+    rect(167,285,10,15);
+    rect(185,284,10,15);
+    
+    //body-wings
+    //green
+    fill(0,0,67);//blue
+    bezier(107,154,101,162,98,169,98,187);
+    bezier(191,153,199,164,202,172,203,187);
+    quad(107,154,98,186,98,223,107,224);
+    quad(191,153,203,186,202,223,192,223);
+    fill(192,0,11);//red
+    quad(134,112,108,147,107,239,132,230);
+    quad(165,112,192,147,193,239,168,230);
+    //black
+    fill(0);
+    quad(130,122,130,142,111,164,111,147);
+    quad(169,122,188,147,188,165,169,144);
+    //white
+    fill(200);
+    beginShape();
+    vertex(131,154);
+    vertex(129,202);
+    vertex(118,202);
+    vertex(112,181);
+    vertex(110,179);
+    vertex(110,171);
+    endShape(CLOSE);
+    beginShape();
+    vertex(170,154);
+    vertex(190,172);
+    vertex(190,182);
+    vertex(188,181);
+    vertex(182,201);
+    vertex(172,201);
+    endShape(CLOSE);
+    
+    //green
+    fill(192,0,11);
+    quad(134,193,166,193,154,342,146,342);
+    fill(192,0,11);
+    quad(142,180,159,180,152,352,148,352);
+    //white
+    fill(200);
+    ellipse(150,374,6,50);
+    
+    //head
+    
+    fill(1,1,75);
+    ellipse(149.5,72,33,25);
+    ellipse(149.5,94,30,170);
+    fill(0);
+    ellipse(149.5,94,20,160);
+    fill(154,155,84);
+    ellipse(149.5,94,17,77);
+    strokeWeight(2);
+    line(143,74,158,74);
+    line(142,104,158,104);
+    strokeWeight(1);
+    fill(200);
+    bezier(143,15,147,2,153,2,155.5,15);
+  }
+
+void russia(){
+    stroke(1);
+    //back guns
+    fill(0);
+    rect(73,192,4,15);
+    rect(224,192,4,15);
+    rect(71,207,8,15);
+    rect(222,207,8,15);
+    rect(66,207,3,15);
+    rect(232,207,3,17);
+    rect(122,109,4,15);
+    rect(175,110,4,15);
+    rect(121,120,6,15);
+    rect(174,120,6,15);
+    rect(116,124,3,15);
+    rect(182,124,3,15);
+    
+    //wings
+    fill(165,0,0);//gray
+    beginShape();
+    vertex(14,286);
+    vertex(61,236);
+    vertex(88,308);
+    vertex(51,334);
+    vertex(14,313);
+    endShape(CLOSE);
+    beginShape();
+    vertex(286,287);
+    vertex(286,312);
+    vertex(247,335);
+    vertex(212,309);
+    vertex(238,238);
+    endShape(CLOSE);
+    
+    fill(0);//black
+    beginShape();
+    vertex(38,307);
+    vertex(74,307);
+    vertex(80,314);
+    vertex(81,337);
+    vertex(68,345);
+    vertex(38,327);
+    endShape(CLOSE);
+    beginShape();
+    vertex(219,316);
+    vertex(226,308);
+    vertex(262,308);
+    vertex(262,326);
+    vertex(231,345);
+    vertex(219,336);
+    endShape(CLOSE);
+    
+    fill(18,39,148);//blue
+    beginShape();
+    vertex(96,191);
+    vertex(61,230);
+    vertex(60,269);
+    vertex(96,312);
+    vertex(101,300);
+    vertex(100,247);
+    vertex(112,232);
+    vertex(132,232);
+    vertex(131,186);
+    endShape(CLOSE);
+    beginShape();
+    vertex(204,191);
+    vertex(240,230);
+    vertex(240,270);
+    vertex(205,312);
+    vertex(200,302);
+    vertex(200,248);
+    vertex(193,238);
+    vertex(185,231);
+    vertex(170,230);
+    vertex(170,186);
+    endShape(CLOSE);
+    
+    //white
+    fill(200);
+    beginShape();
+    vertex(70,217);
+    vertex(74,220);
+    vertex(81,210);
+    vertex(85,213);
+    vertex(75,227);
+    vertex(72,229);
+    vertex(71,231);
+    vertex(73,233);
+    vertex(73,268);
+    vertex(71,272);
+    vertex(76,277);
+    vertex(82,274);
+    vertex(89,283);
+    vertex(90,297);
+    vertex(66,272);
+    vertex(65,235);
+    vertex(68,229);
+    vertex(62,228);
+    endShape(CLOSE);
+    beginShape();
+    vertex(228,217);
+    vertex(225,218);
+    vertex(218,211);
+    vertex(215,213);
+    vertex(223,227);
+    vertex(226,226);
+    vertex(230,230);
+    vertex(227,233);
+    vertex(228,270);
+    vertex(229,272);
+    vertex(223,276);
+    vertex(218,276);
+    vertex(210,283);
+    vertex(211,296);
+    vertex(235,273);
+    vertex(234,233);
+    vertex(232,228);
+    vertex(237,227);
+    endShape(CLOSE);
+    
+    //guns
+    //red
+    fill(194,24,11);
+    beginShape();
+    vertex(121,301);
+    vertex(98,313);
+    vertex(102,336);
+    vertex(119,342);
+    vertex(139,336);
+    vertex(141,313);
+    endShape(CLOSE);//l
+    beginShape();
+    vertex(159,312);
+    vertex(162,336);
+    vertex(180,342);
+    vertex(200,336);
+    vertex(202,313);
+    vertex(180,302);
+    endShape(CLOSE);
+    
+    //black
+    fill(0);
+    rect(105,315,30,30);
+    rect(166,315,30,30);
+    quad(105,344,109,355,131,355,135,344);
+    quad(166,344,170,355,192,355,196,344);
+    
+    rect(103,253,33,62);//l
+    rect(164,252,33,62);//r
+    //white
+    fill(200);
+    bezier(103,252,107,230,132,230,136,252);//l
+    bezier(164,252,169,230,192,230,197,252);//r
+   
+    rect(103,280,33,25);//l
+    rect(164,280,33,25);//r
+    rect(104,319,33,26,3);//l
+    rect(165,319,33,26,3);//r
+    fill(194,24,11);
+    rect(115,310,7,28,8);//l
+    rect(178,310,7,28,8);//r
+    
+    fill(194,24,11);
+    rect(105,284,10,15);
+    rect(124,284,10,15);
+    rect(167,285,10,15);
+    rect(185,284,10,15);
+    
+    //body-wings
+
+    fill(0,0,67);//blue
+    bezier(107,154,101,162,98,169,98,187);
+    bezier(191,153,199,164,202,172,203,187);
+    quad(107,154,98,186,98,223,107,224);
+    quad(191,153,203,186,202,223,192,223);
+    fill(192,0,11);//red
+    quad(134,112,108,147,107,239,132,230);
+    quad(165,112,192,147,193,239,168,230);
+    //black
+    fill(0);
+    quad(130,122,130,142,111,164,111,147);
+    quad(169,122,188,147,188,165,169,144);
+    //white
+    fill(200);
+    beginShape();
+    vertex(131,154);
+    vertex(129,202);
+    vertex(118,202);
+    vertex(112,181);
+    vertex(110,179);
+    vertex(110,171);
+    endShape(CLOSE);
+    beginShape();
+    vertex(170,154);
+    vertex(190,172);
+    vertex(190,182);
+    vertex(188,181);
+    vertex(182,201);
+    vertex(172,201);
+    endShape(CLOSE);
+    
+    fill(0);
+    quad(134,193,166,193,154,342,146,342);
+    fill(192,0,11);
+    quad(142,180,159,180,152,352,148,352);
+    //white
+    fill(200);
+    ellipse(150,374,6,50);
+    
+    //head
+    fill(160,0,0);
+    ellipse(149.5,72,33,25);
+    ellipse(149.5,94,30,170);
+    fill(0);
+    ellipse(149.5,94,20,160);
+    fill(154,155,84);
+    ellipse(149.5,94,17,77);
+    strokeWeight(2);
+    line(143,74,158,74);
+    line(142,104,158,104);
+    strokeWeight(1);
+    fill(200);
+    bezier(143,15,147,2,153,2,155.5,15);
+  }
+
+ void syria(){
+    stroke(1);
+    //back guns
+    fill(0);
+    rect(73,192,4,15);
+    rect(224,192,4,15);
+    rect(71,207,8,15);
+    rect(222,207,8,15);
+    rect(66,207,3,15);
+    rect(232,207,3,17);
+    rect(122,109,4,15);
+    rect(175,110,4,15);
+    rect(121,120,6,15);
+    rect(174,120,6,15);
+    rect(116,124,3,15);
+    rect(182,124,3,15);
+    
+    //wings
+    fill(206,17,38);//red
+    beginShape();
+    vertex(14,286);
+    vertex(61,236);
+    vertex(88,308);
+    vertex(51,334);
+    vertex(14,313);
+    endShape(CLOSE);
+    beginShape();
+    vertex(286,287);
+    vertex(286,312);
+    vertex(247,335);
+    vertex(212,309);
+    vertex(238,238);
+    endShape(CLOSE);
+    
+    fill(200);//white
+    beginShape();
+    vertex(38,307);
+    vertex(74,307);
+    vertex(80,314);
+    vertex(81,337);
+    vertex(68,345);
+    vertex(38,327);
+    endShape(CLOSE);
+    beginShape();
+    vertex(219,316);
+    vertex(226,308);
+    vertex(262,308);
+    vertex(262,326);
+    vertex(231,345);
+    vertex(219,336);
+    endShape(CLOSE);
+    
+    fill(0);//red
+    beginShape();
+    vertex(96,191);
+    vertex(61,230);
+    vertex(60,269);
+    vertex(96,312);
+    vertex(101,300);
+    vertex(100,247);
+    vertex(112,232);
+    vertex(132,232);
+    vertex(131,186);
+    endShape(CLOSE);
+    beginShape();
+    vertex(204,191);
+    vertex(240,230);
+    vertex(240,270);
+    vertex(205,312);
+    vertex(200,302);
+    vertex(200,248);
+    vertex(193,238);
+    vertex(185,231);
+    vertex(170,230);
+    vertex(170,186);
+    endShape(CLOSE);
+    
+    //white
+    fill(200);
+    beginShape();
+    vertex(70,217);
+    vertex(74,220);
+    vertex(81,210);
+    vertex(85,213);
+    vertex(75,227);
+    vertex(72,229);
+    vertex(71,231);
+    vertex(73,233);
+    vertex(73,268);
+    vertex(71,272);
+    vertex(76,277);
+    vertex(82,274);
+    vertex(89,283);
+    vertex(90,297);
+    vertex(66,272);
+    vertex(65,235);
+    vertex(68,229);
+    vertex(62,228);
+    endShape(CLOSE);
+    beginShape();
+    vertex(228,217);
+    vertex(225,218);
+    vertex(218,211);
+    vertex(215,213);
+    vertex(223,227);
+    vertex(226,226);
+    vertex(230,230);
+    vertex(227,233);
+    vertex(228,270);
+    vertex(229,272);
+    vertex(223,276);
+    vertex(218,276);
+    vertex(210,283);
+    vertex(211,296);
+    vertex(235,273);
+    vertex(234,233);
+    vertex(232,228);
+    vertex(237,227);
+    endShape(CLOSE);
+    
+    //guns
+    //white
+    fill(200);
+    beginShape();
+    vertex(121,301);
+    vertex(98,313);
+    vertex(102,336);
+    vertex(119,342);
+    vertex(139,336);
+    vertex(141,313);
+    endShape(CLOSE);//l
+    beginShape();
+    vertex(159,312);
+    vertex(162,336);
+    vertex(180,342);
+    vertex(200,336);
+    vertex(202,313);
+    vertex(180,302);
+    endShape(CLOSE);
+    
+    //black
+    fill(0);
+    rect(105,315,30,30);
+    rect(166,315,30,30);
+    quad(105,344,109,355,131,355,135,344);
+    quad(166,344,170,355,192,355,196,344);
+    //green
+    fill(0,122,61);
+    rect(103,253,33,62);//l
+    rect(164,252,33,62);//r
+    //white
+    fill(200);
+    bezier(103,252,107,230,132,230,136,252);//l
+    bezier(164,252,169,230,192,230,197,252);//r
+    rect(103,280,33,25);//l
+    rect(164,280,33,25);//r
+    rect(104,319,33,26,3);//l
+    rect(165,319,33,26,3);//r
+    rect(115,310,7,28,8);//l
+    rect(178,310,7,28,8);//r
+    //green
+    fill(0,122,61);
+    rect(105,284,10,15);
+    rect(124,284,10,15);
+    rect(167,285,10,15);
+    rect(185,284,10,15);
+    
+    //body-wings
+
+    fill(0,122,61);//green
+    bezier(107,154,101,162,98,169,98,187);
+    bezier(191,153,199,164,202,172,203,187);
+    quad(107,154,98,186,98,223,107,224);
+    quad(191,153,203,186,202,223,192,223);
+    fill(206,17,38);//red
+    quad(134,112,108,147,107,239,132,230);
+    quad(165,112,192,147,193,239,168,230);
+    //black
+    fill(0);
+    quad(130,122,130,142,111,164,111,147);
+    quad(169,122,188,147,188,165,169,144);
+    //white
+    fill(200);
+    beginShape();
+    vertex(131,154);
+    vertex(129,202);
+    vertex(118,202);
+    vertex(112,181);
+    vertex(110,179);
+    vertex(110,171);
+    endShape(CLOSE);
+    beginShape();
+    vertex(170,154);
+    vertex(190,172);
+    vertex(190,182);
+    vertex(188,181);
+    vertex(182,201);
+    vertex(172,201);
+    endShape(CLOSE);
+    
+    fill(0);
+    quad(134,193,166,193,154,342,146,342);
+    fill(0);
+    quad(142,180,159,180,152,352,148,352);
+    //white
+    fill(200);
+    ellipse(150,374,6,50);
+    
+    //head
+    
+    fill(206,17,38);
+    ellipse(149.5,72,33,25);
+    ellipse(149.5,94,30,170);
+    fill(0);
+    ellipse(149.5,94,20,160);
+    fill(154,155,84);
+    ellipse(149.5,94,17,77);
+    strokeWeight(2);
+    line(143,74,158,74);
+    line(142,104,158,104);
+    strokeWeight(1);
+    fill(200);
+    bezier(143,15,147,2,153,2,155.5,15);
+  }
+   void uk(){
+    stroke(1);
+    //back guns
+    fill(0);
+    rect(73,192,4,15);
+    rect(224,192,4,15);
+    rect(71,207,8,15);
+    rect(222,207,8,15);
+    rect(66,207,3,15);
+    rect(232,207,3,17);
+    rect(122,109,4,15);
+    rect(175,110,4,15);
+    rect(121,120,6,15);
+    rect(174,120,6,15);
+    rect(116,124,3,15);
+    rect(182,124,3,15);
+    
+    //wings--england
+    fill(1,0,74);//dark blue
+    beginShape();
+    vertex(14,286);
+    vertex(61,236);
+    vertex(88,308);
+    vertex(51,334);
+    vertex(14,313);
+    endShape(CLOSE);
+    beginShape();
+    vertex(286,287);
+    vertex(286,312);
+    vertex(247,335);
+    vertex(212,309);
+    vertex(238,238);
+    endShape(CLOSE);
+    
+    noStroke();
+    fill(255);
+    rect(15,286,74,20);
+    rect(212,284,74,20);
+    rect(48,248,20,74);
+    rect(233,248,20,74);
+    quad(26,272,35,260,83,312,72,320);
+    quad(262,260,272,272,229,312,220,318);
+    quad(25,318,38,328,85,278,75,263);
+    quad(264,324,280,316,228,262,214,274);
+    
+    fill(207,20,43);
+    rect(51,248,15,74);
+    rect(235,247,15,74);
+    rect(15,289,74,15);
+    rect(211,286,74,15);
+    
+    stroke(1);
+    fill(0);//white
+    beginShape();
+    vertex(38,307);
+    vertex(74,307);
+    vertex(80,314);
+    vertex(81,337);
+    vertex(68,345);
+    vertex(38,327);
+    endShape(CLOSE);
+    beginShape();
+    vertex(219,316);
+    vertex(226,308);
+    vertex(262,308);
+    vertex(262,326);
+    vertex(231,345);
+    vertex(219,336);
+    endShape(CLOSE);
+    
+    fill(0,36,125);//red
+    beginShape();
+    vertex(96,191);
+    vertex(61,230);
+    vertex(60,269);
+    vertex(96,312);
+    vertex(101,300);
+    vertex(100,247);
+    vertex(112,232);
+    vertex(132,232);
+    vertex(131,186);
+    endShape(CLOSE);
+    beginShape();
+    vertex(204,191);
+    vertex(240,230);
+    vertex(240,270);
+    vertex(205,312);
+    vertex(200,302);
+    vertex(200,248);
+    vertex(193,238);
+    vertex(185,231);
+    vertex(170,230);
+    vertex(170,186);
+    endShape(CLOSE);
+    
+    //gray
+    fill(200);
+    beginShape();
+    vertex(70,217);
+    vertex(74,220);
+    vertex(81,210);
+    vertex(85,213);
+    vertex(75,227);
+    vertex(72,229);
+    vertex(71,231);
+    vertex(73,233);
+    vertex(73,268);
+    vertex(71,272);
+    vertex(76,277);
+    vertex(82,274);
+    vertex(89,283);
+    vertex(90,297);
+    vertex(66,272);
+    vertex(65,235);
+    vertex(68,229);
+    vertex(62,228);
+    endShape(CLOSE);
+    beginShape();
+    vertex(228,217);
+    vertex(225,218);
+    vertex(218,211);
+    vertex(215,213);
+    vertex(223,227);
+    vertex(226,226);
+    vertex(230,230);
+    vertex(227,233);
+    vertex(228,270);
+    vertex(229,272);
+    vertex(223,276);
+    vertex(218,276);
+    vertex(210,283);
+    vertex(211,296);
+    vertex(235,273);
+    vertex(234,233);
+    vertex(232,228);
+    vertex(237,227);
+    endShape(CLOSE);
+    
+    //guns
+    //white
+    fill(200);
+    beginShape();
+    vertex(121,301);
+    vertex(98,313);
+    vertex(102,336);
+    vertex(119,342);
+    vertex(139,336);
+    vertex(141,313);
+    endShape(CLOSE);//l
+    beginShape();
+    vertex(159,312);
+    vertex(162,336);
+    vertex(180,342);
+    vertex(200,336);
+    vertex(202,313);
+    vertex(180,302);
+    endShape(CLOSE);
+    
+    //black
+    fill(0);
+    rect(105,315,30,30);
+    rect(166,315,30,30);
+    quad(105,344,109,355,131,355,135,344);
+    quad(166,344,170,355,192,355,196,344);
+   
+    fill(207,20,43);
+    rect(103,253,33,62);//l
+    rect(164,252,33,62);//r
+
+    fill(200);
+    bezier(103,252,107,230,132,230,136,252);//l
+    bezier(164,252,169,230,192,230,197,252);//r
+    rect(103,280,33,25);//l
+    rect(164,280,33,25);//r
+    fill(0,36,125);
+    rect(104,319,33,26,3);//l
+    rect(165,319,33,26,3);//r
+    fill(200);
+    rect(115,310,7,28,8);//l
+    rect(178,310,7,28,8);//r
+
+    fill(0,0,67);
+    rect(105,284,10,15);
+    rect(124,284,10,15);
+    rect(167,285,10,15);
+    rect(185,284,10,15);
+    
+    //body-wings
+
+    fill(0,0,67);//blue
+    bezier(107,154,101,162,98,169,98,187);
+    bezier(191,153,199,164,202,172,203,187);
+    quad(107,154,98,186,98,223,107,224);
+    quad(191,153,203,186,202,223,192,223);
+    fill(0,36,125);//red
+    quad(134,112,108,147,107,239,132,230);
+    quad(165,112,192,147,193,239,168,230);
+    //black
+    fill(0);
+    quad(130,122,130,142,111,164,111,147);
+    quad(169,122,188,147,188,165,169,144);
+    //white
+    fill(200);
+    beginShape();
+    vertex(131,154);
+    vertex(129,202);
+    vertex(118,202);
+    vertex(112,181);
+    vertex(110,179);
+    vertex(110,171);
+    endShape(CLOSE);
+    beginShape();
+    vertex(170,154);
+    vertex(190,172);
+    vertex(190,182);
+    vertex(188,181);
+    vertex(182,201);
+    vertex(172,201);
+    endShape(CLOSE);
+    
+
+    fill(0,36,125);
+    quad(134,193,166,193,154,342,146,342);
+    fill(192,0,11);
+    quad(142,180,159,180,152,352,148,352);
+    //white
+    fill(200);
+    ellipse(150,374,6,50);
+    
+    //head
+    
+    fill(1,1,75);
+    ellipse(149.5,72,33,25);
+    ellipse(149.5,94,30,170);
+    fill(0);
+    ellipse(149.5,94,20,160);
+    fill(154,155,84);
+    ellipse(149.5,94,17,77);
+    strokeWeight(2);
+    line(143,74,158,74);
+    line(142,104,158,104);
+    strokeWeight(1);
+    fill(200);
+    bezier(143,15,147,2,153,2,155.5,15);
+  }
+
+  void star(float x, float y, float r, float R) {
+  float angle = TWO_PI / 5;
+  float halfAngle = angle/2.0;
+  beginShape();
+  noStroke();
+  for (float a = 0; a < TWO_PI; a += angle) {
+    float sx = x + cos(a) * r;
+    float sy = y + sin(a) * r;
+    vertex(sx, sy);
+    sx = x + cos(a+halfAngle) * R;
+    sy = y + sin(a+halfAngle) * R;
+    vertex(sx, sy);
+  }
+  endShape(CLOSE);
+}
+
 
 
