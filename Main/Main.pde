@@ -584,6 +584,7 @@ void keyReleased() {
 }
 
 void changeFlightType(int x) {
+    if (currentPage != 1) return;
     if (0 == x) {
         if (flightType == 3) flightType = 1;
         if (flightType == 4) flightType = 2;
