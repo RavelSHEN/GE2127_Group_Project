@@ -173,6 +173,7 @@ void draw(){
         image(russiaf,155,400,100,60);
         image(ukf,445,400,100,60);
         drawSelector(flightType);
+        println("flightType: "+flightType);
 
         // textFont(Lucida, 24);
         // text("Press 1,2,3,4 to select your plane", width / 2, height / 3);
@@ -373,7 +374,7 @@ void draw(){
 
             player.update();
             player.detectBound();
-            player.drawMe(flightType);
+            player.drawMe(flightType, player.invincible);
             player.trackBullets();
             // if player is invincible, count invincible time
             if(player.invincible){
@@ -686,7 +687,7 @@ void strength3(float x, float y){
   rect(x+41,y+1,17,3);
 }
 
-  void usa(){
+void usa(){
     stroke(1);
     //back guns
     fill(0);

@@ -117,8 +117,11 @@ class Player extends BasicObject{
         return count;
     }
         //draw the player
-    void drawMe(int type){
-
+    void drawMe(int type, boolean invincible){
+        if (invincible) {
+            int tmp = millis() / 100;
+            if (tmp % 3 == 0) return;
+        }
         pushMatrix();
         translate(posX,posY);
         translate( - wid/2, - hei/2);
@@ -358,10 +361,12 @@ class Player extends BasicObject{
                 star(269,290);
                 star(276,304);
                 star(253,272);
+                println("NO");
                 break;
-            case 2:
+            case 3:
+                println("YES");
                 stroke(1);
-        //back guns
+                //back guns
                 fill(0);
                 rect(73,192,4,15);
                 rect(224,192,4,15);
@@ -375,9 +380,9 @@ class Player extends BasicObject{
                 rect(174,120,6,15);
                 rect(116,124,3,15);
                 rect(182,124,3,15);
-
+                
                 //wings
-                fill(165,0,0);//gray
+                fill(1,0,74);//dark blue
                 beginShape();
                 vertex(14,286);
                 vertex(61,236);
@@ -392,8 +397,8 @@ class Player extends BasicObject{
                 vertex(212,309);
                 vertex(238,238);
                 endShape(CLOSE);
-
-                fill(0);//black
+                
+                fill(200);//white
                 beginShape();
                 vertex(38,307);
                 vertex(74,307);
@@ -410,8 +415,8 @@ class Player extends BasicObject{
                 vertex(231,345);
                 vertex(219,336);
                 endShape(CLOSE);
-
-                fill(18,39,148);//blue
+                
+                fill(192,0,11);//red
                 beginShape();
                 vertex(96,191);
                 vertex(61,230);
@@ -435,7 +440,7 @@ class Player extends BasicObject{
                 vertex(170,230);
                 vertex(170,186);
                 endShape(CLOSE);
-
+                
                 //white
                 fill(200);
                 beginShape();
@@ -478,10 +483,10 @@ class Player extends BasicObject{
                 vertex(232,228);
                 vertex(237,227);
                 endShape(CLOSE);
-
+                
                 //guns
-                //red
-                fill(194,24,11);
+                //white
+                fill(200);
                 beginShape();
                 vertex(121,301);
                 vertex(98,313);
@@ -498,37 +503,36 @@ class Player extends BasicObject{
                 vertex(202,313);
                 vertex(180,302);
                 endShape(CLOSE);
-
+                
                 //black
                 fill(0);
                 rect(105,315,30,30);
                 rect(166,315,30,30);
                 quad(105,344,109,355,131,355,135,344);
                 quad(166,344,170,355,192,355,196,344);
-
+                //green
+                fill(0,0,67);
                 rect(103,253,33,62);//l
                 rect(164,252,33,62);//r
                 //white
                 fill(200);
                 bezier(103,252,107,230,132,230,136,252);//l
                 bezier(164,252,169,230,192,230,197,252);//r
-
                 rect(103,280,33,25);//l
                 rect(164,280,33,25);//r
                 rect(104,319,33,26,3);//l
                 rect(165,319,33,26,3);//r
-                fill(194,24,11);
                 rect(115,310,7,28,8);//l
                 rect(178,310,7,28,8);//r
-
-                fill(194,24,11);
+                //green
+                fill(0,0,67);
                 rect(105,284,10,15);
                 rect(124,284,10,15);
                 rect(167,285,10,15);
                 rect(185,284,10,15);
-
+                
                 //body-wings
-
+                //green
                 fill(0,0,67);//blue
                 bezier(107,154,101,162,98,169,98,187);
                 bezier(191,153,199,164,202,172,203,187);
@@ -559,17 +563,19 @@ class Player extends BasicObject{
                 vertex(182,201);
                 vertex(172,201);
                 endShape(CLOSE);
-
-                fill(0);
+                
+                //green
+                fill(192,0,11);
                 quad(134,193,166,193,154,342,146,342);
                 fill(192,0,11);
                 quad(142,180,159,180,152,352,148,352);
                 //white
                 fill(200);
                 ellipse(150,374,6,50);
-
+                
                 //head
-                fill(160,0,0);
+                
+                fill(1,1,75);
                 ellipse(149.5,72,33,25);
                 ellipse(149.5,94,30,170);
                 fill(0);
@@ -582,8 +588,9 @@ class Player extends BasicObject{
                 strokeWeight(1);
                 fill(200);
                 bezier(143,15,147,2,153,2,155.5,15);
+
                 break;
-            case 3:
+            case 4:
                 stroke(1);
                 //back guns
                 fill(0);
@@ -829,7 +836,7 @@ class Player extends BasicObject{
                 bezier(143,15,147,2,153,2,155.5,15);
                 break;
 
-            case 4:
+            case 2:
                 stroke(1);
                 //back guns
                 fill(0);
@@ -1069,12 +1076,14 @@ class Player extends BasicObject{
         beginShape();
         noStroke();
         for (float a = 0; a < TWO_PI; a += angle) {
-        float sx = x + cos(a) * 2;
-        float sy = y + sin(a) * 2;
-        vertex(sx, sy);
-        sx = x + cos(a+halfAngle) * 5;
-        sy = y + sin(a+halfAngle) * 5;
-        vertex(sx, sy);
+            float sx = x + cos(a) * 2;
+            float sy = y + sin(a) * 2;
+            vertex(sx, sy);
+            sx = x + cos(a+halfAngle) * 5;
+            sy = y + sin(a+halfAngle) * 5;
+            vertex(sx, sy);
+        }
+        endShape();
     }
-}
+
 }
