@@ -203,7 +203,7 @@ void draw(){
     else if (2 == currentPage){
         // String strText = "asdfasdfasdfasdfasdasdf";
         // println("strText: "+strText);
-        
+
         introTextY = constrain(introTextY, 0, introText.height - height);
         set(0, -introTextY, introText);
         introTextY = (frameCount - tmpframecount) / 3;
@@ -455,14 +455,44 @@ void draw(){
                 int enemyVelY = (int)(4 * sin(enemyAngle) + random(-1,1));
                 int enemyType = 0;
                 // print(enemyVelX, enemyVelY, "\n");
-                 enemies.add(new Enemy(enemyPosX, enemyPosY, enemyVelX, enemyVelY, 0, 0));
+                enemies.add(new Enemy(enemyPosX, enemyPosY, enemyVelX, enemyVelY, 0, 0));
             }
         }
     }
 }
 
 void drawSelector(int x) {
-    
+    switch(x){
+        case 1:
+            stroke(100,80,50);
+            for (int i = 0; i < 30; i ++){
+                fill(200+i*10,200+i*10,200+i*10);
+                triangle(80, 330, 50+i, 360, 110-i, 360);
+            }
+            break;
+        case 2:
+            stroke(100,80,50);
+            for (int i = 0; i < 30; i ++){
+                fill(200+i*10,200+i*10,200+i*10);
+                triangle(370, 330, 340+i, 360, 400-i, 360);
+            }
+            break;
+        case 3:
+            stroke(100,80,50);
+            for (int i = 0; i < 30; i ++){
+                fill(200+i*10,200+i*10,200+i*10);
+                triangle(80, 600, 50+i, 630, 110-i, 630);
+            }
+            break;
+        case 4:
+            stroke(100,80,50);
+            for (int i = 0; i < 30; i ++){
+                fill(200+i*10,200+i*10,200+i*10);
+                triangle(370, 600, 340+i, 630, 400-i, 630);
+            }
+            break;
+    }
+
 }
 
 void drawBomb(int x, int y) {
@@ -510,19 +540,19 @@ void drawHealth(int x, int y) {
 
     fill(0);
     beginShape();
-    vertex(52, 17); 
-    bezierVertex(52, -5, 90, 5, 52, 40); 
-    vertex(52, 17); 
-    bezierVertex(52, -5, 10, 5, 52, 40); 
+    vertex(52, 17);
+    bezierVertex(52, -5, 90, 5, 52, 40);
+    vertex(52, 17);
+    bezierVertex(52, -5, 10, 5, 52, 40);
     endShape();
 
 
     fill(255,0,0);
     beginShape();
-    vertex(50, 15); 
-    bezierVertex(50, -5, 90, 5, 50, 40); 
-    vertex(50, 15); 
-    bezierVertex(50, -5, 10, 5, 50, 40); 
+    vertex(50, 15);
+    bezierVertex(50, -5, 90, 5, 50, 40);
+    vertex(50, 15);
+    bezierVertex(50, -5, 10, 5, 50, 40);
     endShape();
     popMatrix();
 }
@@ -637,7 +667,7 @@ void title(){
 void feature(float x, float y){
   fill(150);
   textFont(feature,12);
-  text("SPEED",x,y); 
+  text("SPEED",x,y);
   text("AGILITY",x,y+18);
   text("DEFENCE",x,y+36);
   text("AIR-AIR",x,y+54);
@@ -649,11 +679,11 @@ void strength1(float x, float y){
   rect(x+7,y,66,6);
   bezier(x+7,y,x,y+1,x,y+5,x+7,y+6);
   bezier(x+73,y,x+80,y+1,x+80,y+5,x+73,y+6);
-  
+
   fill(126,154,80);//1st green bar
   rect(x+7,y+1,13,3);
   bezier(x+7,y+1,x+1,y+2.5,x+1,y+3.5,x+7,y+4);
-  
+
 }
 void strength2(float x, float y){
   noStroke();
@@ -661,14 +691,14 @@ void strength2(float x, float y){
   rect(x+7,y,66,6);
   bezier(x+7,y,x,y+1,x,y+5,x+7,y+6);
   bezier(x+73,y,x+80,y+1,x+80,y+5,x+73,y+6);
-  
+
   fill(20,178,226);
   rect(x+7,y+1,13,3);//1st blue bar
   bezier(x+7,y+1,x+1,y+2.5,x+1,y+3.5,x+7,y+4);
-  
+
   fill(126,154,80);//2nd green bar
   rect(x+22,y+1,17,3);
- 
+
 }
 void strength3(float x, float y){
   noStroke();
@@ -676,13 +706,13 @@ void strength3(float x, float y){
   rect(x+7,y,66,6);
   bezier(x+7,y,x,y+1,x,y+5,x+7,y+6);
   bezier(x+73,y,x+80,y+1,x+80,y+5,x+73,y+6);
-  
+
   fill(20,178,226);
   rect(x+7,y+1,13,3);//1st blue bar
   bezier(x+7,y+1,x+1,y+2.5,x+1,y+3.5,x+7,y+4);
-  
+
   rect(x+22,y+1,17,3);//2nd blue bar
-  
+
   fill(126,154,80);//3rd green bar
   rect(x+41,y+1,17,3);
 }
@@ -703,7 +733,7 @@ void usa(){
     rect(174,120,6,15);
     rect(116,124,3,15);
     rect(182,124,3,15);
-    
+
     //wings
     fill(1,0,74);//dark blue
     beginShape();
@@ -720,7 +750,7 @@ void usa(){
     vertex(212,309);
     vertex(238,238);
     endShape(CLOSE);
-    
+
     fill(200);//white
     beginShape();
     vertex(38,307);
@@ -738,7 +768,7 @@ void usa(){
     vertex(231,345);
     vertex(219,336);
     endShape(CLOSE);
-    
+
     fill(192,0,11);//red
     beginShape();
     vertex(96,191);
@@ -763,7 +793,7 @@ void usa(){
     vertex(170,230);
     vertex(170,186);
     endShape(CLOSE);
-    
+
     //white
     fill(200);
     beginShape();
@@ -806,7 +836,7 @@ void usa(){
     vertex(232,228);
     vertex(237,227);
     endShape(CLOSE);
-    
+
     //guns
     //white
     fill(200);
@@ -826,7 +856,7 @@ void usa(){
     vertex(202,313);
     vertex(180,302);
     endShape(CLOSE);
-    
+
     //black
     fill(0);
     rect(105,315,30,30);
@@ -853,7 +883,7 @@ void usa(){
     rect(124,284,10,15);
     rect(167,285,10,15);
     rect(185,284,10,15);
-    
+
     //body-wings
     //green
     fill(0,0,67);//blue
@@ -886,7 +916,7 @@ void usa(){
     vertex(182,201);
     vertex(172,201);
     endShape(CLOSE);
-    
+
     //green
     fill(192,0,11);
     quad(134,193,166,193,154,342,146,342);
@@ -895,9 +925,9 @@ void usa(){
     //white
     fill(200);
     ellipse(150,374,6,50);
-    
+
     //head
-    
+
     fill(1,1,75);
     ellipse(149.5,72,33,25);
     ellipse(149.5,94,30,170);
@@ -929,7 +959,7 @@ void russia(){
     rect(174,120,6,15);
     rect(116,124,3,15);
     rect(182,124,3,15);
-    
+
     //wings
     fill(165,0,0);//gray
     beginShape();
@@ -946,7 +976,7 @@ void russia(){
     vertex(212,309);
     vertex(238,238);
     endShape(CLOSE);
-    
+
     fill(0);//black
     beginShape();
     vertex(38,307);
@@ -964,7 +994,7 @@ void russia(){
     vertex(231,345);
     vertex(219,336);
     endShape(CLOSE);
-    
+
     fill(18,39,148);//blue
     beginShape();
     vertex(96,191);
@@ -989,7 +1019,7 @@ void russia(){
     vertex(170,230);
     vertex(170,186);
     endShape(CLOSE);
-    
+
     //white
     fill(200);
     beginShape();
@@ -1032,7 +1062,7 @@ void russia(){
     vertex(232,228);
     vertex(237,227);
     endShape(CLOSE);
-    
+
     //guns
     //red
     fill(194,24,11);
@@ -1052,21 +1082,21 @@ void russia(){
     vertex(202,313);
     vertex(180,302);
     endShape(CLOSE);
-    
+
     //black
     fill(0);
     rect(105,315,30,30);
     rect(166,315,30,30);
     quad(105,344,109,355,131,355,135,344);
     quad(166,344,170,355,192,355,196,344);
-    
+
     rect(103,253,33,62);//l
     rect(164,252,33,62);//r
     //white
     fill(200);
     bezier(103,252,107,230,132,230,136,252);//l
     bezier(164,252,169,230,192,230,197,252);//r
-   
+
     rect(103,280,33,25);//l
     rect(164,280,33,25);//r
     rect(104,319,33,26,3);//l
@@ -1074,13 +1104,13 @@ void russia(){
     fill(194,24,11);
     rect(115,310,7,28,8);//l
     rect(178,310,7,28,8);//r
-    
+
     fill(194,24,11);
     rect(105,284,10,15);
     rect(124,284,10,15);
     rect(167,285,10,15);
     rect(185,284,10,15);
-    
+
     //body-wings
 
     fill(0,0,67);//blue
@@ -1113,7 +1143,7 @@ void russia(){
     vertex(182,201);
     vertex(172,201);
     endShape(CLOSE);
-    
+
     fill(0);
     quad(134,193,166,193,154,342,146,342);
     fill(192,0,11);
@@ -1121,7 +1151,7 @@ void russia(){
     //white
     fill(200);
     ellipse(150,374,6,50);
-    
+
     //head
     fill(160,0,0);
     ellipse(149.5,72,33,25);
@@ -1154,7 +1184,7 @@ void russia(){
     rect(174,120,6,15);
     rect(116,124,3,15);
     rect(182,124,3,15);
-    
+
     //wings
     fill(206,17,38);//red
     beginShape();
@@ -1171,7 +1201,7 @@ void russia(){
     vertex(212,309);
     vertex(238,238);
     endShape(CLOSE);
-    
+
     fill(200);//white
     beginShape();
     vertex(38,307);
@@ -1189,7 +1219,7 @@ void russia(){
     vertex(231,345);
     vertex(219,336);
     endShape(CLOSE);
-    
+
     fill(0);//red
     beginShape();
     vertex(96,191);
@@ -1214,7 +1244,7 @@ void russia(){
     vertex(170,230);
     vertex(170,186);
     endShape(CLOSE);
-    
+
     //white
     fill(200);
     beginShape();
@@ -1257,7 +1287,7 @@ void russia(){
     vertex(232,228);
     vertex(237,227);
     endShape(CLOSE);
-    
+
     //guns
     //white
     fill(200);
@@ -1277,7 +1307,7 @@ void russia(){
     vertex(202,313);
     vertex(180,302);
     endShape(CLOSE);
-    
+
     //black
     fill(0);
     rect(105,315,30,30);
@@ -1304,7 +1334,7 @@ void russia(){
     rect(124,284,10,15);
     rect(167,285,10,15);
     rect(185,284,10,15);
-    
+
     //body-wings
 
     fill(0,122,61);//green
@@ -1337,7 +1367,7 @@ void russia(){
     vertex(182,201);
     vertex(172,201);
     endShape(CLOSE);
-    
+
     fill(0);
     quad(134,193,166,193,154,342,146,342);
     fill(0);
@@ -1345,9 +1375,9 @@ void russia(){
     //white
     fill(200);
     ellipse(150,374,6,50);
-    
+
     //head
-    
+
     fill(206,17,38);
     ellipse(149.5,72,33,25);
     ellipse(149.5,94,30,170);
@@ -1378,7 +1408,7 @@ void russia(){
     rect(174,120,6,15);
     rect(116,124,3,15);
     rect(182,124,3,15);
-    
+
     //wings--england
     fill(1,0,74);//dark blue
     beginShape();
@@ -1395,7 +1425,7 @@ void russia(){
     vertex(212,309);
     vertex(238,238);
     endShape(CLOSE);
-    
+
     noStroke();
     fill(255);
     rect(15,286,74,20);
@@ -1406,13 +1436,13 @@ void russia(){
     quad(262,260,272,272,229,312,220,318);
     quad(25,318,38,328,85,278,75,263);
     quad(264,324,280,316,228,262,214,274);
-    
+
     fill(207,20,43);
     rect(51,248,15,74);
     rect(235,247,15,74);
     rect(15,289,74,15);
     rect(211,286,74,15);
-    
+
     stroke(1);
     fill(0);//white
     beginShape();
@@ -1431,7 +1461,7 @@ void russia(){
     vertex(231,345);
     vertex(219,336);
     endShape(CLOSE);
-    
+
     fill(0,36,125);//red
     beginShape();
     vertex(96,191);
@@ -1456,7 +1486,7 @@ void russia(){
     vertex(170,230);
     vertex(170,186);
     endShape(CLOSE);
-    
+
     //gray
     fill(200);
     beginShape();
@@ -1499,7 +1529,7 @@ void russia(){
     vertex(232,228);
     vertex(237,227);
     endShape(CLOSE);
-    
+
     //guns
     //white
     fill(200);
@@ -1519,14 +1549,14 @@ void russia(){
     vertex(202,313);
     vertex(180,302);
     endShape(CLOSE);
-    
+
     //black
     fill(0);
     rect(105,315,30,30);
     rect(166,315,30,30);
     quad(105,344,109,355,131,355,135,344);
     quad(166,344,170,355,192,355,196,344);
-   
+
     fill(207,20,43);
     rect(103,253,33,62);//l
     rect(164,252,33,62);//r
@@ -1548,7 +1578,7 @@ void russia(){
     rect(124,284,10,15);
     rect(167,285,10,15);
     rect(185,284,10,15);
-    
+
     //body-wings
 
     fill(0,0,67);//blue
@@ -1581,7 +1611,7 @@ void russia(){
     vertex(182,201);
     vertex(172,201);
     endShape(CLOSE);
-    
+
 
     fill(0,36,125);
     quad(134,193,166,193,154,342,146,342);
@@ -1590,9 +1620,9 @@ void russia(){
     //white
     fill(200);
     ellipse(150,374,6,50);
-    
+
     //head
-    
+
     fill(1,1,75);
     ellipse(149.5,72,33,25);
     ellipse(149.5,94,30,170);
