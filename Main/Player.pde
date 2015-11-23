@@ -380,7 +380,7 @@ class Player extends BasicObject{
                 rect(174,120,6,15);
                 rect(116,124,3,15);
                 rect(182,124,3,15);
-                
+
                 //wings
                 fill(1,0,74);//dark blue
                 beginShape();
@@ -397,7 +397,7 @@ class Player extends BasicObject{
                 vertex(212,309);
                 vertex(238,238);
                 endShape(CLOSE);
-                
+
                 fill(200);//white
                 beginShape();
                 vertex(38,307);
@@ -415,7 +415,7 @@ class Player extends BasicObject{
                 vertex(231,345);
                 vertex(219,336);
                 endShape(CLOSE);
-                
+
                 fill(192,0,11);//red
                 beginShape();
                 vertex(96,191);
@@ -440,7 +440,7 @@ class Player extends BasicObject{
                 vertex(170,230);
                 vertex(170,186);
                 endShape(CLOSE);
-                
+
                 //white
                 fill(200);
                 beginShape();
@@ -483,7 +483,7 @@ class Player extends BasicObject{
                 vertex(232,228);
                 vertex(237,227);
                 endShape(CLOSE);
-                
+
                 //guns
                 //white
                 fill(200);
@@ -503,7 +503,7 @@ class Player extends BasicObject{
                 vertex(202,313);
                 vertex(180,302);
                 endShape(CLOSE);
-                
+
                 //black
                 fill(0);
                 rect(105,315,30,30);
@@ -530,7 +530,7 @@ class Player extends BasicObject{
                 rect(124,284,10,15);
                 rect(167,285,10,15);
                 rect(185,284,10,15);
-                
+
                 //body-wings
                 //green
                 fill(0,0,67);//blue
@@ -563,7 +563,7 @@ class Player extends BasicObject{
                 vertex(182,201);
                 vertex(172,201);
                 endShape(CLOSE);
-                
+
                 //green
                 fill(192,0,11);
                 quad(134,193,166,193,154,342,146,342);
@@ -572,9 +572,9 @@ class Player extends BasicObject{
                 //white
                 fill(200);
                 ellipse(150,374,6,50);
-                
+
                 //head
-                
+
                 fill(1,1,75);
                 ellipse(149.5,72,33,25);
                 ellipse(149.5,94,30,170);

@@ -1,3 +1,16 @@
+import ddf.minim.*;
+AudioPlayer playerHit;
+AudioPlayer playerShoot;
+AudioPlayer playerExplode;
+AudioPlayer playerFight;
+AudioPlayer playerNervous;
+AudioPlayer playerStory;
+Minim storyAu;
+Minim hitAu;
+Minim shootAu;
+Minim explodeAu;
+Minim fightAu;
+Minim nervousAu;
 int NUM_ENEMY = 7;
 int speed = 2;
 boolean up, down, left, right, shoot, useBomb;
@@ -80,12 +93,30 @@ void setup(){
     Times = loadFont("TimesNewRomanPS-BoldMT-60.vlw");
     Lucida = loadFont("LucidaBright-Demi-48.vlw");
     println("----" + Main.boss.alive + "----");
+    hitAu = new Minim(this);
+    playerHit = hitAu.loadFile("dang.au",1000);
+    shootAu = new Minim(this);
+    playerShoot = shootAu.loadFile("fire.au",1000);
+    explodeAu = new Minim(this);
+    playerExplode = explodeAu.loadFile("explode.au",1000);
+    fightAu = new Minim(this);
+    playerFight = fightAu.loadFile("fight.mp3",1000);
+    playerFight.setGain(-5);
+    nervousAu = new Minim(this);
+    playerNervous = nervousAu.loadFile("nervous.mp3",1000);
+    playerNervous.setGain(20);
+    storyAu = new Minim(this);
+    playerStory = storyAu.loadFile("story.mp3",1000);
+    playerStory.setGain(10);
+
 }
 
 void draw(){
     //TODO: Change the background image
     image(img1, 0, 0, 600, 750);
+    playerNervous.play();
     if(0 == currentPage){
+
         //TODO: Re-design the WelcomePage
         textFont(Times, 60);
         fill(255);
@@ -101,7 +132,7 @@ void draw(){
         textAlign(CENTER);
         text("ANTI-ISIS WAREFARE",width / 2, height/ 3 + 60);
         textFont(Lucida, 24);
-        text("Press ENTER to continue", width / 2, height *2 / 3);
+        text("Press ENTER to Continue", width / 2, height *2 / 3);
     }
     else if(1 == currentPage){
         interface1();
@@ -203,12 +234,15 @@ void draw(){
     else if (2 == currentPage){
         // String strText = "asdfasdfasdfasdfasdasdf";
         // println("strText: "+strText);
-
+        playerNervous.close();
+        playerStory.play();
         introTextY = constrain(introTextY, 0, introText.height - height);
         set(0, -introTextY, introText);
         introTextY = (frameCount - tmpframecount) / 3;
     }
     else{
+        playerStory.close();
+        playerFight.play();
         image(img2, 0, 0, 600,750);
         if(player.alive && !bossKilled){
             for(int i = 0; i < enemies.size(); i++) {
@@ -229,6 +263,10 @@ void draw(){
                 if(!tempEnemy.alive){
                     int currentTime = millis();
                     tempEnemy.dieout(currentTime - tempEnemy.deadTime);
+                    if(currentTime - tempEnemy.deadTime < 100){
+                        playerExplode.rewind();
+                        playerExplode.play();
+                    }
                     if(currentTime - tempEnemy.deadTime < 2500){
                         tempEnemy.drawDeath(explode[(currentTime - tempEnemy.deadTime)/100]);
                     }
@@ -291,6 +329,8 @@ void draw(){
                         if(currentTime - bossShootTime < 5000){  // keep shooting
                             if(currentTime - bossShootInterval > 300){
                                 boss.shoot();
+                                playerShoot.rewind();
+                                playerShoot.play();
                                 bossShootInterval = currentTime;
                             }
                         }
@@ -314,6 +354,10 @@ void draw(){
                 // if boss is died, wait for 3 sec, and then not draw boss
                 else{
                     int currentTime = millis();
+                    if(currentTime - boss.deadTime < 100){
+                        playerExplode.rewind();
+                        playerExplode.play();
+                    }
                     if(currentTime - boss.deadTime < 3000){
                         boss.drawDeath(explode[(currentTime - boss.deadTime)/150]);
                     }
@@ -330,6 +374,8 @@ void draw(){
             if (left) player.move(-speed, 0);
             if (right) player.move(speed, 0);
             if (shoot){
+                playerShoot.rewind();
+                playerShoot.play();
                 int currentTime = millis();
                 if(currentTime - shootTime > player.sInterval){
                     player.shoot();
@@ -667,10 +713,10 @@ void title(){
 void feature(float x, float y){
   fill(150);
   textFont(feature,12);
-  text("SPEED",x,y);
-  text("AGILITY",x,y+18);
-  text("DEFENCE",x,y+36);
-  text("AIR-AIR",x,y+54);
+  text("LETHAL",x,y);
+  text("DEFENSE",x,y+18);
+  text("BOMB",x,y+36);
+  text("AGILITY",x,y+54);
 }
 
 void strength1(float x, float y){
