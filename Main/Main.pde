@@ -204,7 +204,7 @@ void draw(){
         image(russiaf,155,400,100,60);
         image(ukf,445,400,100,60);
         drawSelector(flightType);
-        println("flightType: "+flightType);
+        // println("flightType: "+flightType);
 
         // textFont(Lucida, 24);
         // text("Press 1,2,3,4 to select your plane", width / 2, height / 3);
@@ -480,29 +480,29 @@ void draw(){
             restart = false;
             pages[0] = false;
             pages[1] = true;
-            currentPage = 3;
-            textFont(Lucida, 24);
-            textAlign(CENTER);
-            fill(255, 255, 255);
-            // print(currentPage);
-            alive = true;
-            player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 1, 1, 1, 300);
-            score = 0;
-            killedEnemy = 0;
-            bossKilled = false;
-            restart = false;
-            boss = new BossEnemy();
-            // enemy create, show up at top of the screen, move down
-            for(int i = 0; i < NUM_ENEMY; i++){
-                int enemyPosX = (int) random(0, width);
-                int enemyPosY = 0;
-                float enemyAngle = atan2(player.posY - enemyPosY, player.posX - enemyPosX);
-                int enemyVelX = (int)(4 * cos(enemyAngle) + random(-1,1));
-                int enemyVelY = (int)(4 * sin(enemyAngle) + random(-1,1));
-                int enemyType = 0;
-                // print(enemyVelX, enemyVelY, "\n");
-                enemies.add(new Enemy(enemyPosX, enemyPosY, enemyVelX, enemyVelY, 0, 0));
-            }
+            currentPage = 1;
+            // textFont(Lucida, 24);
+            // textAlign(CENTER);
+            // fill(255, 255, 255);
+            // // print(currentPage);
+            // alive = true;
+            // player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 1, 1, 1, 300);
+            // score = 0;
+            // killedEnemy = 0;
+            // bossKilled = false;
+            // restart = false;
+            // boss = new BossEnemy();
+            // // enemy create, show up at top of the screen, move down
+            // for(int i = 0; i < NUM_ENEMY; i++){
+            //     int enemyPosX = (int) random(0, width);
+            //     int enemyPosY = 0;
+            //     float enemyAngle = atan2(player.posY - enemyPosY, player.posX - enemyPosX);
+            //     int enemyVelX = (int)(4 * cos(enemyAngle) + random(-1,1));
+            //     int enemyVelY = (int)(4 * sin(enemyAngle) + random(-1,1));
+            //     int enemyType = 0;
+            //     // print(enemyVelX, enemyVelY, "\n");
+            //     enemies.add(new Enemy(enemyPosX, enemyPosY, enemyVelX, enemyVelY, 0, 0));
+            // }
         }
     }
 }
