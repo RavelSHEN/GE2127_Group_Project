@@ -141,15 +141,15 @@ void draw(){
         if (currentTime % 13 == 0) {
             fill(255, 255, 255, 30);
             text("Press ENTER to Continue", width / 2, height *2 / 3);
-        } 
+        }
         else if (currentTime % 13 == 1) {
             fill(255, 255, 255, 40);
             text("Press ENTER to Continue", width / 2, height *2 / 3);
-        } 
+        }
         else if (currentTime % 13 == 2) {
             fill(255, 255, 255, 50);
             text("Press ENTER to Continue", width / 2, height *2 / 3);
-        } 
+        }
         else if (currentTime % 13 == 3) {
             fill(255, 255, 255, 60);
             text("Press ENTER to Continue", width / 2, height *2 / 3);
@@ -168,6 +168,26 @@ void draw(){
         }
         else if (currentTime % 13 == 7) {
             fill(255, 255, 255, 95);
+            text("Press ENTER to Continue", width / 2, height *2 / 3);
+        }
+        else if (currentTime % 13 == 8) {
+            fill(255, 255, 255, 110);
+            text("Press ENTER to Continue", width / 2, height *2 / 3);
+        }
+        else if (currentTime % 13 == 9) {
+            fill(255, 255, 255, 120);
+            text("Press ENTER to Continue", width / 2, height *2 / 3);
+        }
+        else if (currentTime % 13 == 10) {
+            fill(255, 255, 255, 130);
+            text("Press ENTER to Continue", width / 2, height *2 / 3);
+        }
+        else if (currentTime % 13 == 11) {
+            fill(255, 255, 255, 140);
+            text("Press ENTER to Continue", width / 2, height *2 / 3);
+        }
+        else if (currentTime % 13 == 12) {
+            fill(255, 255, 255, 150);
             text("Press ENTER to Continue", width / 2, height *2 / 3);
         }
         else {
@@ -524,7 +544,6 @@ void draw(){
             pages[0] = false;
             pages[1] = true;
             currentPage = 1;
-<<<<<<< HEAD
             // textFont(Lucida, 24);
             // textAlign(CENTER);
             // fill(255, 255, 255);
@@ -553,34 +572,62 @@ void draw(){
 }
 
 void drawSelector(int x) {
+    int currentTime = millis() / 100;
+    noStroke();
+    if (currentTime % 13 == 0) {
+        fill(200, 200, 100, 30);
+    }
+    else if (currentTime % 13 == 1) {
+        fill(200, 200, 100, 40);
+    }
+    else if (currentTime % 13 == 2) {
+        fill(200, 200, 100, 50);
+    }
+    else if (currentTime % 13 == 3) {
+        fill(200, 200, 100, 60);
+    }
+    else if (currentTime % 13 == 4) {
+        fill(200, 200, 100, 70);
+    }
+    else if (currentTime % 13 == 5) {
+        fill(200, 200, 100, 80);
+    }
+    else if (currentTime % 13 == 6) {
+        fill(200, 200, 100, 90);
+    }
+    else if (currentTime % 13 == 7) {
+        fill(200, 200, 100, 100);
+    }
+    else if (currentTime % 13 == 8) {
+        fill(200, 200, 100, 110);
+    }
+    else if (currentTime % 13 == 9) {
+        fill(200, 200, 100, 120);
+    }
+    else if (currentTime % 13 == 10) {
+        fill(200, 200, 100, 130);
+    }
+    else if (currentTime % 13 == 11) {
+        fill(200, 200, 100, 140);
+    }
+    else if (currentTime % 13 == 12) {
+        fill(200, 200, 100, 150);
+    }
+    else {
+        fill(255, 200, 100);
+    }
     switch(x){
         case 1:
-            stroke(100,80,50);
-            for (int i = 0; i < 30; i ++){
-                fill(200+i*10,200+i*10,200+i*10);
-                triangle(80, 330, 50+i, 360, 110-i, 360);
-            }
+            triangle(80, 330, 50, 360, 110, 360);
             break;
         case 2:
-            stroke(100,80,50);
-            for (int i = 0; i < 30; i ++){
-                fill(200+i*10,200+i*10,200+i*10);
-                triangle(370, 330, 340+i, 360, 400-i, 360);
-            }
+            triangle(370, 330, 340, 360, 400, 360);
             break;
         case 3:
-            stroke(100,80,50);
-            for (int i = 0; i < 30; i ++){
-                fill(200+i*10,200+i*10,200+i*10);
-                triangle(80, 600, 50+i, 630, 110-i, 630);
-            }
+            triangle(80, 600, 50, 630, 110, 630);
             break;
         case 4:
-            stroke(100,80,50);
-            for (int i = 0; i < 30; i ++){
-                fill(200+i*10,200+i*10,200+i*10);
-                triangle(370, 600, 340+i, 630, 400-i, 630);
-            }
+            triangle(370, 600, 340, 630, 400, 630);
             break;
     }
 
