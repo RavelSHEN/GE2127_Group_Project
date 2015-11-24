@@ -618,16 +618,36 @@ void drawSelector(int x) {
     }
     switch(x){
         case 1:
-            triangle(80, 330, 50, 360, 110, 360);
+            beginShape();
+            vertex(80, 330);
+            vertex(50, 360);
+            vertex(80, 350);
+            vertex(110, 360);
+            endShape();
             break;
         case 2:
-            triangle(370, 330, 340, 360, 400, 360);
+            beginShape();
+            vertex(370, 330);
+            vertex(340, 360);
+            vertex(370, 350);
+            vertex(400, 360);
+            endShape();
             break;
         case 3:
-            triangle(80, 600, 50, 630, 110, 630);
+            beginShape();
+            vertex(80, 600);
+            vertex(50, 630);
+            vertex(80, 620);
+            vertex(110, 630);
+            endShape();
             break;
         case 4:
-            triangle(370, 600, 340, 630, 400, 630);
+            beginShape();
+            vertex(370, 600);
+            vertex(340, 630);
+            vertex(370, 620);
+            vertex(400, 630);
+            endShape();
             break;
     }
 
