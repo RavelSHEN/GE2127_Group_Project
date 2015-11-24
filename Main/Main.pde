@@ -132,7 +132,43 @@ void draw(){
         textAlign(CENTER);
         text("ANTI-ISIS WAREFARE",width / 2, height/ 3 + 60);
         textFont(Lucida, 24);
-        text("Press ENTER to Continue", width / 2, height *2 / 3);
+        int currentTime = millis() / 100;
+        if (currentTime % 13 == 0) {
+            fill(255, 255, 255, 30);
+            text("Press ENTER to Continue", width / 2, height *2 / 3);
+        } 
+        else if (currentTime % 13 == 1) {
+            fill(255, 255, 255, 40);
+            text("Press ENTER to Continue", width / 2, height *2 / 3);
+        } 
+        else if (currentTime % 13 == 2) {
+            fill(255, 255, 255, 50);
+            text("Press ENTER to Continue", width / 2, height *2 / 3);
+        } 
+        else if (currentTime % 13 == 3) {
+            fill(255, 255, 255, 60);
+            text("Press ENTER to Continue", width / 2, height *2 / 3);
+        }
+        else if (currentTime % 13 == 4) {
+            fill(255, 255, 255, 70);
+            text("Press ENTER to Continue", width / 2, height *2 / 3);
+        }
+        else if (currentTime % 13 == 5) {
+            fill(255, 255, 255, 80);
+            text("Press ENTER to Continue", width / 2, height *2 / 3);
+        }
+        else if (currentTime % 13 == 6) {
+            fill(255, 255, 255, 90);
+            text("Press ENTER to Continue", width / 2, height *2 / 3);
+        }
+        else if (currentTime % 13 == 7) {
+            fill(255, 255, 255, 95);
+            text("Press ENTER to Continue", width / 2, height *2 / 3);
+        }
+        else {
+            fill(255, 255, 255);
+            text("Press ENTER to Continue", width / 2, height *2 / 3);
+        }
     }
     else if(1 == currentPage){
         interface1();
@@ -487,11 +523,11 @@ void draw(){
             // // print(currentPage);
             // alive = true;
             // player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 1, 1, 1, 300);
-            // score = 0;
-            // killedEnemy = 0;
-            // bossKilled = false;
+            score = 0;
+            killedEnemy = 0;
+            bossKilled = false;
             // restart = false;
-            // boss = new BossEnemy();
+            boss = new BossEnemy();
             // // enemy create, show up at top of the screen, move down
             // for(int i = 0; i < NUM_ENEMY; i++){
             //     int enemyPosX = (int) random(0, width);
