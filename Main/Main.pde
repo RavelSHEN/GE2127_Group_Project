@@ -54,7 +54,6 @@ int tmpframecount;
 int initialPosX;
 int initialPosY;
 
-
 PImage usaf;
 PImage ukf;
 PImage syriaf;
@@ -793,25 +792,21 @@ void changeFlightType(int x) {
 }
 
 void interface1(){
-  noStroke();
-  fill(20,38,48,100);
-  rect(0,0,600,750);
-  fill(19,58,89,100);
-  rect(0,60,600,600);
-  fill(220);//gray
-  noStroke();
-  beginShape();
-  vertex(365,40);
-  vertex(600,40);
-  vertex(600,80);
-  vertex(365,80);
-  vertex(345,60);
-  endShape(CLOSE);
-  fill(10,100);//light gray
-  rect(0,110,600,515);
-  fill(19,70,100,100);//dark blue
-  rect(0,110,600,215);
-  rect(0,380,600,215);
+    noStroke();
+    fill(10,100);//light gray
+    rect(0,60,600,590);
+    fill(220);//gray
+    noStroke();
+    beginShape();
+    vertex(365,40);
+    vertex(600,40);
+    vertex(600,80);
+    vertex(365,80);
+    vertex(345,60);
+    endShape(CLOSE);
+    fill(19,70,100,100);//dark blue
+    rect(0,110,600,215);
+    rect(0,380,600,215);
 }
 
 void title(){
@@ -832,47 +827,36 @@ void feature(float x, float y){
 }
 
 void strength1(float x, float y){
-  noStroke();
-  fill(80);
-  rect(x+7,y,66,6);
-  bezier(x+7,y,x,y+1,x,y+5,x+7,y+6);
-  bezier(x+73,y,x+80,y+1,x+80,y+5,x+73,y+6);
-
-  fill(126,154,80);//1st green bar
-  rect(x+7,y+1,13,3);
-  bezier(x+7,y+1,x+1,y+2.5,x+1,y+3.5,x+7,y+4);
-
+    noStroke();
+   fill(80);
+   rect(x+7,y,66,6);
+   bezier(x+7,y,x,y+1,x,y+5,x+7,y+6);
+   bezier(x+73,y,x+80,y+1,x+80,y+5,x+73,y+6);
+   rect(x+7,y+1,13,3);//1st blue ba
+   bezier(x+7,y+1,x+1,y+2.5,x+1,y+3.5,x+7,y+4);
 }
 void strength2(float x, float y){
-  noStroke();
-  fill(80);
-  rect(x+7,y,66,6);
-  bezier(x+7,y,x,y+1,x,y+5,x+7,y+6);
-  bezier(x+73,y,x+80,y+1,x+80,y+5,x+73,y+6);
-
-  fill(20,178,226);
-  rect(x+7,y+1,13,3);//1st blue bar
-  bezier(x+7,y+1,x+1,y+2.5,x+1,y+3.5,x+7,y+4);
-
-  fill(126,154,80);//2nd green bar
-  rect(x+22,y+1,17,3);
-
+    noStroke();
+    fill(80);
+    rect(x+7,y,66,6);
+    bezier(x+7,y,x,y+1,x,y+5,x+7,y+6);
+    bezier(x+73,y,x+80,y+1,x+80,y+5,x+73,y+6);
+    fill(20,178,226);
+    rect(x+7,y+1,13,3);//1st blue bar
+    bezier(x+7,y+1,x+1,y+2.5,x+1,y+3.5,x+7,y+4);
+    rect(x+22,y+1,17,3);//2nd blue bar
 }
 void strength3(float x, float y){
-  noStroke();
-  fill(80);
-  rect(x+7,y,66,6);
-  bezier(x+7,y,x,y+1,x,y+5,x+7,y+6);
-  bezier(x+73,y,x+80,y+1,x+80,y+5,x+73,y+6);
-
-  fill(20,178,226);
-  rect(x+7,y+1,13,3);//1st blue bar
-  bezier(x+7,y+1,x+1,y+2.5,x+1,y+3.5,x+7,y+4);
-
-  rect(x+22,y+1,17,3);//2nd blue bar
-
-  fill(126,154,80);//3rd green bar
-  rect(x+41,y+1,17,3);
+    noStroke();
+    fill(80);
+    rect(x+7,y,66,6);
+    bezier(x+7,y,x,y+1,x,y+5,x+7,y+6);
+    bezier(x+73,y,x+80,y+1,x+80,y+5,x+73,y+6);
+    fill(20,178,226);
+    rect(x+7,y+1,13,3);//1st blue bar
+    bezier(x+7,y+1,x+1,y+2.5,x+1,y+3.5,x+7,y+4);
+    rect(x+22,y+1,17,3);//2nd blue bar
+    rect(x+41,y+1,17,3);//3rd blue bar
 }
 
 void usa(){
