@@ -547,30 +547,7 @@ void draw(){
             //     // print(enemyVelX, enemyVelY, "\n");
             //     enemies.add(new Enemy(enemyPosX, enemyPosY, enemyVelX, enemyVelY, 0, 0));
             // }
-=======
-            textFont(Lucida, 24);
-            textAlign(CENTER);
-            fill(255, 255, 255);
-            // print(currentPage);
-            alive = true;
-            player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 1, 1, 1, 300);
-            score = 0;
-            killedEnemy = 0;
-            bossKilled = false;
-            restart = false;
-            boss = new BossEnemy();
-            // enemy create, show up at top of the screen, move down
-            for(int i = 0; i < NUM_ENEMY; i++){
-                int enemyPosX = (int) random(0, width);
-                int enemyPosY = 0;
-                float enemyAngle = atan2(player.posY - enemyPosY, player.posX - enemyPosX);
-                int enemyVelX = (int)(4 * cos(enemyAngle) + random(-1,1));
-                int enemyVelY = (int)(4 * sin(enemyAngle) + random(-1,1));
-                int enemyType = 0;
-                // print(enemyVelX, enemyVelY, "\n");
-                enemies.add(new Enemy(enemyPosX, enemyPosY, enemyVelX, enemyVelY, 0, 0));
-            }
->>>>>>> 61ee7604717a86ac6ab265d27b933a709bf70fc8
+
         }
     }
 }
