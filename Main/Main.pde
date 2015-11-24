@@ -1,12 +1,17 @@
+import ddf.minim.spi.*;
+import ddf.minim.signals.*;
 import ddf.minim.*;
-AudioPlayer playerHit;
+import ddf.minim.analysis.*;
+import ddf.minim.ugens.*;
+import ddf.minim.effects.*;
+AudioPlayer playerBomb;
 AudioPlayer playerShoot;
 AudioPlayer playerExplode;
 AudioPlayer playerFight;
 AudioPlayer playerNervous;
 AudioPlayer playerStory;
 Minim storyAu;
-Minim hitAu;
+Minim bombAu;
 Minim shootAu;
 Minim explodeAu;
 Minim fightAu;
@@ -93,18 +98,18 @@ void setup(){
     Times = loadFont("TimesNewRomanPS-BoldMT-60.vlw");
     Lucida = loadFont("LucidaBright-Demi-48.vlw");
     println("----" + Main.boss.alive + "----");
-    hitAu = new Minim(this);
-    playerHit = hitAu.loadFile("dang.au",1000);
+    bombAu = new Minim(this);
+    playerBomb = bombAu.loadFile("bomb.mp3",1000);
     shootAu = new Minim(this);
-    playerShoot = shootAu.loadFile("fire.au",1000);
+    playerShoot = shootAu.loadFile("shoot.mp3",1000);
     explodeAu = new Minim(this);
-    playerExplode = explodeAu.loadFile("explode.au",1000);
+    playerExplode = explodeAu.loadFile("explode.mp3",1000);
     fightAu = new Minim(this);
     playerFight = fightAu.loadFile("fight.mp3",1000);
     playerFight.setGain(-5);
     nervousAu = new Minim(this);
     playerNervous = nervousAu.loadFile("nervous.mp3",1000);
-    playerNervous.setGain(20);
+    playerNervous.setGain(10);
     storyAu = new Minim(this);
     playerStory = storyAu.loadFile("story.mp3",1000);
     playerStory.setGain(10);
@@ -384,6 +389,8 @@ void draw(){
             }
             if ((useBomb) && (player.numOfBomb > 0) && (bombing == 0)) {
                 player.numOfBomb--;
+                playerBomb.rewind();
+                playerBomb.play();
                 bombing = 1;
                 bombCounter = millis();
                 bombX = player.posX;
@@ -481,28 +488,28 @@ void draw(){
             pages[0] = false;
             pages[1] = true;
             currentPage = 1;
-            // textFont(Lucida, 24);
-            // textAlign(CENTER);
-            // fill(255, 255, 255);
-            // // print(currentPage);
-            // alive = true;
-            // player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 1, 1, 1, 300);
-            // score = 0;
-            // killedEnemy = 0;
-            // bossKilled = false;
-            // restart = false;
-            // boss = new BossEnemy();
-            // // enemy create, show up at top of the screen, move down
-            // for(int i = 0; i < NUM_ENEMY; i++){
-            //     int enemyPosX = (int) random(0, width);
-            //     int enemyPosY = 0;
-            //     float enemyAngle = atan2(player.posY - enemyPosY, player.posX - enemyPosX);
-            //     int enemyVelX = (int)(4 * cos(enemyAngle) + random(-1,1));
-            //     int enemyVelY = (int)(4 * sin(enemyAngle) + random(-1,1));
-            //     int enemyType = 0;
-            //     // print(enemyVelX, enemyVelY, "\n");
-            //     enemies.add(new Enemy(enemyPosX, enemyPosY, enemyVelX, enemyVelY, 0, 0));
-            // }
+            textFont(Lucida, 24);
+            textAlign(CENTER);
+            fill(255, 255, 255);
+            // print(currentPage);
+            alive = true;
+            player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 1, 1, 1, 300);
+            score = 0;
+            killedEnemy = 0;
+            bossKilled = false;
+            restart = false;
+            boss = new BossEnemy();
+            // enemy create, show up at top of the screen, move down
+            for(int i = 0; i < NUM_ENEMY; i++){
+                int enemyPosX = (int) random(0, width);
+                int enemyPosY = 0;
+                float enemyAngle = atan2(player.posY - enemyPosY, player.posX - enemyPosX);
+                int enemyVelX = (int)(4 * cos(enemyAngle) + random(-1,1));
+                int enemyVelY = (int)(4 * sin(enemyAngle) + random(-1,1));
+                int enemyType = 0;
+                // print(enemyVelX, enemyVelY, "\n");
+                enemies.add(new Enemy(enemyPosX, enemyPosY, enemyVelX, enemyVelY, 0, 0));
+            }
         }
     }
 }
