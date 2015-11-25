@@ -1,5 +1,3 @@
-class BossEnemy extends BasicObject{
-
 /*
 additional fields:
     int deadTime;
@@ -9,11 +7,14 @@ additional fields:
     ArrayList <Bullet> bossBullets = new ArrayList <Bullet>(); //store the bullet of the boss
 
 Methods:
-    deawBoss();
+    drawDeath();
+    drawBoss();
     update();
     shoot();
     trackBullet();
 */
+
+class BossEnemy extends BasicObject{
 
     int deadTime;
     int bossMoveTime = 0;

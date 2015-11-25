@@ -5,9 +5,11 @@ additional fields:
     float angle;//control the direction of the movement of the enemy
 
 Methods:
-    deawEnemy();
+    drawMe();
     update();
     detectBound();
+    getDamage();
+    drawdeath();
 */
 
 class Enemy extends BasicObject{
@@ -66,11 +68,13 @@ class Enemy extends BasicObject{
 
     }
 
+    //check if the enemy is damaged
     int getDamage() {
         //TODO
         return 1;
     }
 
+    //draw the enemy
     void drawMe(){
         pushMatrix();
         translate(posX, posY);

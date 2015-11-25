@@ -1,6 +1,6 @@
 /*
 Methods:
-    drawPlayer():draw the player
+    drawMe():draw the player
     shoot():define the action of shoot
     trackBullet():check the bullet to decide if the bullet is hit the object
     useBomb(): use bomb to attack
@@ -116,7 +116,7 @@ class Player extends BasicObject{
         // rect(0,0,width,height);
         return count;
     }
-        //draw the player
+    //draw the player
     void drawMe(int type, boolean invincible){
         if (invincible) {
             int tmp = millis() / 100;

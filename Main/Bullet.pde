@@ -4,6 +4,7 @@ Methods:
     update(): update the position of the bullet
     detectBound();
     hitObject();
+    drawHit();
 */
 
 class Bullet extends BasicObject{
@@ -63,7 +64,7 @@ class Bullet extends BasicObject{
             return false;
         }
     }
-
+    //draw the hitting effects
     void drawHit(){
         image(explode[5],posX,posY,10,10);
     }

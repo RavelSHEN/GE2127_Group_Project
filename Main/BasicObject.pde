@@ -18,6 +18,7 @@ Methods:
     detectBound();
     decreaseHealth();
     hitObject();
+    dieout();
 */
 
 class BasicObject{
