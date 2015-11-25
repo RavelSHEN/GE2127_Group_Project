@@ -33,6 +33,21 @@ Minim fightAu;
 Minim nervousAu;
 
 
+String a="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+String peace="CALL of PEACE ";
+PFont end_f;
+int A=0;
+int counter=0;
+int t=80;
+PImage[] p=new PImage[12];
+int s=20;
+int col,row;
+int pcounter=0;
+int charcount=0;
+int[] X={0,0,0,0,0,0,0,0,0,0,0,0};
+int[] Y={0,80,181,114,0,25,83,25,0,125,156,0};
+
+
 int NUM_ENEMY = 7; //define the number of enemies
 int speed = 2; //define the speed of objects
 boolean up, down, left, right, shoot, useBomb; //define the control elements
@@ -133,6 +148,12 @@ void setup(){
     storyAu = new Minim(this);
     playerStory = storyAu.loadFile("story.mp3",1000);
     playerStory.setGain(10);
+    end_f = loadFont("Corbel-Bold-48.vlw");
+    textFont(end_f);
+    textAlign(CENTER);
+    for(int i = 0; i < p.length; i++){
+        p[i] = loadImage("end" + i + ".jpg");
+    }
 
 }
 
@@ -286,32 +307,24 @@ void draw(){
         image(russiaf,155,400,100,60);
         image(ukf,445,400,100,60);
         drawSelector(flightType);
-        // println("flightType: "+flightType);
-
-        // textFont(Lucida, 24);
-        // text("Press 1,2,3,4 to select your plane", width / 2, height / 3);
-        // text("Press arrow up, down, left right to move", width / 2, height / 2);
-        // text("Press Z to shoot", width / 2, height / 2 + 50);
-        // text("Press X to use bomb", width / 2, height / 2 + 100);
-        // text("Press ENTER to start", width / 2, height / 2 + 150);
         // Player(posX, posY, velX, velY, accX, accY, attack, health, numOfBomb, sInterval)
 
         //setup the properties of different planes
         switch (flightType){
             case 1:
-                player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 2, 3, 3, 400);
+                player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 2, 2, 3, 300);
                 break;
             case 2:
-                player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 1, 2, 1, 400);
+                player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 2, 4, 2, 400);
                 break;
             case 3:
-                player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 1, 1, 2, 400);
+                player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 3, 1, 3, 400);
                 break;
             case 4:
-                player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 5, 1, 100, 200);
+                player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 4, 1, 1, 200);
                 break;
             default:
-                player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 2, 1, 1, 400);
+                player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 2, 2, 3, 300);
             break;
         }
     }
@@ -326,7 +339,7 @@ void draw(){
         introTextY = (frameCount - tmpframecount) / 3;
     }
     //draw the fighting page
-    else{
+    else if (3 == currentPage) {
         playerStory.close();
         playerFight.play();
         image(img2, 0, 0, 600,750);
@@ -529,16 +542,156 @@ void draw(){
             text("Score: " + score, 550, 40);
         }
         else if(player.alive && bossKilled){
+
+            background(0);
+            frameRate(45);
+            if(counter==0){
+                textSize(150);
+                text(a.charAt(A)+"___",300,375);
+                if(A==2){
+                    text("C___",300,375);
+                    counter++;
+                }else{
+                    A=(A+1)%a.length();
+                }
+            }else if(counter==1){
+                text("C"+a.charAt(A)+"__",300,375);
+                if(A==1){
+                    text("CA__",300,375);
+                    counter++;
+                }else{
+                    A=(A+1)%a.length();
+                }
+            }else if(counter==2){
+                text("CA"+a.charAt(A)+"_",300,375);
+                if(A==11){
+                    text("CAL_",300,375);
+                    counter++;
+                }else{
+                    A=(A+1)%a.length();
+                }
+            }else if(counter==3){
+                text("CAL"+a.charAt(A)+"",300,375);
+                if(A==11){
+                    text("CALL",300,375);
+                    counter++;
+                }else{
+                    A=(A+1)%a.length();
+                }
+            }else if(counter==4){
+                if(pcounter==0){
+                    end_change1();
+                }else if(pcounter==1){
+                    end_change();
+                }else if(pcounter==2){
+                    end_change();
+                }else if(pcounter==3){
+                    end_change();
+                }else if(pcounter==4){
+                    counter++;
+                    A=0;
+                }
+            }else if(counter==5){
+                textSize(150);
+                fill(255);
+                text(a.charAt(A)+"_",300,375);
+                if(A==19){
+                    text("O_",300,375);
+                    counter++;
+                }else{
+                    A=(A+1)%a.length();
+                }
+            }else if(counter==6){
+                text("O"+a.charAt(A),300,375);
+                if(A==5){
+                    text("OF",300,375);
+                    counter++;
+                    t=80;
+                }else{
+                    A=(A+1)%a.length();
+                }
+            }else if(counter==7){
+                if(pcounter==4){
+                    end_change1();
+                }else if(pcounter==5){
+                    end_change();
+                }else if(pcounter==6){
+                    end_change();
+                }else if(pcounter==7){
+                    end_change();
+                }else if(pcounter==8){
+                    counter++;
+                    t=80;
+                }
+            }else if(counter==8){
+                textSize(150);
+                fill(255);
+                text(a.charAt(A)+"____",300,375);
+                if(A==15){
+                    text("P____",300,375);
+                    counter++;
+                    A=0;
+                }else{
+                    A=(A+1)%a.length();
+                }
+            }else if(counter==9){
+                text("P"+a.charAt(A)+"___",300,375);
+                if(A==4){
+                    text("PE___",300,375);
+                    counter++;
+                }else{
+                    A=(A+1)%a.length();
+                }
+            }else if(counter==10){
+                text("PE"+a.charAt(A)+"__",300,375);
+                if(A==1){
+                    text("PEA__",300,375);
+                    counter++;
+                    A=0;
+                }else{
+                    A=(A+1)%a.length();
+                }
+            }else if(counter==11){
+                text("PEA"+a.charAt(A)+"_",300,375);
+                if(A==2){
+                    text("PEAC_",300,375);
+                    counter++;
+                }else{
+                    A=(A+1)%a.length();
+                }
+            }else if(counter==12){
+                text("PEAC"+a.charAt(A),300,375);
+                if(A==4){
+                    text("PEACE",300,375);
+                    counter++;
+                }else{
+                    A=(A+1)%a.length();
+                }
+            }else if(counter==13){
+                if(pcounter==8){
+                    end_change1();
+                }else if(pcounter==9){
+                    end_change();
+                }else if(pcounter==10){
+                    end_change();
+                }else if(pcounter==11){
+                    counter++;
+                }
+            }else if(counter==14){
+                if(pcounter==11){
+                    end_change2();
+                }else if(pcounter==12){
+                    counter++;
+                }
+            }else if(counter==15){
+                pcounter=11;
+                end_text();
+            }
+
             for(int i = 0; i < enemies.size(); i++){
                 enemies.remove(i);
             }
-            textFont(Times, 48);
-            textAlign(CENTER);
-            fill(255);
-            text("Yes! You Win", width / 2, height / 3);
-            text("score " + score, width / 2, height / 2);
-            textFont(Lucida, 30);
-            text("Press R to restart", width / 2, height * 2 / 3);
+
         }
         else {
             // player is dead
@@ -585,6 +738,147 @@ void draw(){
         }
     }
 }
+
+void end_text(){
+  col=p[pcounter].width/s;
+  row=p[pcounter].height/s;
+  p[pcounter].loadPixels();
+  for(int j=0;j<row;j++){
+    for(int i=0;i<col;i++){
+      int loc=i*s+j*s*p[pcounter].width;
+      color c=p[pcounter].pixels[loc];
+      float b=brightness(p[pcounter].pixels[loc]);
+      float fontSize = 2*s * (b / 255);
+      textSize(fontSize);
+      int x=i*s;
+      int y=j*s;
+      fill(c);
+      text(peace.charAt(charcount),x+X[pcounter],y+Y[pcounter]);
+      charcount=(charcount+1)%peace.length();
+    }
+  }
+}
+
+void end_change(){
+  if(t<=90&&t>70){
+    tint(100,100);
+    image(p[pcounter],X[pcounter],Y[pcounter]);
+    end_text();
+    t++;
+  }else if(t<=70&&t>60){
+    s=5;
+    end_text();
+    t++;
+  }else if(t<=60&&t>50){
+    s=6;
+    end_text();
+    t++;
+  }else if(t<=50&&t>40){
+    s=8;
+    end_text();
+    t++;
+  }else if(t<=40&&t>30){
+    s=10;
+    end_text();
+    t++;
+  }else if(t<=30&&t>20){
+    s=12;
+    end_text();
+    t++;
+  }else if(t<=20&&t>10){
+    s=14;
+    end_text();
+    t++;
+  }else if(t<=10&&t>=0){
+    s=16;
+    end_text();
+    t++;
+  }else{
+    pcounter++;
+    t=0;
+  }
+}
+
+void end_change1(){
+  if(t<=90&&t>70){
+    tint(50,50);
+    image(p[pcounter],X[pcounter],Y[pcounter]);
+    end_text();
+    t--;
+  }else if(t<=70&&t>60){
+    s=5;
+    end_text();
+    t--;
+  }else if(t<=60&&t>50){
+    s=6;
+    end_text();
+    t--;
+  }else if(t<=50&&t>40){
+    s=8;
+    end_text();
+    t--;
+  }else if(t<=40&&t>30){
+    s=10;
+    end_text();
+    t--;
+  }else if(t<=30&&t>20){
+    s=12;
+    end_text();
+    t--;
+  }else if(t<=20&&t>10){
+    s=14;
+    end_text();
+    t--;
+  }else if(t<=10&&t>=0){
+    s=16;
+    end_text();
+    t--;
+  }else{
+    pcounter++;
+    t=0;
+  }
+}
+
+void end_change2(){
+  if(t<=90&&t>70){
+    tint(120,120);
+    image(p[pcounter],X[pcounter],Y[pcounter]);
+    end_text();
+    t++;
+  }else if(t<=70&&t>60){
+    s=7;
+    end_text();
+    t++;
+  }else if(t<=60&&t>50){
+    s=9;
+    end_text();
+    t++;
+  }else if(t<=50&&t>40){
+    s=12;
+    end_text();
+    t++;
+  }else if(t<=40&&t>30){
+    s=16;
+    end_text();
+    t++;
+  }else if(t<=30&&t>20){
+    s=20;
+    end_text();
+    t++;
+  }else if(t<=20&&t>10){
+    s=25;
+    end_text();
+    t++;
+  }else if(t<=10&&t>=0){
+    s=30;
+    end_text();
+    t++;
+  }else{
+    pcounter++;
+    t=0;
+  }
+}
+
 
 //function to draw the selector symbol in plane selection page
 void drawSelector(int x) {
