@@ -25,16 +25,18 @@ AudioPlayer playerExplode;
 AudioPlayer playerFight;
 AudioPlayer playerNervous;
 AudioPlayer playerStory;
+AudioPlayer playerWin;
 Minim storyAu;
 Minim bombAu;
 Minim shootAu;
 Minim explodeAu;
 Minim fightAu;
 Minim nervousAu;
+Minim winAu;
 
 
 String a="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-String peace="CALL of PEACE ";
+String peace="call of peace";
 PFont end_f;
 int A=0;
 int counter=0;
@@ -148,6 +150,9 @@ void setup(){
     storyAu = new Minim(this);
     playerStory = storyAu.loadFile("story.mp3",1000);
     playerStory.setGain(10);
+    winAu = new Minim(this);
+    playerWin = winAu.loadFile("win.mp3",1000);
+    playerWin.setGain(10);
     end_f = loadFont("Corbel-Bold-48.vlw");
     textFont(end_f);
     textAlign(CENTER);
@@ -444,6 +449,7 @@ void draw(){
                 // if boss is died, wait for 3 sec, and then not draw boss
                 else{
                     int currentTime = millis();
+                    deadAnimation(boss.deadTime);
                     if(currentTime - boss.deadTime < 100){
                         playerExplode.rewind();
                         playerExplode.play();
@@ -542,155 +548,163 @@ void draw(){
             text("Score: " + score, 550, 40);
         }
         else if(player.alive && bossKilled){
-
-            background(0);
-            frameRate(45);
-            if(counter==0){
-                textSize(150);
-                text(a.charAt(A)+"___",300,375);
-                if(A==2){
-                    text("C___",300,375);
-                    counter++;
-                }else{
-                    A=(A+1)%a.length();
+            playerFight.close();
+            playerWin.play();
+            if (false) {
+                // deadAnimation(boss.deadTime);
+            }
+            else {
+                textAlign(CENTER);
+                background(0);
+                frameRate(24);
+                if(counter==0){
+                    textSize(150);
+                    text(a.charAt(A)+"___",300,375);
+                    if(A==2){
+                        text("C___",300,375);
+                        counter++;
+                    }else{
+                        A=(A+1)%a.length();
+                    }
+                }else if(counter==1){
+                    text("C"+a.charAt(A)+"__",300,375);
+                    if(A==1){
+                        text("CA__",300,375);
+                        counter++;
+                    }else{
+                        A=(A+1)%a.length();
+                    }
+                }else if(counter==2){
+                    text("CA"+a.charAt(A)+"_",300,375);
+                    if(A==11){
+                        text("CAL_",300,375);
+                        counter++;
+                    }else{
+                        A=(A+1)%a.length();
+                    }
+                }else if(counter==3){
+                    text("CAL"+a.charAt(A)+"",300,375);
+                    if(A==11){
+                        text("CALL",300,375);
+                        counter++;
+                    }else{
+                        A=(A+1)%a.length();
+                    }
+                }else if(counter==4){
+                    if(pcounter==0){
+                        end_change1();
+                    }else if(pcounter==1){
+                        end_change();
+                    }else if(pcounter==2){
+                        end_change();
+                    }else if(pcounter==3){
+                        end_change();
+                    }else if(pcounter==4){
+                        counter++;
+                        A=0;
+                    }
+                }else if(counter==5){
+                    textSize(150);
+                    fill(255);
+                    text(a.charAt(A)+"_",300,375);
+                    if(A==19){
+                        text("O_",300,375);
+                        counter++;
+                    }else{
+                        A=(A+1)%a.length();
+                    }
+                }else if(counter==6){
+                    text("O"+a.charAt(A),300,375);
+                    if(A==5){
+                        text("OF",300,375);
+                        counter++;
+                        t=80;
+                    }else{
+                        A=(A+1)%a.length();
+                    }
+                }else if(counter==7){
+                    if(pcounter==4){
+                        end_change1();
+                    }else if(pcounter==5){
+                        end_change();
+                    }else if(pcounter==6){
+                        end_change();
+                    }else if(pcounter==7){
+                        end_change();
+                    }else if(pcounter==8){
+                        counter++;
+                        t=80;
+                    }
+                }else if(counter==8){
+                    textSize(150);
+                    fill(255);
+                    text(a.charAt(A)+"____",300,375);
+                    if(A==15){
+                        text("P____",300,375);
+                        counter++;
+                        A=0;
+                    }else{
+                        A=(A+1)%a.length();
+                    }
+                }else if(counter==9){
+                    text("P"+a.charAt(A)+"___",300,375);
+                    if(A==4){
+                        text("PE___",300,375);
+                        counter++;
+                    }else{
+                        A=(A+1)%a.length();
+                    }
+                }else if(counter==10){
+                    text("PE"+a.charAt(A)+"__",300,375);
+                    if(A==1){
+                        text("PEA__",300,375);
+                        counter++;
+                        A=0;
+                    }else{
+                        A=(A+1)%a.length();
+                    }
+                }else if(counter==11){
+                    text("PEA"+a.charAt(A)+"_",300,375);
+                    if(A==2){
+                        text("PEAC_",300,375);
+                        counter++;
+                    }else{
+                        A=(A+1)%a.length();
+                    }
+                }else if(counter==12){
+                    text("PEAC"+a.charAt(A),300,375);
+                    if(A==4){
+                        text("PEACE",300,375);
+                        counter++;
+                    }else{
+                        A=(A+1)%a.length();
+                    }
+                }else if(counter==13){
+                    if(pcounter==8){
+                        end_change1();
+                    }else if(pcounter==9){
+                        end_change();
+                    }else if(pcounter==10){
+                        end_change();
+                    }else if(pcounter==11){
+                        counter++;
+                    }
+                }else if(counter==14){
+                    if(pcounter==11){
+                        end_change2();
+                    }else if(pcounter==12){
+                        counter++;
+                    }
+                }else if(counter==15){
+                    pcounter=11;
+                    end_text();
                 }
-            }else if(counter==1){
-                text("C"+a.charAt(A)+"__",300,375);
-                if(A==1){
-                    text("CA__",300,375);
-                    counter++;
-                }else{
-                    A=(A+1)%a.length();
-                }
-            }else if(counter==2){
-                text("CA"+a.charAt(A)+"_",300,375);
-                if(A==11){
-                    text("CAL_",300,375);
-                    counter++;
-                }else{
-                    A=(A+1)%a.length();
-                }
-            }else if(counter==3){
-                text("CAL"+a.charAt(A)+"",300,375);
-                if(A==11){
-                    text("CALL",300,375);
-                    counter++;
-                }else{
-                    A=(A+1)%a.length();
-                }
-            }else if(counter==4){
-                if(pcounter==0){
-                    end_change1();
-                }else if(pcounter==1){
-                    end_change();
-                }else if(pcounter==2){
-                    end_change();
-                }else if(pcounter==3){
-                    end_change();
-                }else if(pcounter==4){
-                    counter++;
-                    A=0;
-                }
-            }else if(counter==5){
-                textSize(150);
-                fill(255);
-                text(a.charAt(A)+"_",300,375);
-                if(A==19){
-                    text("O_",300,375);
-                    counter++;
-                }else{
-                    A=(A+1)%a.length();
-                }
-            }else if(counter==6){
-                text("O"+a.charAt(A),300,375);
-                if(A==5){
-                    text("OF",300,375);
-                    counter++;
-                    t=80;
-                }else{
-                    A=(A+1)%a.length();
-                }
-            }else if(counter==7){
-                if(pcounter==4){
-                    end_change1();
-                }else if(pcounter==5){
-                    end_change();
-                }else if(pcounter==6){
-                    end_change();
-                }else if(pcounter==7){
-                    end_change();
-                }else if(pcounter==8){
-                    counter++;
-                    t=80;
-                }
-            }else if(counter==8){
-                textSize(150);
-                fill(255);
-                text(a.charAt(A)+"____",300,375);
-                if(A==15){
-                    text("P____",300,375);
-                    counter++;
-                    A=0;
-                }else{
-                    A=(A+1)%a.length();
-                }
-            }else if(counter==9){
-                text("P"+a.charAt(A)+"___",300,375);
-                if(A==4){
-                    text("PE___",300,375);
-                    counter++;
-                }else{
-                    A=(A+1)%a.length();
-                }
-            }else if(counter==10){
-                text("PE"+a.charAt(A)+"__",300,375);
-                if(A==1){
-                    text("PEA__",300,375);
-                    counter++;
-                    A=0;
-                }else{
-                    A=(A+1)%a.length();
-                }
-            }else if(counter==11){
-                text("PEA"+a.charAt(A)+"_",300,375);
-                if(A==2){
-                    text("PEAC_",300,375);
-                    counter++;
-                }else{
-                    A=(A+1)%a.length();
-                }
-            }else if(counter==12){
-                text("PEAC"+a.charAt(A),300,375);
-                if(A==4){
-                    text("PEACE",300,375);
-                    counter++;
-                }else{
-                    A=(A+1)%a.length();
-                }
-            }else if(counter==13){
-                if(pcounter==8){
-                    end_change1();
-                }else if(pcounter==9){
-                    end_change();
-                }else if(pcounter==10){
-                    end_change();
-                }else if(pcounter==11){
-                    counter++;
-                }
-            }else if(counter==14){
-                if(pcounter==11){
-                    end_change2();
-                }else if(pcounter==12){
-                    counter++;
-                }
-            }else if(counter==15){
-                pcounter=11;
-                end_text();
             }
 
-            for(int i = 0; i < enemies.size(); i++){
-                enemies.remove(i);
-            }
+
+            // for(int i = 0; i < enemies.size(); i++){
+            //     enemies.remove(i);
+            // }
 
         }
         else {
@@ -738,7 +752,13 @@ void draw(){
         }
     }
 }
+void deadAnimation(int x) {
+    int currentTime = (millis() - x) / 5;
+    println("currentTime: "+currentTime);
+    fill(0, 0, 0, currentTime);
+    rect(0, 0, width, height);
 
+}
 void end_text(){
   col=p[pcounter].width/s;
   row=p[pcounter].height/s;
@@ -761,7 +781,7 @@ void end_text(){
 
 void end_change(){
   if(t<=90&&t>70){
-    tint(100,100);
+    tint(170,170);
     image(p[pcounter],X[pcounter],Y[pcounter]);
     end_text();
     t++;
