@@ -1,3 +1,18 @@
+//////////////////////////////////////////////////////////////
+///////    GE2127 Computer-Aided Visual Design &     /////////
+///////     Electronic Arts - Programing with        /////////
+///////     Image, Audio, Animation & Interaction    /////////
+///////                                              /////////
+///////     Group Project Group 11                   /////////
+///////     Call of Peace: Anti ISIS WAREFARE        /////////
+///////                                              /////////
+///////     SHEN Feng        52640117                /////////
+///////     BO Haozhen       54381079                /////////
+///////     YANG Siyue       54381055                /////////
+///////     LIN Jianxiong    53062882                /////////
+//////////////////////////////////////////////////////////////
+
+//define the minim for audio playing elements
 import ddf.minim.spi.*;
 import ddf.minim.signals.*;
 import ddf.minim.*;
@@ -16,53 +31,59 @@ Minim shootAu;
 Minim explodeAu;
 Minim fightAu;
 Minim nervousAu;
-int NUM_ENEMY = 7;
-int speed = 2;
-boolean up, down, left, right, shoot, useBomb;
-// boolean welcomePage = true;  // welcome page
-// boolean selectionPage = false;
-boolean[] pages = {true,false};
+
+
+int NUM_ENEMY = 7; //define the number of enemies
+int speed = 2; //define the speed of objects
+boolean up, down, left, right, shoot, useBomb; //define the control elements
+boolean[] pages = {true,false}; //define the page control
 boolean restart = false;  // restart game
-static int score = 0;
+static int score = 0;  //variable to record the score
 boolean alive = true;  // if the player is alive
-boolean bossKilled = false;
-boolean bossBorn = false;
-int bombing = 0;
-int currentPage = 0;
-int flightType = 1;
+boolean bossKilled = false; //determine if the boss is killed
+boolean bossBorn = false;  //determine if the boss appear
+int bombing = 0; //define if currently the bomb is used
+int currentPage = 0; //record the current page number
+int flightType = 1; //record the plane choice of the player
 int shootTime = 0;  // shoot interval time
 int bossShootInterval = 0;  // boss shoot interval time
 int bossShootTime = 0;  // boss shooting time
 int bossRestTime = millis();  // boss resting time
 int killedEnemy = 0;  // count the number of died enemy, boss appears every killed 30 enemies
-int killedBoss = 0;
-static Player player;
-static BossEnemy boss;
-static ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+int killedBoss = 0; //record the number of boss killed
+static Player player; //player object
+static BossEnemy boss; //boss object
+static ArrayList<Enemy> enemies = new ArrayList<Enemy>(); //enemy object
 PImage img1;  // background image
-PImage img2;
-PImage introText;
-int introTextY;
-PImage[] explode = new PImage[20];
-PImage[] bomb = new PImage[30];
-PFont Times;
-PFont Lucida;
-int bombX;
-int bombY;
-int bombCounter;
-int tmpframecount;
-int initialPosX;
-int initialPosY;
+PImage img2;  // background image 2
+PImage introText; // the text image for introduction
+int introTextY; //the position of introText
+PImage[] explode = new PImage[20]; //images used for explode animation
+PImage[] bomb = new PImage[30]; //images used for bomb animation
+PFont Times; //font1
+PFont Lucida; //font2
+int bombX; //bomb's x position
+int bombY; //bomb's y position
+int bombCounter; //count the pasd imgae of bomb
+int tmpframecount; //count the frame
+int initialPosX; //initial position x
+int initialPosY; //initial position y
 
+//image elements for plane design
 PImage usaf;
 PImage ukf;
 PImage syriaf;
 PImage russiaf;
+//font for plane selection
 PFont select;
 PFont feature;
 
+//setup the game
 void setup(){
     size(600, 750);
+    //load font and images into the program
+    Times = loadFont("TimesNewRomanPS-BoldMT-60.vlw");
+    Lucida = loadFont("LucidaBright-Demi-48.vlw");
     select = loadFont("SitkaBanner-Bold-48.vlw");
     feature = loadFont("LucidaSans-Demi-48.vlw");
     usaf = loadImage("usaf.jpg");
@@ -72,6 +93,7 @@ void setup(){
     img1 = loadImage("welcome.jpg");
     img2 = loadImage("fight.jpg");
     introText = loadImage("introtext.png");
+    //initialize the variables
     double coefficient = (double) width / (double) introText.width;
     introText.resize(width, (int) (coefficient * introText.height));
     initialPosX = width / 2;
@@ -94,9 +116,8 @@ void setup(){
     for (int i = 1; i < 29; ++i) {
         bomb[i] = loadImage("Bomb" + i + ".png");
     }
-    Times = loadFont("TimesNewRomanPS-BoldMT-60.vlw");
-    Lucida = loadFont("LucidaBright-Demi-48.vlw");
     println("----" + Main.boss.alive + "----");
+    //load the audio
     bombAu = new Minim(this);
     playerBomb = bombAu.loadFile("bomb.mp3",1000);
     shootAu = new Minim(this);
@@ -116,12 +137,11 @@ void setup(){
 }
 
 void draw(){
-    //TODO: Change the background image
+    //background image
     image(img1, 0, 0, 600, 750);
-    playerNervous.play();
+    playerNervous.play();//start the background music
+    //while currentPage == 0, display the welcome page
     if(0 == currentPage){
-
-        //TODO: Re-design the WelcomePage
         textFont(Times, 60);
         fill(255);
         textAlign(RIGHT);
@@ -136,6 +156,7 @@ void draw(){
         textAlign(CENTER);
         text("ANTI-ISIS WAREFARE",width / 2, height/ 3 + 60);
         textFont(Lucida, 24);
+        // the fading effect of instruction
         int currentTime = millis() / 100;
         if (currentTime % 13 == 0) {
             fill(255, 255, 255, 30);
@@ -194,6 +215,7 @@ void draw(){
             text("Press ENTER to Continue", width / 2, height *2 / 3);
         }
     }
+    //if currentPage == 1, display the plane selecting page
     else if(1 == currentPage){
         interface1();
         title();
@@ -273,6 +295,8 @@ void draw(){
         // text("Press X to use bomb", width / 2, height / 2 + 100);
         // text("Press ENTER to start", width / 2, height / 2 + 150);
         // Player(posX, posY, velX, velY, accX, accY, attack, health, numOfBomb, sInterval)
+
+        //setup the properties of different planes
         switch (flightType){
             case 1:
                 player = new Player(initialPosX, initialPosY, 0, 0, 0, 0, 2, 3, 3, 400);
@@ -291,6 +315,7 @@ void draw(){
             break;
         }
     }
+    //if currentPage == 2, display the background page
     else if (2 == currentPage){
         // String strText = "asdfasdfasdfasdfasdasdf";
         // println("strText: "+strText);
@@ -300,17 +325,18 @@ void draw(){
         set(0, -introTextY, introText);
         introTextY = (frameCount - tmpframecount) / 3;
     }
+    //draw the fighting page
     else{
         playerStory.close();
         playerFight.play();
         image(img2, 0, 0, 600,750);
+        //check if the game should continue
         if(player.alive && !bossKilled){
             for(int i = 0; i < enemies.size(); i++) {
                 Enemy tempEnemy = enemies.get(i);
                 tempEnemy.update();
                 tempEnemy.detectBound();
                 tempEnemy.drawMe();
-
                 // detect collision between enemy and player
                 if(player.hitObject(tempEnemy) && !player.invincible) {
                     player.posX = initialPosX;
@@ -319,7 +345,7 @@ void draw(){
                     player.invincible = true;
                     player.invincibleTime = millis();
                 }
-
+                //check if the enemies are alive, if not, remove it
                 if(!tempEnemy.alive){
                     int currentTime = millis();
                     tempEnemy.dieout(currentTime - tempEnemy.deadTime);
@@ -339,6 +365,7 @@ void draw(){
                     }
                 }
             }
+            //initiate enemies
             if (bombing == 0) {
                 for(int i = 0; i < (NUM_ENEMY- enemies.size()); i++){
                     int enemyPosX = (int) random(0, width);
@@ -350,19 +377,9 @@ void draw(){
                     enemies.add(new Enemy(enemyPosX, enemyPosY, enemyVelX, enemyVelY, 0, 0));
                 }
             }
-            // if(boss.totallyDied == true){
-            //     // produce enemy only boss is not on the screen
-            //     // when there is an enemy died or disappeared, create a new enemy
-            //     for(int i = 0; i < (NUM_ENEMY- enemies.size()); i++){
-            //         PVector enemyPos = new PVector(random(0, width), 0);
-            //         PVector enemyVel = new PVector(random(-3, 3), random(0.1, 3));// flow down vertically
-            //         PVector enemyAcc = new PVector(0, 0);
-            //         enemies.add(new Enemy(enemyPos, enemyVel, enemyAcc, random(0.5, 1)));
-            //     }
-            //  }
-
             println("killedEnemy: "+killedEnemy);
             println("boss.posY: "+boss.posY);
+            //generate the boss
             if((killedEnemy >= random(3, 5)) && (boss.posY == -1)) {
                 println("----" + Main.boss.alive + "----");
                 int bossPosX = (int)width / 2;
@@ -374,14 +391,14 @@ void draw(){
                 boss = new BossEnemy(bossPosX,bossPosY,bossVelX,bossVelY,bossAccX,bossAccY);
                 killedEnemy = 0;
             }
-
+            //update position of boss while it is alive
             if(boss.posY != -1){
                 if(!boss.totallyDied){
                     boss.update();
                     boss.drawBoss();
                     boss.trackBullets();
                 }
-
+                //control the action of boss
                 if(boss.alive){
                     // boss shoots every 1 second, shooting 5 seconds, interval time is 0.3 sec
                     int currentTime = millis();
@@ -442,6 +459,7 @@ void draw(){
                     shootTime = currentTime;
                 }
             }
+            //the effects of using bomb
             if ((useBomb) && (player.numOfBomb > 0) && (bombing == 0)) {
                 player.numOfBomb--;
                 playerBomb.rewind();
@@ -452,7 +470,6 @@ void draw(){
                 bombY = player.posY;
                 useBomb = false;
             }
-
             if (bombing == 2) {
                 boss.emptyBullets();
                 int currentTime = millis();
@@ -466,7 +483,6 @@ void draw(){
                 }
 
             }
-
             if (bombing == 1) {
                 int currentTime = millis();
                 int currentStage = (currentTime - bombCounter) / 100 + 1;
@@ -479,7 +495,7 @@ void draw(){
                     killedEnemy = killedEnemy + player.useBomb();
                 }
             }
-
+            //update the position of the player
             player.update();
             player.detectBound();
             player.drawMe(flightType, player.invincible);
@@ -511,7 +527,6 @@ void draw(){
             }
             fill(255, 255, 255);
             text("Score: " + score, 550, 40);
-
         }
         else if(player.alive && bossKilled){
             for(int i = 0; i < enemies.size(); i++){
@@ -538,6 +553,7 @@ void draw(){
             textFont(Lucida, 30);
             text("Press R to restart", width / 2, height * 2 / 3);
         }
+        //if the current game ended and the player choose to restart
         if(restart){
             restart = false;
             pages[0] = false;
@@ -570,6 +586,7 @@ void draw(){
     }
 }
 
+//function to draw the selector symbol in plane selection page
 void drawSelector(int x) {
     int currentTime = millis() / 100;
     noStroke();
@@ -652,6 +669,7 @@ void drawSelector(int x) {
 
 }
 
+//draw the left corner symbol for bomb
 void drawBomb(int x, int y) {
     pushMatrix();
     translate(x, y);
@@ -687,14 +705,13 @@ void drawBomb(int x, int y) {
     popMatrix();
 }
 
+//draw the left corner symbol for health
 void drawHealth(int x, int y) {
     pushMatrix();
     translate(x, y);
     scale(0.8);
-
     smooth();
     noStroke();
-
     fill(0);
     beginShape();
     vertex(52, 17);
@@ -702,8 +719,6 @@ void drawHealth(int x, int y) {
     vertex(52, 17);
     bezierVertex(52, -5, 10, 5, 52, 40);
     endShape();
-
-
     fill(255,0,0);
     beginShape();
     vertex(50, 15);
@@ -714,15 +729,9 @@ void drawHealth(int x, int y) {
     popMatrix();
 }
 
+//define the key press effect
 void keyPressed() {
     if (keyCode == ENTER){
-        // if(currentPage < pages.length){
-        //     pages[currentPage] = false;
-        //     if(currentPage < pages.length-1){
-        //         pages[currentPage + 1] = true;
-        //     }
-        //     currentPage ++;
-        // }
         if (2 == currentPage) {
             currentPage = 3;
         }
@@ -733,7 +742,6 @@ void keyPressed() {
         else if (0 == currentPage) {
             currentPage = 1;
         }
-
     }
     if (key == 'z' || key == 'Z') shoot = true;
     if (key == 'x' || key == 'X') useBomb = true;
@@ -744,7 +752,6 @@ void keyPressed() {
         if (keyCode == 51) flightType = 3;
         if (keyCode == 52) flightType = 4;
     }
-
     if (keyCode == UP) {
         up = true;
         changeFlightType(0);
@@ -763,6 +770,7 @@ void keyPressed() {
     }
 }
 
+//define the effects of releasing the key
 void keyReleased() {
     if (key == 'z' || key == 'Z') shoot = false;
     if (keyCode == UP) up = false;
@@ -771,6 +779,7 @@ void keyReleased() {
     if (keyCode == RIGHT) right = false;
 }
 
+//define the effects while choosing to move the selector
 void changeFlightType(int x) {
     if (currentPage != 1) return;
     if (0 == x) {
@@ -791,6 +800,7 @@ void changeFlightType(int x) {
     }
 }
 
+//part of plane design
 void interface1(){
     noStroke();
     fill(10,100);//light gray
@@ -809,6 +819,7 @@ void interface1(){
     rect(0,380,600,215);
 }
 
+//define the title of plane selection page
 void title(){
  textFont(select,30);
  fill(150);
@@ -817,6 +828,7 @@ void title(){
  text("PLANE SELECT",480,70);
 }
 
+//Draw the feature of plane
 void feature(float x, float y){
   fill(150);
   textFont(feature,12);
@@ -826,6 +838,7 @@ void feature(float x, float y){
   text("AGILITY",x,y+54);
 }
 
+//draw the selection page
 void strength1(float x, float y){
     noStroke();
    fill(80);
@@ -859,6 +872,7 @@ void strength3(float x, float y){
     rect(x+41,y+1,17,3);//3rd blue bar
 }
 
+//draw the US plane
 void usa(){
     stroke(1);
     //back guns
@@ -1069,7 +1083,6 @@ void usa(){
     ellipse(150,374,6,50);
 
     //head
-
     fill(1,1,75);
     ellipse(149.5,72,33,25);
     ellipse(149.5,94,30,170);
@@ -1085,6 +1098,7 @@ void usa(){
     bezier(143,15,147,2,153,2,155.5,15);
   }
 
+//draw the russia plane
 void russia(){
     stroke(1);
     //back guns
@@ -1308,9 +1322,10 @@ void russia(){
     strokeWeight(1);
     fill(200);
     bezier(143,15,147,2,153,2,155.5,15);
-  }
+}
 
- void syria(){
+//draw the syria plane
+void syria(){
     stroke(1);
     //back guns
     fill(0);
@@ -1533,8 +1548,10 @@ void russia(){
     strokeWeight(1);
     fill(200);
     bezier(143,15,147,2,153,2,155.5,15);
-  }
-   void uk(){
+}
+
+//draw the UK plane
+void uk(){
     stroke(1);
     //back guns
     fill(0);
@@ -1778,22 +1795,23 @@ void russia(){
     strokeWeight(1);
     fill(200);
     bezier(143,15,147,2,153,2,155.5,15);
-  }
+}
 
-  void star(float x, float y, float r, float R) {
-  float angle = TWO_PI / 5;
-  float halfAngle = angle/2.0;
-  beginShape();
-  noStroke();
-  for (float a = 0; a < TWO_PI; a += angle) {
-    float sx = x + cos(a) * r;
-    float sy = y + sin(a) * r;
-    vertex(sx, sy);
-    sx = x + cos(a+halfAngle) * R;
-    sy = y + sin(a+halfAngle) * R;
-    vertex(sx, sy);
-  }
-  endShape(CLOSE);
+//draw the stat on the plane
+void star(float x, float y, float r, float R) {
+    float angle = TWO_PI / 5;
+    float halfAngle = angle/2.0;
+    beginShape();
+    noStroke();
+    for (float a = 0; a < TWO_PI; a += angle) {
+        float sx = x + cos(a) * r;
+        float sy = y + sin(a) * r;
+        vertex(sx, sy);
+        sx = x + cos(a+halfAngle) * R;
+        sy = y + sin(a+halfAngle) * R;
+        vertex(sx, sy);
+    }
+    endShape(CLOSE);
 }
 
 
