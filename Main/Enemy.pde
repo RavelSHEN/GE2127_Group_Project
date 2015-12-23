@@ -65,7 +65,6 @@ class Enemy extends BasicObject{
             return true;
         }
         return false;
-
     }
 
     //check if the enemy is damaged
@@ -359,4 +358,3 @@ class Enemy extends BasicObject{
 
     }
 }
-
